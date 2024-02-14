@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> {
             boolean isValid = validateForm();
             if(isValid) {
-                Intent i = new Intent(this, Feed.class);
+                Intent i = new Intent(this, FeedActivity.class);
                 startActivity(i);
             }
 
