@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foobar.adapters.Adapter_Comment;
 import com.example.foobar.entities.Comment_Item;
+import com.example.foobar.R;
+
 
 import java.util.ArrayList;
 
