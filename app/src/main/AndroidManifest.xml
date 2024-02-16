@@ -13,7 +13,7 @@
         android:theme="@style/Theme.FooBar"
         tools:targetApi="31">
         <activity
-            android:name=".FeedActivity"
+            android:name=".FeedActivityTry"
             android:exported="false" />
         <activity
             android:name=".SignUp"
@@ -27,6 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Add CommentActivity declaration -->
+        <activity android:name=".CommentActivity" />
     </application>
 
 </manifest>

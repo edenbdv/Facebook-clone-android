@@ -35,7 +35,10 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> {
             boolean isValid = validateForm();
             if(isValid) {
-                Intent i = new Intent(this, FeedActivity.class);
+                String username = usernameEditText.getText().toString();
+
+                Intent i = new Intent(this, FeedActivityTry.class);
+                i.putExtra("username", username); // Pass the username to FeedActivity
                 startActivity(i);
             }
 

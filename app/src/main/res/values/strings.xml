@@ -9,4 +9,9 @@
     <string name="Signup_password_verification">Password verification</string>
     <string name="Signup_display_name">display name</string>
     <string name="Signup_upload_photo">Upload photo</string>
+    <string name="_11_hrs">11 hrs</string>
+    <string name="share">Share</string>
+    <string name="comment">Comment</string>
+    <string name="like">Like</string>
+    <string name="name">John Doe</string>
 </resources>
