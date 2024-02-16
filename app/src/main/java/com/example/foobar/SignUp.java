@@ -177,6 +177,7 @@ public class SignUp extends AppCompatActivity {
             } else {
                 // Profile picture URI does not exist
                 System.out.println("No profile picture URI found for user " + username);
+
             }
         } else {
             // User not found
