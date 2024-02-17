@@ -14,4 +14,6 @@
     <string name="comment">Comment</string>
     <string name="like">Like</string>
     <string name="name">John Doe</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>
