@@ -16,6 +16,9 @@
             android:name=".FeedActivityTry"
             android:exported="false" />
         <activity
+            android:name=".FeedActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignUp"
             android:exported="false" />
         <activity
