@@ -14,41 +14,54 @@ import com.example.foobar.adapters.Adapter_Comment;
 import com.example.foobar.entities.Comment_Item;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CommentActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewComments;
     private ArrayList<Comment_Item> commentList;
-    private Adapter_Comment commentAdapter; // Replace YourCommentAdapter with the name of your adapter class
+    private Adapter_Comment commentAdapter;
+    private String postId;
+
+    private static Map<String, List<Comment_Item>> commentCache = new HashMap<>(); // In-memory cache for comments
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.comment_popup);
 
-        // Initialize RecyclerView for comments
+        postId = getIntent().getStringExtra("postId");
+
         recyclerViewComments = findViewById(R.id.recyclerViewComments);
-        commentList = new ArrayList<>();
+
+        // Check if comments for the post are already in the cache
+        if (commentCache.containsKey(postId)) {
+            commentList = new ArrayList<>(commentCache.get(postId));
+        } else {
+            commentList = new ArrayList<>();
+        }
 
 
-        // Initialize and set up the adapter
-        commentAdapter = new Adapter_Comment(commentList,this); // Replace YourCommentAdapter with the name of your adapter class
+        commentAdapter = new Adapter_Comment(commentList,this);
         recyclerViewComments.setAdapter(commentAdapter);
         recyclerViewComments.setLayoutManager(new LinearLayoutManager(this));
+
         // Add comment button click listener
         Button btnAddComment = findViewById(R.id.btnAddComment);
         EditText editTextComment = findViewById(R.id.editTextComment);
         btnAddComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the text from the EditText
+
                 String newCommentText = editTextComment.getText().toString().trim();
                 if (!newCommentText.isEmpty()) {
-                    // Create a new comment with the user's input text
-                    Comment_Item newComment = new Comment_Item(newCommentText);
-                    // Add the new comment to the list
+                    Comment_Item newComment = new Comment_Item(postId, newCommentText);
                     commentList.add(newComment);
-                    // Notify the adapter that the data set has changed
+                    // Update the cache
+                    commentCache.put(postId, new ArrayList<>(commentList));
                     commentAdapter.notifyDataSetChanged();
                     // Clear the EditText after adding the comment
                     editTextComment.setText("");

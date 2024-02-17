@@ -1,8 +1,12 @@
 package com.example.foobar.adapters;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,9 +21,12 @@ import java.util.List;
 public class Adapter_Comment extends RecyclerView.Adapter<Adapter_Comment.CommentViewHolder> {
 
     private List<Comment_Item> comments;
+    private Context context;
 
-    public Adapter_Comment(List<Comment_Item> comments) {
+
+    public Adapter_Comment(List<Comment_Item> comments, Context context) {
         this.comments = comments;
+        this.context = context;
     }
 
     @NonNull
@@ -32,7 +39,6 @@ public class Adapter_Comment extends RecyclerView.Adapter<Adapter_Comment.Commen
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment_Item comment = comments.get(position);
-        // Set text for the comment
         holder.textViewComment.setText(comment.getText());
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,28 +53,54 @@ public class Adapter_Comment extends RecyclerView.Adapter<Adapter_Comment.Commen
             @Override
             public void onClick(View v) {
                 // Handle edit comment action
-                editComment(position);
+                editComment(holder.getAdapterPosition()); // Use getAdapterPosition() to get the current position
             }
         });
     }
 
     private void deleteComment(int position) {
-        // Remove the comment from the list
         comments.remove(position);
-        // Notify adapter that an item has been removed at the specified position
         notifyItemRemoved(position);
     }
 
 
     private void editComment(int position) {
-        // Update the comment text in the list
         Comment_Item comment = comments.get(position);
+        String originalCommentText = comment.getText();
 
-        // Show the EditText with the original comment text
-        comment.setEditMode(true);
+        // Create an EditText to get the new comment text
+        final EditText input = new EditText(context);
+        input.setText(originalCommentText); // Set the original comment text as a placeholder
 
-        // Notify adapter that the item has changed at the specified position
-        notifyItemChanged(position);
+        // Set cursor position to the end of the text
+        input.setSelection(originalCommentText.length());
+
+        // Create an AlertDialog with the EditText
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Edit Comment");
+        builder.setView(input);
+
+        // Set up the buttons for positive (Save) and negative (Cancel) actions
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String editedCommentText = input.getText().toString();
+                // Update the comment text
+                comment.setText(editedCommentText);
+                // Notify adapter that the item has changed at the specified position
+                notifyItemChanged(position);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        // Show the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 

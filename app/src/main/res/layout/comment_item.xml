@@ -4,29 +4,30 @@
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:padding="8dp"
-    android:layout_margin="20dp"
+    android:layout_margin="10dp"
+
     android:background="@android:color/white">
 
     <!-- Delete icon -->
     <ImageView
         android:id="@+id/imgDelete"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_weight="1"
 
-        android:src="@drawable/ic_delete_foreground"
-        android:contentDescription="Delete" />
+        android:contentDescription="Delete"
+        android:src="@drawable/ic_delete_foreground" />
 
     <!-- Edit icon -->
     <ImageView
         android:id="@+id/imgEdit"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="55dp"
+        android:layout_marginEnd="4dp"
 
-        android:src="@drawable/ic_edit_foreground"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="Edit" />
+        android:layout_weight="1"
+        android:contentDescription="Edit"
+        android:src="@drawable/ic_edit_foreground" />
 
 
 
@@ -36,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:padding="8dp"
+        android:padding="4dp"
         android:textSize="16sp"
         android:textColor="@android:color/black"
         android:text="Your comment text here" />
