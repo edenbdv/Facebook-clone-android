@@ -2,10 +2,14 @@ package com.example.foobar.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+
 import com.example.foobar.R;
 
 @Entity
 public class Comment_Item {
+    @PrimaryKey(autoGenerate = true)
+    private int commentId;
+
     private String postId;
 
     public String text;
@@ -17,6 +21,12 @@ public class Comment_Item {
         this.text = text;
         this.editMode = false;
     }
+
+    public int getCommentId(){
+        return commentId;
+    }
+
+
     public String getPostId() {
         return postId;
     }

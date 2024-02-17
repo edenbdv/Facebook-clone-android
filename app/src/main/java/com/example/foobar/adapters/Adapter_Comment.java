@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foobar.R;
 import com.example.foobar.entities.Comment_Item;
+import android.util.Log;
+
 
 import java.util.List;
 
@@ -38,13 +40,14 @@ public class Adapter_Comment extends RecyclerView.Adapter<Adapter_Comment.Commen
 
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
+
         Comment_Item comment = comments.get(position);
         holder.textViewComment.setText(comment.getText());
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Handle delete comment action
-                deleteComment(position);
+                deleteCommentById(comment.getCommentId());
             }
         });
 
@@ -58,10 +61,18 @@ public class Adapter_Comment extends RecyclerView.Adapter<Adapter_Comment.Commen
         });
     }
 
-    private void deleteComment(int position) {
-        comments.remove(position);
-        notifyItemRemoved(position);
+    private void deleteCommentById(int commentId) {
+        for (int i = 0; i < comments.size(); i++) {
+            Comment_Item comment = comments.get(i);
+            if (comment.getCommentId()==(commentId)) {
+                comments.remove(i);
+                notifyItemRemoved(i);
+                notifyItemRangeChanged(i, comments.size() - i);
+                return; // Exit the loop after deleting the comment
+            }
+        }
     }
+
 
 
     private void editComment(int position) {
@@ -102,8 +113,6 @@ public class Adapter_Comment extends RecyclerView.Adapter<Adapter_Comment.Commen
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
-
 
 
 
