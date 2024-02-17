@@ -6,6 +6,7 @@ import com.example.foobar.R;
 
 @Entity
 public class Comment_Item {
+
     public String text;
     private boolean editMode;
 

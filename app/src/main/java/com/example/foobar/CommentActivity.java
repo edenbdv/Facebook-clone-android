@@ -30,13 +30,9 @@ public class CommentActivity extends AppCompatActivity {
         recyclerViewComments = findViewById(R.id.recyclerViewComments);
         commentList = new ArrayList<>();
 
-        // Populate commentList with your comments
-        commentList.add(new Comment_Item("First comment"));
-        commentList.add(new Comment_Item("Second comment"));
-        // Add more comments as needed
 
         // Initialize and set up the adapter
-        commentAdapter = new Adapter_Comment(commentList); // Replace YourCommentAdapter with the name of your adapter class
+        commentAdapter = new Adapter_Comment(commentList,this); // Replace YourCommentAdapter with the name of your adapter class
         recyclerViewComments.setAdapter(commentAdapter);
         recyclerViewComments.setLayoutManager(new LinearLayoutManager(this));
         // Add comment button click listener
