@@ -1,0 +1,82 @@
+[
+    {
+        "id":1,
+        "text": "Went to the beach today and saw the most beautiful sunset!",
+        "picture": "/post_pictures/1.svg",
+        "authorP": "/profile1.svg",
+        "authorN": "John Doe",
+        "date": "2024"
+    },
+    {
+        "id":2,
+        "text": "Happy 80th granny!",
+        "picture": "/post_pictures/3.svg",
+        "authorP": "/profile1.svg",
+        "authorN": "John Doe",
+        "date": "2024"
+    },
+    {
+        "id":3,
+        "text": "You guys are my best friends",
+        "picture": "/post_pictures/4.svg",
+        "authorP": "/profile1.svg",
+        "authorN": "John Doe",
+        "date": "2024"
+    },
+    {
+        "id":4,
+        "text": "Meet Riley - I adopted him from the shelter today",
+        "picture": "/post_pictures/7.svg",
+        "authorP": "/profile1.svg",
+        "authorN": "John Doe",
+        "date": "2024"
+    },
+    {
+        "id":5,
+        "text": "Whoops.. I got Riley a friend",
+        "picture": "/post_pictures/8.svg",
+        "authorP": "/profile1.svg",
+        "authorN": "John Doe",
+        "date": "2024"
+    },
+    {
+        "id":6,
+        "text": "Fun day at the museum",
+        "picture": "/post_pictures/5.svg",
+        "authorP": "/profile1.svg",
+        "authorN": "John Doe",
+        "date": "2024"
+    },
+    {
+        "id":7,
+        "text": "You guys are my best friends",
+        "picture": "/post_pictures/4.svg",
+        "authorP": "/profile1.svg",
+        "authorN": "John Doe",
+        "date": "2024"
+    },
+    {
+        "id":8,
+        "text": "Meet Riley - I adopted him from the shelter today",
+        "picture": "/post_pictures/7.svg",
+        "authorP": "/profile1.svg",
+        "authorN": "John Doe",
+        "date": "2024"
+    },
+    {
+        "id":9,
+        "text": "Whoops.. I got Riley a friend",
+        "picture": "/post_pictures/8.svg",
+        "authorP": "/profile1.svg",
+        "authorN": "John Doe",
+        "date": "2024"
+    },
+    {
+        "id":10,
+        "text": "Fun day at the museum",
+        "picture": "/post_pictures/5.svg",
+        "authorP": "/profile1.svg",
+        "authorN": "John Doe",
+        "date": "2024"
+    }
+]

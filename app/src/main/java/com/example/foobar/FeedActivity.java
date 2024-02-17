@@ -16,6 +16,8 @@ import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.entities.Post_Item;
 
 import java.util.ArrayList;
+import java.util.List;
+
 public class FeedActivity extends AppCompatActivity {
 
     Adapter_Feed adapterFeed;
@@ -33,11 +35,11 @@ public class FeedActivity extends AppCompatActivity {
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<Post_Item> posts = new ArrayList<>();
-        posts.add(new Post_Item(1, 9, 2, R.drawable.post1, R.drawable.post1,
-                "John Doe", "2 hrs", "The cars we drive say a lot about us.", false));
+        // Parse JSON data and set it to adapter
+        List<Post_Item> posts = JsonParser.parseJsonData(this);
+        ArrayList<Post_Item> first10Posts = new ArrayList<>(posts.subList(0, Math.min(posts.size(), 10)));
+        adapter.SetPosts(first10Posts);
 
-        adapter.SetPosts(posts);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         menuButton = findViewById(R.id.menuButton);

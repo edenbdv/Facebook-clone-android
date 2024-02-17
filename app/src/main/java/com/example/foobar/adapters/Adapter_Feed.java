@@ -22,6 +22,7 @@ import com.example.foobar.R;
 import com.example.foobar.entities.Post_Item;
 
 import java.util.ArrayList;
+import com.bumptech.glide.Glide;
 
 
 public class Adapter_Feed extends RecyclerView.Adapter<Adapter_Feed.MyViewHolder> {
@@ -59,7 +60,7 @@ public class Adapter_Feed extends RecyclerView.Adapter<Adapter_Feed.MyViewHolder
     public Adapter_Feed(Context context) {
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
-
+        this.PostList = new ArrayList<>();
     }
 
     @Override
@@ -77,13 +78,26 @@ public class Adapter_Feed extends RecyclerView.Adapter<Adapter_Feed.MyViewHolder
             holder.tv_name.setText(current.getName());
             holder.tv_time.setText(current.getTime());
             holder.tv_status.setText(current.getText());
-            holder.imgView_postPic.setImageResource(current.getPostpic());
+            //Glide.with(context).load(current.getPostpic()).into(holder.imgView_postPic);
+            //holder.imgView_postPic.setImageResource(current.getPostpic());
 
+            // Load post profile picture dynamically based on the path from JSON object
+            int postProfilePicResourceId = getDrawableResourceId(context, current.getPropic());
+            Glide.with(context)
+                    .load(postProfilePicResourceId)
+                    .into(holder.imgView_proPic);
+
+            // Load post picture dynamically based on the path from JSON object
+            int postPictureResourceId = getDrawableResourceId(context, current.getPostpic());
+            Glide.with(context)
+                    .load(postPictureResourceId)
+                    .into(holder.imgView_postPic);
 
             // Set initial like button color based on post's liked status
             int likeButtonColor = current.isLiked() ? R.color.colorPrimary : R.color.grey;
             holder.btnLike.setColorFilter(ContextCompat.getColor(context, likeButtonColor));
             holder.tvLike.setTextColor(ContextCompat.getColor(context, likeButtonColor)); // Update text color
+
 
 
             // Handle like button click
@@ -100,6 +114,7 @@ public class Adapter_Feed extends RecyclerView.Adapter<Adapter_Feed.MyViewHolder
                 }
             });
 
+
             // Set click listener for comment container
             holder.commentContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,8 +128,16 @@ public class Adapter_Feed extends RecyclerView.Adapter<Adapter_Feed.MyViewHolder
         }
     }
 
+
+    // Helper method to get resource ID for drawable based on its name
+    private int getDrawableResourceId(Context context, String drawableName) {
+        return context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName());
+    }
+
+
+
     public void SetPosts(ArrayList<Post_Item> l) {
-        PostList = l;
+        this.PostList = l;
         notifyDataSetChanged();
     }
 

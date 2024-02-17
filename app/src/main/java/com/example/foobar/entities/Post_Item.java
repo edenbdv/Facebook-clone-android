@@ -11,14 +11,14 @@ public class Post_Item {
     private int id;
     private int likes;
     private int comments;
-    private int propic;
-    private int postpic;
+    private String propic;
+    private String postpic;
     private String name;
     private String time;
     private String text;
     private boolean liked;
 
-    public Post_Item(int id, int likes, int comments, int propic, int postpic, String name, String time, String text, boolean liked) {
+    public Post_Item(int id, int likes, int comments, String propic, String postpic, String name, String time, String text, boolean liked) {
         this.id = id;
         this.likes = likes;
         this.comments = comments;
@@ -57,19 +57,19 @@ public class Post_Item {
         this.comments = comments;
     }
 
-    public int getPropic() {
+    public String getPropic() {
         return propic;
     }
 
-    public void setPropic(int propic) {
+    public void setPropic(String propic) {
         this.propic = propic;
     }
 
-    public int getPostpic() {
+    public String getPostpic() {
         return postpic;
     }
 
-    public void setPostpic(int postpic) {
+    public void setPostpic(String postpic) {
         this.postpic = postpic;
     }
 
