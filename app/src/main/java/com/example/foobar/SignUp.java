@@ -160,7 +160,7 @@ public class SignUp extends AppCompatActivity {
 
     // Method to submit the form
     private void submitForm() {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, MainActivity2.class);
         // Add an extra with the message
         i.putExtra("signup_success_message", "Signup successful! You can now log in.");
         // Start the activity

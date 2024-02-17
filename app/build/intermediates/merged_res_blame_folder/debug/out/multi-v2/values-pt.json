@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.foobar.app-mergeDebugResources-31:/values-pt/values-pt.xml",
+            "outputFile": "com.example.foobar.app-mergeDebugResources-32:/values-pt/values-pt.xml",
             "map": [
                 {
                     "source": "C:\\Users\\LENOVO\\.gradle\\caches\\transforms-3\\cae0069d1585611eb98b1d4f16fa8d6e\\transformed\\appcompat-1.6.1\\res\\values-pt\\values-pt.xml",

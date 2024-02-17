@@ -3,6 +3,8 @@ package com.example.foobar.adapters;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,8 @@ import com.example.foobar.CommentActivity;
 import com.example.foobar.R;
 import com.example.foobar.entities.Post_Item;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import com.bumptech.glide.Glide;
 
@@ -81,24 +85,29 @@ public class Adapter_Feed extends RecyclerView.Adapter<Adapter_Feed.MyViewHolder
             //Glide.with(context).load(current.getPostpic()).into(holder.imgView_postPic);
             //holder.imgView_postPic.setImageResource(current.getPostpic());
 
-            // Load post profile picture dynamically based on the path from JSON object
-            int postProfilePicResourceId = getDrawableResourceId(context, current.getPropic());
-            Glide.with(context)
-                    .load(postProfilePicResourceId)
-                    .into(holder.imgView_proPic);
+            // Load post profile picture from assets
+            try {
+                InputStream profilePicInputStream = context.getAssets().open("post_pictures/" + current.getPropic());
+                Bitmap profilePicBitmap = BitmapFactory.decodeStream(profilePicInputStream);
+                holder.imgView_proPic.setImageBitmap(profilePicBitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            // Load post picture dynamically based on the path from JSON object
-            int postPictureResourceId = getDrawableResourceId(context, current.getPostpic());
-            Glide.with(context)
-                    .load(postPictureResourceId)
-                    .into(holder.imgView_postPic);
+            // Load post picture from assets
+            try {
+                InputStream postPicInputStream = context.getAssets().open("post_pictures/" + current.getPostpic());
+                Bitmap postPicBitmap = BitmapFactory.decodeStream(postPicInputStream);
+                holder.imgView_postPic.setImageBitmap(postPicBitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
             // Set initial like button color based on post's liked status
             int likeButtonColor = current.isLiked() ? R.color.colorPrimary : R.color.grey;
             holder.btnLike.setColorFilter(ContextCompat.getColor(context, likeButtonColor));
             holder.tvLike.setTextColor(ContextCompat.getColor(context, likeButtonColor)); // Update text color
-
-
 
             // Handle like button click
             holder.likeContainer.setOnClickListener(new View.OnClickListener() {
@@ -127,13 +136,6 @@ public class Adapter_Feed extends RecyclerView.Adapter<Adapter_Feed.MyViewHolder
 
         }
     }
-
-
-    // Helper method to get resource ID for drawable based on its name
-    private int getDrawableResourceId(Context context, String drawableName) {
-        return context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName());
-    }
-
 
 
     public void SetPosts(ArrayList<Post_Item> l) {

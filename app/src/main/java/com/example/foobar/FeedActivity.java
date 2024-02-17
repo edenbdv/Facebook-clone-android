@@ -40,7 +40,6 @@ public class FeedActivity extends AppCompatActivity {
         ArrayList<Post_Item> first10Posts = new ArrayList<>(posts.subList(0, Math.min(posts.size(), 10)));
         adapter.SetPosts(first10Posts);
 
-
         drawerLayout = findViewById(R.id.drawer_layout);
         menuButton = findViewById(R.id.menuButton);
 

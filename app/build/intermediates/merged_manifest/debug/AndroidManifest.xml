@@ -30,10 +30,13 @@
             android:name="com.example.foobar.FeedActivityTry"
             android:exported="false" />
         <activity
+            android:name="com.example.foobar.FeedActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.foobar.SignUp"
             android:exported="false" />
         <activity
-            android:name="com.example.foobar.MainActivity"
+            android:name="com.example.foobar.MainActivity2"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

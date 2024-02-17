@@ -1,6 +1,0 @@
-com.example.foobar.test.app-annotation-experimental-1.3.0-0 C:\Users\LENOVO\.gradle\caches\transforms-3\77660fa7dce3f77235db1b1d34b10103\transformed\annotation-experimental-1.3.0\res
-com.example.foobar.test.app-core-1.5.0-1 C:\Users\LENOVO\.gradle\caches\transforms-3\c773155d28b3ff4d874c87b2f158df48\transformed\core-1.5.0\res
-com.example.foobar.test.app-androidTest-2 C:\Users\LENOVO\AndroidStudioProjects\FooBar\app\build\generated\res\resValues\androidTest\debug
-com.example.foobar.test.app-mergeDebugAndroidTestResources-3 C:\Users\LENOVO\AndroidStudioProjects\FooBar\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-com.example.foobar.test.app-mergeDebugAndroidTestResources-4 C:\Users\LENOVO\AndroidStudioProjects\FooBar\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-com.example.foobar.test.app-merged_res-5 C:\Users\LENOVO\AndroidStudioProjects\FooBar\app\build\intermediates\merged_res\debugAndroidTest
