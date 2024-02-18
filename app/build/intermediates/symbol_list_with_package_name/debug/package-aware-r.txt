@@ -3177,6 +3177,7 @@ id anticipate
 id arc
 id asConfigured
 id async
+id attachedImageView
 id auto
 id autoComplete
 id autoCompleteToEnd
@@ -3493,6 +3494,7 @@ id post_text
 id post_time
 id pressed
 id proPic
+id profilePic
 id progress_circular
 id progress_horizontal
 id radio

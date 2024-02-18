@@ -31,8 +31,16 @@
         android:layout_below="@id/editTextMessage"
         android:text="Post" />
 
-    <!-- Option to attach a picture (you can replace this with your desired UI component) -->
+    <!-- Add ImageView for displaying attached image -->
     <ImageView
+        android:id="@+id/attachedImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextMessage"
+        android:visibility="gone" /> <!-- initially hidden -->
+
+    <!-- Option to attach a picture (you can replace this with your desired UI component) -->
+    <ImageButton
         android:id="@+id/imageViewAttach"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,3 +50,4 @@
         android:onClick="onAttachPictureClick" />
 
 </RelativeLayout>
+

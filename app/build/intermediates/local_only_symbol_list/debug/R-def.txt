@@ -28,6 +28,7 @@ drawable logo2
 drawable post1
 drawable profile_pic
 drawable rounded_corner_background
+id attachedImageView
 id btnAddComment
 id btnComment
 id btnCreateAccount
@@ -73,6 +74,7 @@ id postPic
 id post_text
 id post_time
 id proPic
+id profilePic
 id recyclerViewComments
 id refreshLayout
 id rellay1
