@@ -61,8 +61,8 @@
 37-->C:\Users\LENOVO\AndroidStudioProjects\FooBar\app\src\main\AndroidManifest.xml:23:13-37
 38        <activity
 38-->C:\Users\LENOVO\AndroidStudioProjects\FooBar\app\src\main\AndroidManifest.xml:24:9-32:20
-39            android:name="com.example.foobar.MainActivity2"
-39-->C:\Users\LENOVO\AndroidStudioProjects\FooBar\app\src\main\AndroidManifest.xml:25:13-42
+39            android:name="com.example.foobar.MainActivity"
+39-->C:\Users\LENOVO\AndroidStudioProjects\FooBar\app\src\main\AndroidManifest.xml:25:13-41
 40            android:exported="true" >
 40-->C:\Users\LENOVO\AndroidStudioProjects\FooBar\app\src\main\AndroidManifest.xml:26:13-36
 41            <intent-filter>

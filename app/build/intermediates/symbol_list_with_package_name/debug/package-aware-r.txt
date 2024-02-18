@@ -2990,10 +2990,15 @@ drawable design_password_eye
 drawable design_snackbar_background
 drawable edit_text_background
 drawable ic_arrow_back_black_24
+drawable ic_attach_picture
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_close
 drawable ic_comment_btn
+drawable ic_delete_background
+drawable ic_delete_foreground
+drawable ic_edit_background
+drawable ic_edit_foreground
 drawable ic_keyboard_black_24dp
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -3006,8 +3011,10 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable ic_pencil
 drawable ic_search_black_24
 drawable ic_share_btn
+drawable ic_trash
 drawable logo
 drawable logo2
 drawable m3_avd_hide_password
@@ -3083,6 +3090,7 @@ drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable post1
 drawable profile_pic
+drawable rounded_corner_background
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -3187,12 +3195,16 @@ id bounceStart
 id btnAddComment
 id btnComment
 id btnCreateAccount
+id btnEdit
 id btnLike
 id btnLogin
 id btnShare
 id btnSubmit
+id btnTrash
 id btnUploadPhoto
+id buttonClose
 id buttonPanel
+id buttonPost
 id cache_measures
 id callMeasure
 id cancel_button
@@ -3270,6 +3282,7 @@ id east
 id edge
 id editTextComment
 id editTextDisplayName
+id editTextMessage
 id editTextPassword
 id editTextPasswordV
 id editTextText
@@ -3299,6 +3312,7 @@ id fixed
 id flip
 id floating
 id forever
+id formContainer
 id fragment_container_view_tag
 id frost
 id fullscreen_header
@@ -3325,6 +3339,9 @@ id ignore
 id ignoreRequest
 id image
 id imageView
+id imageViewAttach
+id imgDelete
+id imgEdit
 id imgView_line
 id immediateStop
 id included
@@ -3469,6 +3486,7 @@ id percent
 id pin
 id pooling_container_listener_holder_tag
 id position
+id postEditText
 id postLayout
 id postPic
 id post_text
@@ -3746,6 +3764,7 @@ layout abc_tooltip
 layout activity_feed_try
 layout activity_main
 layout activity_sign_up
+layout add_post_popup
 layout comment_item
 layout comment_popup
 layout custom_dialog
@@ -3877,6 +3896,8 @@ string character_counter_overflowed_content_description
 string character_counter_pattern
 string clear_text_end_icon_content_description
 string comment
+string delete
+string edit
 string error_a11y_label
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
@@ -4006,6 +4027,7 @@ string side_sheet_accessibility_pane_title
 string side_sheet_behavior
 string signup_btn_submit
 string status_bar_notification_info_overflow
+string what_s_on_your_mind
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog

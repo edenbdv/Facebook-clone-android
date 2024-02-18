@@ -28,9 +28,6 @@ public class Post_Item {
         this.time = time;
         this.text = text;
         this.liked = liked;
-
-
-
     }
 
     public int getId() {

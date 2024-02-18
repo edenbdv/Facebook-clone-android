@@ -16,4 +16,5 @@
     <string name="name">John Doe</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="what_s_on_your_mind">What\'s on your mind?</string>
 </resources>

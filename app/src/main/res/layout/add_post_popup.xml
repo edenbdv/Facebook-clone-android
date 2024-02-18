@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="16dp">
+
+
+    <!-- Close button -->
+    <ImageButton
+        android:id="@+id/buttonClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_close"
+        android:padding="8dp"
+        android:background="?android:attr/selectableItemBackground"/>
+
+    <!-- Text input field for message -->
+    <EditText
+        android:id="@+id/editTextMessage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:hint="What's on your mind?" />
+
+    <!-- Button for posting -->
+    <Button
+        android:id="@+id/buttonPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextMessage"
+        android:text="Post" />
+
+    <!-- Option to attach a picture (you can replace this with your desired UI component) -->
+    <ImageView
+        android:id="@+id/imageViewAttach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonPost"
+        android:src="@drawable/ic_attach_picture"
+        android:layout_marginTop="16dp"
+        android:onClick="onAttachPictureClick" />
+
+</RelativeLayout>
+

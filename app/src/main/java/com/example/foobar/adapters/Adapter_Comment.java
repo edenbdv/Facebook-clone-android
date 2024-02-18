@@ -18,17 +18,23 @@ import com.example.foobar.entities.Comment_Item;
 import android.util.Log;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Adapter_Comment extends RecyclerView.Adapter<Adapter_Comment.CommentViewHolder> {
 
     private List<Comment_Item> comments;
     private Context context;
+    private Map<String, List<Comment_Item>> commentCache;
 
 
-    public Adapter_Comment(List<Comment_Item> comments, Context context) {
+
+    public Adapter_Comment(List<Comment_Item> comments, Context context, Map<String, List<Comment_Item>> commentCache) {
         this.comments = comments;
         this.context = context;
+        this.commentCache = commentCache;
+
     }
 
     @NonNull
@@ -62,13 +68,36 @@ public class Adapter_Comment extends RecyclerView.Adapter<Adapter_Comment.Commen
     }
 
     private void deleteCommentById(int commentId) {
+
         for (int i = 0; i < comments.size(); i++) {
             Comment_Item comment = comments.get(i);
-            if (comment.getCommentId()==(commentId)) {
+
+            if (comment.getCommentId() == commentId) {
                 comments.remove(i);
+                removeCommentFromCache(comment.getCommentId());
+
                 notifyItemRemoved(i);
                 notifyItemRangeChanged(i, comments.size() - i);
-                return; // Exit the loop after deleting the comment
+                return;
+            }
+        }
+    }
+    private void removeCommentFromCache(int commentId) {
+        // Iterate over each entry in the comment cache
+        for (Map.Entry<String, List<Comment_Item>> entry : commentCache.entrySet()) {
+            // Get the list of comments for the current post ID
+            List<Comment_Item> postComments = entry.getValue();
+            // Iterate over the comments in the list
+            for (int i = 0; i < postComments.size(); i++) {
+                Comment_Item comment = postComments.get(i);
+                // Check if the comment ID matches the one to be deleted
+                if (comment.getCommentId() == commentId) {
+                    // Remove the comment from the list
+                    postComments.remove(i);
+                    // Update the cache with the modified list
+                    commentCache.put(entry.getKey(), postComments);
+                    return;
+                }
             }
         }
     }
@@ -138,6 +167,6 @@ public class Adapter_Comment extends RecyclerView.Adapter<Adapter_Comment.Commen
 
         public void bind(Comment_Item comment) {
             textViewComment.setText(comment.getText());
-        }
     }
+}
 }

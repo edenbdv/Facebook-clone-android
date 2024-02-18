@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.PictureDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import com.bumptech.glide.Glide;
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 
 
 public class Adapter_Feed extends RecyclerView.Adapter<Adapter_Feed.MyViewHolder> {
@@ -85,21 +89,21 @@ public class Adapter_Feed extends RecyclerView.Adapter<Adapter_Feed.MyViewHolder
             //Glide.with(context).load(current.getPostpic()).into(holder.imgView_postPic);
             //holder.imgView_postPic.setImageResource(current.getPostpic());
 
-            // Load post profile picture from assets
+             //Load post profile picture from assets
             try {
-                InputStream profilePicInputStream = context.getAssets().open("post_pictures/" + current.getPropic());
-                Bitmap profilePicBitmap = BitmapFactory.decodeStream(profilePicInputStream);
-                holder.imgView_proPic.setImageBitmap(profilePicBitmap);
-            } catch (IOException e) {
+                InputStream profilePicInputStream = context.getAssets().open(current.getPropic().substring(1));
+                SVG profilePicSvg = SVG.getFromInputStream(profilePicInputStream);
+                holder.imgView_proPic.setImageDrawable(new PictureDrawable(profilePicSvg.renderToPicture()));
+            } catch (IOException | SVGParseException e) {
                 e.printStackTrace();
             }
 
             // Load post picture from assets
             try {
-                InputStream postPicInputStream = context.getAssets().open("post_pictures/" + current.getPostpic());
-                Bitmap postPicBitmap = BitmapFactory.decodeStream(postPicInputStream);
-                holder.imgView_postPic.setImageBitmap(postPicBitmap);
-            } catch (IOException e) {
+                InputStream postPicInputStream = context.getAssets().open(current.getPostpic().substring(1));
+                SVG postPicSvg = SVG.getFromInputStream(postPicInputStream);
+                holder.imgView_postPic.setImageDrawable(new PictureDrawable(postPicSvg.renderToPicture()));
+            } catch (IOException | SVGParseException e) {
                 e.printStackTrace();
             }
 

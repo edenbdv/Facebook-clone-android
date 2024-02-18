@@ -1,6 +1,7 @@
 package com.example.foobar;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foobar.adapters.Adapter_Comment;
 import com.example.foobar.entities.Comment_Item;
-import com.example.foobar.R;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CommentActivity extends AppCompatActivity {
+    private int nextCommentId = 1; // Initial ID for new comments
 
     private RecyclerView recyclerViewComments;
     private ArrayList<Comment_Item> commentList;
@@ -47,7 +47,7 @@ public class CommentActivity extends AppCompatActivity {
         }
 
 
-        commentAdapter = new Adapter_Comment(commentList,this);
+        commentAdapter = new Adapter_Comment(commentList,this, commentCache);
         recyclerViewComments.setAdapter(commentAdapter);
         recyclerViewComments.setLayoutManager(new LinearLayoutManager(this));
 
@@ -60,7 +60,12 @@ public class CommentActivity extends AppCompatActivity {
 
                 String newCommentText = editTextComment.getText().toString().trim();
                 if (!newCommentText.isEmpty()) {
-                    Comment_Item newComment = new Comment_Item(postId, newCommentText);
+                    Comment_Item newComment = new Comment_Item(nextCommentId++, postId, newCommentText);
+                    // Log the ID of the newly created comment
+                    Log.d("CommentActivity", "New comment ID: " + newComment.getCommentId());
+
+
+
                     commentList.add(newComment);
                     // Update the cache
                     commentCache.put(postId, new ArrayList<>(commentList));
@@ -72,7 +77,6 @@ public class CommentActivity extends AppCompatActivity {
                     Toast.makeText(CommentActivity.this, "Please enter a comment", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
-    }
+   });
 }
-
+}

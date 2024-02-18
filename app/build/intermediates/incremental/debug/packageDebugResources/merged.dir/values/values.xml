@@ -14,6 +14,8 @@
     <string name="_11_hrs">11 hrs</string>
     <string name="app_name">Foo Bar</string>
     <string name="comment">Comment</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
     <string name="foobar">FooBar</string>
     <string name="like">Like</string>
     <string name="login_btnLogin">Login</string>
@@ -23,6 +25,7 @@
     <string name="name">John Doe</string>
     <string name="share">Share</string>
     <string name="signup_btn_submit">Submit form</string>
+    <string name="what_s_on_your_mind">What\'s on your mind?</string>
     <style name="Base.Theme.FooBar" parent="Theme.Material3.DayNight.NoActionBar">
         
         

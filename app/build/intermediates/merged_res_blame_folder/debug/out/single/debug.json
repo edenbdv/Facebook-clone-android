@@ -16,6 +16,18 @@
         "source": "com.example.foobar.app-main-36:/layout/menu_item.xml"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable_ic_delete_foreground.xml.flat",
+        "source": "com.example.foobar.app-main-36:/drawable/ic_delete_foreground.xml"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-hdpi_ic_pencil.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-hdpi/ic_pencil.png"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-hdpi_ic_attach_picture.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-hdpi/ic_attach_picture.png"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-xxhdpi_ic_like_btn.png.flat",
         "source": "com.example.foobar.app-main-36:/drawable-xxhdpi/ic_like_btn.png"
     },
@@ -28,8 +40,20 @@
         "source": "com.example.foobar.app-main-36:/drawable-anydpi/ic_menu.xml"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable_ic_edit_foreground.xml.flat",
+        "source": "com.example.foobar.app-main-36:/drawable/ic_edit_foreground.xml"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/layout_add_post_popup.xml.flat",
+        "source": "com.example.foobar.app-main-36:/layout/add_post_popup.xml"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/drawable_ic_launcher_background.xml.flat",
         "source": "com.example.foobar.app-main-36:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-mdpi_ic_pencil.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-mdpi/ic_pencil.png"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/layout_activity_feed_try.xml.flat",
@@ -44,6 +68,10 @@
         "source": "com.example.foobar.app-main-36:/drawable/logo2.png"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-mdpi_ic_attach_picture.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-mdpi/ic_attach_picture.png"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-mdpi_ic_share_btn.png.flat",
         "source": "com.example.foobar.app-main-36:/drawable-mdpi/ic_share_btn.png"
     },
@@ -52,12 +80,20 @@
         "source": "com.example.foobar.app-main-36:/drawable-hdpi/ic_like_btn.png"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable_ic_delete_background.xml.flat",
+        "source": "com.example.foobar.app-main-36:/drawable/ic_delete_background.xml"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-hdpi_ic_launcher_foreground.png.flat",
         "source": "com.example.foobar.app-pngs-30:/drawable-hdpi/ic_launcher_foreground.png"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-anydpi_ic_share_btn.xml.flat",
         "source": "com.example.foobar.app-main-36:/drawable-anydpi/ic_share_btn.xml"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable_rounded_corner_background.xml.flat",
+        "source": "com.example.foobar.app-main-36:/drawable/rounded_corner_background.xml"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-hdpi_ic_comment_btn.png.flat",
@@ -92,12 +128,20 @@
         "source": "com.example.foobar.app-pngs-30:/drawable-xxxhdpi/ic_launcher_foreground.png"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-anydpi_ic_trash.xml.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-anydpi/ic_trash.xml"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/layout_feed_activity.xml.flat",
         "source": "com.example.foobar.app-main-36:/layout/feed_activity.xml"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
         "source": "com.example.foobar.app-pngs-30:/drawable-anydpi-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-xxhdpi_ic_pencil.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-xxhdpi/ic_pencil.png"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-mdpi_ic_like_btn.png.flat",
@@ -128,6 +172,10 @@
         "source": "com.example.foobar.app-main-36:/layout/menu.xml"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-xhdpi_ic_attach_picture.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-xhdpi/ic_attach_picture.png"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/drawable_logo.png.flat",
         "source": "com.example.foobar.app-main-36:/drawable/logo.png"
     },
@@ -152,8 +200,16 @@
         "source": "com.example.foobar.app-main-36:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable_ic_edit_background.xml.flat",
+        "source": "com.example.foobar.app-main-36:/drawable/ic_edit_background.xml"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-xhdpi_ic_close.png.flat",
         "source": "com.example.foobar.app-main-36:/drawable-xhdpi/ic_close.png"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-mdpi_ic_trash.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-mdpi/ic_trash.png"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-xhdpi_ic_launcher_foreground.png.flat",
@@ -180,6 +236,10 @@
         "source": "com.example.foobar.app-main-36:/drawable-xhdpi/ic_share_btn.png"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-hdpi_ic_trash.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-hdpi/ic_trash.png"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-xhdpi_ic_comment_btn.png.flat",
         "source": "com.example.foobar.app-main-36:/drawable-xhdpi/ic_comment_btn.png"
     },
@@ -190,6 +250,10 @@
     {
         "merged": "com.example.foobar.app-merged_res-34:/mipmap-xxhdpi_ic_launcher.webp.flat",
         "source": "com.example.foobar.app-main-36:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-xhdpi_ic_pencil.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-xhdpi/ic_pencil.png"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/mipmap-hdpi_ic_launcher.webp.flat",
@@ -204,12 +268,20 @@
         "source": "com.example.foobar.app-main-36:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-anydpi_ic_attach_picture.xml.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-anydpi/ic_attach_picture.xml"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-xxhdpi_ic_menu.png.flat",
         "source": "com.example.foobar.app-main-36:/drawable-xxhdpi/ic_menu.png"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/layout_comment_item.xml.flat",
         "source": "com.example.foobar.app-main-36:/layout/comment_item.xml"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-xhdpi_ic_trash.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-xhdpi/ic_trash.png"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/mipmap-mdpi_ic_launcher.webp.flat",
@@ -224,12 +296,24 @@
         "source": "com.example.foobar.app-main-36:/drawable-xxhdpi/ic_share_btn.png"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-anydpi_ic_pencil.xml.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-anydpi/ic_pencil.xml"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/drawable_profile_pic.jpg.flat",
         "source": "com.example.foobar.app-main-36:/drawable/profile_pic.jpg"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/layout_activity_main.xml.flat",
         "source": "com.example.foobar.app-main-36:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-xxhdpi_ic_trash.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-xxhdpi/ic_trash.png"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-xxhdpi_ic_attach_picture.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-xxhdpi/ic_attach_picture.png"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/drawable_edit_text_background.xml.flat",

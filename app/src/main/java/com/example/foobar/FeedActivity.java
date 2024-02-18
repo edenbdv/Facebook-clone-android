@@ -5,10 +5,16 @@ import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -23,6 +29,7 @@ public class FeedActivity extends AppCompatActivity {
     Adapter_Feed adapterFeed;
     private DrawerLayout drawerLayout;
     private ImageButton menuButton;
+    private Button addPost;
     private boolean isMenuVisible = false;
 
     @Override
@@ -42,6 +49,7 @@ public class FeedActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         menuButton = findViewById(R.id.menuButton);
+        addPost = findViewById(R.id.postEditText);
 
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +57,13 @@ public class FeedActivity extends AppCompatActivity {
                 toggleMenu();
             }
         });
+
+        // Set an OnClickListener to the form container
+        addPost.setOnClickListener(v -> {
+            Intent i = new Intent(this, AddPostWindow.class);
+            startActivity(i);
+        });
+
     }
 
     private void toggleMenu() {
@@ -60,5 +75,14 @@ public class FeedActivity extends AppCompatActivity {
             isMenuVisible = true;
         }
     }
+
+
+//    public void showPopupWindow() {
+////        AddPostWindow popupWindow = new AddPostWindow(this);
+////        popupWindow.show(findViewById(R.id.postEditText));
+//        AddPostWindow popupWindow = new AddPostWindow(this);
+//        View rootView = getWindow().getDecorView().getRootView(); // Get the root view of the activity
+//        popupWindow.show(rootView); // Show the popup window using the root view as the anchor
+//    }
 
 }
