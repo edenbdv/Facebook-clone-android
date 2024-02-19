@@ -4,6 +4,10 @@
         "source": "com.example.foobar.app-main-36:/drawable-xxhdpi/ic_close.png"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-hdpi_ic_night.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-hdpi/ic_night.png"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/mipmap-xhdpi_ic_launcher.webp.flat",
         "source": "com.example.foobar.app-main-36:/mipmap-xhdpi/ic_launcher.webp"
     },
@@ -74,6 +78,10 @@
     {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-mdpi_ic_share_btn.png.flat",
         "source": "com.example.foobar.app-main-36:/drawable-mdpi/ic_share_btn.png"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-anydpi_ic_night.xml.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-anydpi/ic_night.xml"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-hdpi_ic_like_btn.png.flat",
@@ -244,6 +252,10 @@
         "source": "com.example.foobar.app-main-36:/drawable-xhdpi/ic_comment_btn.png"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-xxhdpi_ic_night.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-xxhdpi/ic_night.png"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-mdpi_ic_launcher_foreground.png.flat",
         "source": "com.example.foobar.app-pngs-30:/drawable-mdpi/ic_launcher_foreground.png"
     },
@@ -284,12 +296,20 @@
         "source": "com.example.foobar.app-main-36:/drawable-xhdpi/ic_trash.png"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-mdpi_ic_night.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-mdpi/ic_night.png"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-34:/mipmap-mdpi_ic_launcher.webp.flat",
         "source": "com.example.foobar.app-main-36:/mipmap-mdpi/ic_launcher.webp"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-xhdpi_ic_like_btn.png.flat",
         "source": "com.example.foobar.app-main-36:/drawable-xhdpi/ic_like_btn.png"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-34:/drawable-xhdpi_ic_night.png.flat",
+        "source": "com.example.foobar.app-main-36:/drawable-xhdpi/ic_night.png"
     },
     {
         "merged": "com.example.foobar.app-merged_res-34:/drawable-xxhdpi_ic_share_btn.png.flat",

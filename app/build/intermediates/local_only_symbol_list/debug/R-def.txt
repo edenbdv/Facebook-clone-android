@@ -20,6 +20,7 @@ drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_like_btn
 drawable ic_menu
+drawable ic_night
 drawable ic_pencil
 drawable ic_share_btn
 drawable ic_trash
@@ -116,7 +117,11 @@ string name
 string share
 string signup_btn_submit
 string what_s_on_your_mind
+style AppThemeDark
+style BUTTON
 style Base.Theme.FooBar
+style SCREEN
+style TEXT
 style Theme.FooBar
 xml backup_rules
 xml data_extraction_rules

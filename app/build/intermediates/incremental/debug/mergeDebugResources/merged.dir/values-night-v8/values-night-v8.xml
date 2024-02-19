@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Base.Theme.FooBar" parent="Theme.Material3.DayNight.NoActionBar">
-        
-        
+    <style name="AppThemeDark" parent="Theme.Material3.DayNight.NoActionBar">
+
+    </style>
+    <style name="BUTTON">
+        <item name="android:background">@color/grey</item>
+        <item name="android:textColor">@color/light_grey</item>
+
+    </style>
+    <style name="SCREEN">
+        <item name="android:background">@color/dark_grey</item>
+    </style>
+    <style name="TEXT">
+        <item name="android:textColor">@color/light_grey</item>
     </style>
     <style name="Theme.AppCompat.DayNight" parent="Theme.AppCompat"/>
     <style name="Theme.AppCompat.DayNight.DarkActionBar" parent="Theme.AppCompat"/>
@@ -11,6 +21,7 @@
     <style name="Theme.AppCompat.DayNight.Dialog.MinWidth" parent="Theme.AppCompat.Dialog.MinWidth"/>
     <style name="Theme.AppCompat.DayNight.DialogWhenLarge" parent="Theme.AppCompat.DialogWhenLarge"/>
     <style name="Theme.AppCompat.DayNight.NoActionBar" parent="Theme.AppCompat.NoActionBar"/>
+    <style name="Theme.FooBar" parent="AppThemeDark"/>
     <style name="Theme.Material3.DayNight" parent="Theme.Material3.Dark"/>
     <style name="Theme.Material3.DayNight.BottomSheetDialog" parent="Theme.Material3.Dark.BottomSheetDialog"/>
     <style name="Theme.Material3.DayNight.Dialog" parent="Theme.Material3.Dark.Dialog"/>
