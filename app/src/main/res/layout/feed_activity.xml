@@ -89,8 +89,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/post1" />
+                    android:layout_marginEnd="8dp" />
 
                 <!-- Button -->
                 <Button

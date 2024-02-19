@@ -450,7 +450,8 @@ public class SignUp extends AppCompatActivity {
         String displayName = displayNameEditText.getText().toString();
 
         // Get the profile picture URI from the selected image
-        String profilePictureUri = null;
+        //String profilePictureUri = null;
+        String profilePictureUri = "";
         if (imageUri != null) {
             profilePictureUri = imageUri.toString();
         }

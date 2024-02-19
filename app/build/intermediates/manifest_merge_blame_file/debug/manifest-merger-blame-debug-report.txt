@@ -20,7 +20,7 @@
 15-->[androidx.core:core:1.9.0] C:\Users\LENOVO\.gradle\caches\transforms-3\87f22283ee55c8414d476f8251d5c8dc\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 16
 17    <application
-17-->C:\Users\LENOVO\AndroidStudioProjects\FooBar\app\src\main\AndroidManifest.xml:5:5-36:19
+17-->C:\Users\LENOVO\AndroidStudioProjects\FooBar\app\src\main\AndroidManifest.xml:5:5-38:19
 18        android:allowBackup="true"
 18-->C:\Users\LENOVO\AndroidStudioProjects\FooBar\app\src\main\AndroidManifest.xml:6:9-35
 19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"

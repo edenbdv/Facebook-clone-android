@@ -20,13 +20,21 @@ import com.example.foobar.entities.Post_Item;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.io.File;
 
 
-public class AddPostWindow extends AppCompatActivity {
+public class AddPostWindow extends AppCompatActivity  {
 
     public interface PostIdUpdater {
         void updateNextPostId();
     }
+
+    public interface OnPostAddedListener {
+        void onPostAdded(Post_Item newPost);
+        Adapter_Feed getAdapter(); // New method to retrieve the adapter
+
+    }
+
 
     private static final int REQUEST_IMAGE_PICK = 1;
 
@@ -36,6 +44,8 @@ public class AddPostWindow extends AppCompatActivity {
     private ImageButton attachImageButton;
 
     private Uri selectedImageUri;
+    public static OnPostAddedListener listener;
+    private FeedActivity feedActivity; // Reference to FeedActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +53,19 @@ public class AddPostWindow extends AppCompatActivity {
         setContentView(R.layout.add_post_popup);
 
         int nextPostId = getIntent().getIntExtra("nextPostId", 0);
-        final FeedActivity feedActivity = (FeedActivity) getIntent().getSerializableExtra("FeedActivityReference");
 
+        listener = AddPostWindow.listener; // Retrieve the listener from the static variable
+        if (listener == null) {
+            Toast.makeText(this, "Error: Listener not passed properly", Toast.LENGTH_SHORT).show();
+            finish(); // Finish the activity if listener is not provided
+            return;
+        }
 
         // Find the EditText for post content and the submit button
         postContentEditText = findViewById(R.id.editTextMessage);
         submitButton = findViewById(R.id.buttonPost);
         attachImageButton = findViewById(R.id.imageViewAttach);
         attachedImageView = findViewById(R.id.attachedImageView);
-
-
 
         attachImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,48 +83,82 @@ public class AddPostWindow extends AppCompatActivity {
                 String currentTime = getCurrentTime();
                 // Retrieve username and profile picture URI from intent extras
                 String username = getIntent().getStringExtra("username");
-                String profilePictureUri = getIntent().getStringExtra("profilePictureUri");
+                String profilePicture = getIntent().getStringExtra("profilePicture");
 
                 // Check if the user has provided both content and an image
-                if (postContent.isEmpty() || selectedImageUri == null) {
+                if (postContent.isEmpty() && selectedImageUri == null) {
                     // Show an error message to the user
                     Toast.makeText(AddPostWindow.this, "Please enter post content and attach an image", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Create a new Post_Item object with the post content and any other necessary data
-                Post_Item newPost = new Post_Item(nextPostId, 0, 0, profilePictureUri,
-                        selectedImageUri.toString(), username, currentTime, postContent, false);
+                Post_Item newPost;
+                if (selectedImageUri != null) {
+                    // If an image is attached, create a post with both text and image
+                    newPost = new Post_Item(nextPostId, 0, 0, profilePicture,
+                            selectedImageUri.toString(), username, currentTime, postContent, false);
+                } else {
+                    // If no image is attached, create a post with only text
+                    newPost = new Post_Item(nextPostId, 0, 0, profilePicture,
+                            "", username, currentTime, postContent, false);
+                }
 
-                // Add the new post to the feed
-                addToFeed(newPost);
+
+                // Create a new Post_Item object with the post content and any other necessary data
+//                Post_Item newPost = new Post_Item(nextPostId, 0, 0, profilePicture,
+//                        selectedImageUri.toString(), username, currentTime, postContent, false);
+
+                // Notify the listener that a new post has been added
+                if (listener != null) {
+                    listener.onPostAdded(newPost);
+                }
 
                 // Increment the next post ID for the next post
-                feedActivity.updateNextPostId();
+                if (feedActivity != null) {
+                    feedActivity.updateNextPostId();
+                }
 
                 // Finish the activity
                 finish();
             }
         });
+        ImageButton closeButton = findViewById(R.id.buttonClose);
+        // Set click listener for the close button
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Close the current activity and go back to the previous one
+                finish();
+            }
+        });
     }
 
+    // Default constructor
+    public AddPostWindow() {
+        // Default constructor must be empty
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Remove the listener when the activity is destroyed
+        listener = null;
+    }
 
     private String getCurrentTime() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         return dateFormat.format(calendar.getTime());
     }
-    private void addToFeed(Post_Item newPost) {
-        // Get the reference to the feed adapter from the FeedActivity
-        FeedActivity feedActivity = (FeedActivity) getParent();
-        Adapter_Feed adapter = feedActivity.getAdapter();
 
-        // Add the new post to the adapter's data list
-        adapter.getPosts().add(0, newPost); // Add at the beginning of the list
-
-        // Notify the adapter that the data set has changed
-        adapter.notifyDataSetChanged();
-    }
+//    private void addToFeed(Post_Item newPost) {
+//        // Directly call getAdapter() method from the listener
+//            Adapter_Feed adapter = listener.getAdapter();
+//            if (adapter != null) {
+//                adapter.getPosts().add(0, newPost);
+//                adapter.notifyDataSetChanged();
+//            }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

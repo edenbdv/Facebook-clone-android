@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -28,13 +31,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity implements AddPostWindow.PostIdUpdater{
+public class FeedActivity extends AppCompatActivity implements AddPostWindow.PostIdUpdater, AddPostWindow.OnPostAddedListener{
 
     Adapter_Feed adapterFeed;
     private DrawerLayout drawerLayout;
     private ImageButton menuButton;
     private Button addPost;
     private boolean isMenuVisible = false;
+    String picture;
     private int nextPostId = 11; // Starting ID for posts
 
 
@@ -48,13 +52,28 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         String username = getIntent().getStringExtra("username");
         // Get user details from UsersData
         HashMap<String, String> userDetails = UsersData.getUserDetails(username);
-        String picture = userDetails.get("profilePictureUri");
-        Uri pictureUri = Uri.parse(picture);
-        ImageView imageView = findViewById(R.id.profilePic);
-        // Load the picture into the ImageView
-        imageView.setImageURI(pictureUri);
 
 
+//        String picture = userDetails.get("profilePictureUri");
+//        Uri pictureUri = Uri.parse(picture);
+//        ImageView imageView = findViewById(R.id.profilePic);
+//        // Load the picture into the ImageView
+//        imageView.setImageURI(pictureUri);
+
+
+        if (userDetails != null) {
+            String picture = userDetails.get("profilePictureUri");
+            if (picture != null) {
+                Uri pictureUri = Uri.parse(picture);
+                ImageView imageView = findViewById(R.id.profilePic);
+                // Load the picture into the ImageView
+                imageView.setImageURI(pictureUri);
+            } else {
+                Toast.makeText(this, "Error: Profile picture URI is null", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Error: User details not found", Toast.LENGTH_SHORT).show();
+        }
 
         RecyclerView lstPosts = findViewById(R.id.lstPosts);
         adapterFeed = new Adapter_Feed(this);
@@ -78,23 +97,31 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
 
         // Set an OnClickListener to the form container
         addPost.setOnClickListener(v-> {
+            AddPostWindow.listener = this; // Set the listener as a static variable
             Intent intent = new Intent(FeedActivity.this, AddPostWindow.class);
             intent.putExtra("username", username);
-            intent.putExtra("profilePictureUri", picture);
+            intent.putExtra("profilePicture", picture);
             intent.putExtra("nextPostId", nextPostId); // Pass next available ID to AddPostWindow
-            //intent.putExtra("FeedActivityReference", this); // Pass instance of PostIdUpdater
             startActivity(intent);
         });
 
     }
 
     @Override
-    public void updateNextPostId() {
-        incrementNextPostId();
+    public void onPostAdded(Post_Item newPost) {
+        // Handle the newly added post here
+        // You can update your RecyclerView or perform any other necessary actions
+        adapterFeed.getPosts().add(0, newPost); // Add the new post to the beginning of the list
+        adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 
     public Adapter_Feed getAdapter() {
         return adapterFeed;
+    }
+
+    @Override
+    public void updateNextPostId() {
+        incrementNextPostId();
     }
 
     private void incrementNextPostId() {

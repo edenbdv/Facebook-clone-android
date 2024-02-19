@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.PictureDrawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,22 +90,48 @@ public class Adapter_Feed extends RecyclerView.Adapter<Adapter_Feed.MyViewHolder
             //Glide.with(context).load(current.getPostpic()).into(holder.imgView_postPic);
             //holder.imgView_postPic.setImageResource(current.getPostpic());
 
-             //Load post profile picture from assets
-            try {
-                InputStream profilePicInputStream = context.getAssets().open(current.getPropic().substring(1));
-                SVG profilePicSvg = SVG.getFromInputStream(profilePicInputStream);
-                holder.imgView_proPic.setImageDrawable(new PictureDrawable(profilePicSvg.renderToPicture()));
-            } catch (IOException | SVGParseException e) {
-                e.printStackTrace();
-            }
 
-            // Load post picture from assets
-            try {
-                InputStream postPicInputStream = context.getAssets().open(current.getPostpic().substring(1));
-                SVG postPicSvg = SVG.getFromInputStream(postPicInputStream);
-                holder.imgView_postPic.setImageDrawable(new PictureDrawable(postPicSvg.renderToPicture()));
-            } catch (IOException | SVGParseException e) {
-                e.printStackTrace();
+            // Check if the post ID is between 1 and 10
+            int postId = current.getId();
+            if (postId >= 1 && postId <= 10) {
+                // Convert profile picture path to Uri and load into ImageView from assets
+                try {
+                    InputStream profilePicInputStream = context.getAssets().open(current.getPropic().substring(1));
+                    SVG profilePicSvg = SVG.getFromInputStream(profilePicInputStream);
+                    holder.imgView_proPic.setImageDrawable(new PictureDrawable(profilePicSvg.renderToPicture()));
+                } catch (IOException | SVGParseException e) {
+                    e.printStackTrace();
+                }
+
+                // Convert post picture path to Uri and load into ImageView from assets
+                try {
+                    InputStream postPicInputStream = context.getAssets().open(current.getPostpic().substring(1));
+                    SVG postPicSvg = SVG.getFromInputStream(postPicInputStream);
+                    holder.imgView_postPic.setImageDrawable(new PictureDrawable(postPicSvg.renderToPicture()));
+                } catch (IOException | SVGParseException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Load profile picture from Uri for other post IDs
+//                Uri profilePictureUri = Uri.parse(current.getPropic());
+//                holder.imgView_proPic.setImageURI(profilePictureUri);
+
+                // Inside onBindViewHolder method of Adapter_Feed class
+                String profilePictureUri = current.getPropic();
+                if (profilePictureUri != null) {
+                    Uri uri = Uri.parse(profilePictureUri);
+                    holder.imgView_proPic.setImageURI(uri);
+                    holder.imgView_proPic.setVisibility(View.VISIBLE); // Make ImageView visible
+                } else {
+                    // Hide the ImageView if profilePictureUri is null
+                    holder.imgView_proPic.setVisibility(View.GONE);
+                }
+
+
+
+                // Load post picture from Uri for other post IDs
+                Uri postPictureUri = Uri.parse(current.getPostpic());
+                holder.imgView_postPic.setImageURI(postPictureUri);
             }
 
 

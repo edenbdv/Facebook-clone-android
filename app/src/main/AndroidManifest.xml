@@ -33,6 +33,9 @@
         <!-- Add CommentActivity declaration -->
         <activity android:name=".CommentActivity" />
         <activity android:name=".AddPostWindow" />
+
+
     </application>
+
 
 </manifest>

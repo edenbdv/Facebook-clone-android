@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/ic_close"
         android:padding="8dp"
         android:background="?android:attr/selectableItemBackground"/>
@@ -21,6 +23,7 @@
         android:id="@+id/editTextMessage"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:layout_below="@id/buttonClose"
         android:hint="What's on your mind?" />
 
     <!-- Button for posting -->
@@ -34,10 +37,13 @@
     <!-- Add ImageView for displaying attached image -->
     <ImageView
         android:id="@+id/attachedImageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextMessage"
-        android:visibility="gone" /> <!-- initially hidden -->
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone" />
 
     <!-- Option to attach a picture (you can replace this with your desired UI component) -->
     <ImageButton

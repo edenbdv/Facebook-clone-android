@@ -7,7 +7,6 @@ import com.example.foobar.R;
 @Entity
 public class Post_Item {
 
-    @PrimaryKey(autoGenerate = true)
     private int id;
     private int likes;
     private int comments;
