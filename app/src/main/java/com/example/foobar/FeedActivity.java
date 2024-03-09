@@ -1,39 +1,30 @@
 package com.example.foobar;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foobar.adapters.Adapter_Feed;
+import com.example.foobar.adapters.Adapter_Feed_Eden;
 import com.example.foobar.entities.Post_Item;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity implements AddPostWindow.PostIdUpdater, AddPostWindow.OnPostAddedListener{
 
-    Adapter_Feed adapterFeed;
+    Adapter_Feed_Eden adapterFeed;
     private DrawerLayout drawerLayout;
     private ImageButton menuButton;
     private Button addPost;
@@ -76,18 +67,21 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         }
 
         RecyclerView lstPosts = findViewById(R.id.lstPosts);
-        adapterFeed = new Adapter_Feed(this);
+        adapterFeed = new Adapter_Feed_Eden(this);
         lstPosts.setAdapter(adapterFeed);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
         // Parse JSON data and set it to adapter
         List<Post_Item> posts = JsonParser.parseJsonData(this);
         ArrayList<Post_Item> first10Posts = new ArrayList<>(posts.subList(0, Math.min(posts.size(), 10)));
+
+        // load the 10  posts
         adapterFeed.SetPosts(first10Posts);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         menuButton = findViewById(R.id.menuButton);
         addPost = findViewById(R.id.postEditText);
+
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +99,11 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
             startActivity(intent);
         });
 
+
+
+
     }
+
 
     @Override
     public void onPostAdded(Post_Item newPost) {
@@ -115,7 +113,11 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 
-    public Adapter_Feed getAdapter() {
+
+
+
+
+    public Adapter_Feed_Eden getAdapter() {
         return adapterFeed;
     }
 

@@ -4,30 +4,40 @@ import androidx.room.PrimaryKey;
 
 import com.example.foobar.R;
 
+import java.util.Date;
+
 @Entity
 public class Post_Item {
-
+// i added the primary key , but without auto-generate
+    @PrimaryKey
     private int id;
-    private int likes;
-    private int comments;
-    private String propic;
+    private String text;
     private String postpic;
     private String name;
+
+    private Date createdAt;
+    private int comments;
+    private String propic;
+    //private String name;
+
     private String time;
-    private String text;
+    private int likes;
     private boolean liked;
 
-    public Post_Item(int id, int likes, int comments, String propic, String postpic, String name, String time, String text, boolean liked) {
+    public Post_Item(int id, int likes ,int comments, String propic, String postpic, String name, String time, String text, boolean liked) {
         this.id = id;
+        this.text = text;
+        this.postpic = postpic;
+        this.name = name;
+
         this.likes = likes;
         this.comments = comments;
         this.propic = propic;
-        this.postpic = postpic;
-        this.name = name;
         this.time = time;
-        this.text = text;
         this.liked = liked;
     }
+
+
 
     public int getId() {
         return id;

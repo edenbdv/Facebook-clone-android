@@ -14,7 +14,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.foobar.adapters.Adapter_Feed;
+//import com.example.foobar.adapters.Adapter_Feed;
+import com.example.foobar.adapters.Adapter_Feed_Eden;
 import com.example.foobar.entities.Post_Item;
 
 import java.text.SimpleDateFormat;
@@ -31,7 +32,7 @@ public class AddPostWindow extends AppCompatActivity  {
 
     public interface OnPostAddedListener {
         void onPostAdded(Post_Item newPost);
-        Adapter_Feed getAdapter(); // New method to retrieve the adapter
+        Adapter_Feed_Eden getAdapter(); // New method to retrieve the adapter
 
     }
 
