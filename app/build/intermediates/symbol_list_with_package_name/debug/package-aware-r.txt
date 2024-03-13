@@ -3251,6 +3251,7 @@ id decelerate
 id decelerateAndComplete
 id decor_content_parent
 id default_activity_button
+id delete_profile_button
 id deltaRelative
 id dependency_ordering
 id design_bottom_sheet
@@ -3290,6 +3291,7 @@ id editTextPasswordV
 id editTextText
 id editTextTextPassword
 id editTextUsername
+id edit_profile_button
 id edit_query
 id elastic
 id embed
@@ -3491,11 +3493,14 @@ id position
 id postEditText
 id postLayout
 id postPic
+id post_list
 id post_text
 id post_time
 id pressed
 id proPic
 id profilePic
+id profile_info_container
+id profile_picture
 id progress_circular
 id progress_horizontal
 id radio
@@ -3533,6 +3538,7 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
+id see_friend_requests_button
 id select_dialog_listview
 id selected
 id selection_type
@@ -3631,8 +3637,10 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id user_name
 id usernameTextView
 id vertical_only
+id view_friends_button
 id view_offset_helper
 id view_transition
 id view_tree_lifecycle_owner
@@ -3847,6 +3855,7 @@ layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
 layout post_item
+layout profile_activity
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
