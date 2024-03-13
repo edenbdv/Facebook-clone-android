@@ -17,4 +17,8 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="what_s_on_your_mind">What\'s on your mind?</string>
+    <string name="view_friends">View Friends</string>
+    <string name="delete_profile">Delete Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="see_friend_requests">See Friend Requests</string>
 </resources>

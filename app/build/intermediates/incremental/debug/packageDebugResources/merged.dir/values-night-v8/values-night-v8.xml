@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppThemeDark" parent="Theme.Material3.DayNight.NoActionBar">
+
+    </style>
+    <style name="BUTTON">
+        <item name="android:background">@color/grey</item>
+        <item name="android:textColor">@color/light_grey</item>
+
+    </style>
+    <style name="SCREEN">
+        <item name="android:background">@color/dark_grey</item>
+    </style>
+    <style name="TEXT">
+        <item name="android:textColor">@color/light_grey</item>
+    </style>
+    <style name="Theme.FooBar" parent="AppThemeDark"/>
+</resources>

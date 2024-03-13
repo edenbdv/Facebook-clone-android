@@ -34,7 +34,7 @@ public class JsonParser {
                 String authorP = jsonPost.getString("authorP");
                 String authorN = jsonPost.getString("authorN");
                 String date = jsonPost.getString("date");
-                Post_Item post = new Post_Item(id, 0, 0, authorP, picture, authorN, date, text, false);
+                Post_Item post = new Post_Item(text, picture, authorN, false);
 
                 // Parse other fields like author, image URLs, likes, comments, etc.
                 posts.add(post);

@@ -641,6 +641,7 @@ attr imageButtonStyle
 attr imagePanX
 attr imagePanY
 attr imageRotate
+attr imageUrl
 attr imageZoom
 attr indeterminateAnimationType
 attr indeterminateProgressStyle
@@ -3246,6 +3247,7 @@ id currentState
 id custom
 id customPanel
 id cut
+id dataBinding
 id date_picker_actions
 id decelerate
 id decelerateAndComplete
@@ -3458,6 +3460,8 @@ id notification_main_column
 id notification_main_column_container
 id off
 id on
+id onAttachStateChangeListener
+id onDateChanged
 id onInterceptTouchReturnSwipe
 id open_search_bar_text_view
 id open_search_view_background
@@ -3603,6 +3607,7 @@ id textSpacerNoTitle
 id textStart
 id textTop
 id textViewComment
+id textWatcher
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3909,7 +3914,9 @@ string character_counter_pattern
 string clear_text_end_icon_content_description
 string comment
 string delete
+string delete_profile
 string edit
+string edit_profile
 string error_a11y_label
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
@@ -4034,11 +4041,13 @@ string search_menu_title
 string searchbar_scrolling_view_behavior
 string searchview_clear_text_content_description
 string searchview_navigation_content_description
+string see_friend_requests
 string share
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
 string signup_btn_submit
 string status_bar_notification_info_overflow
+string view_friends
 string what_s_on_your_mind
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
@@ -5209,6 +5218,7 @@ styleable ConstraintSet android_orientation android_id android_visibility androi
 styleable CoordinatorLayout keylines statusBarBackground
 styleable CoordinatorLayout_Layout android_layout_gravity layout_anchor layout_anchorGravity layout_behavior layout_dodgeInsetEdges layout_insetEdge layout_keyline
 styleable CustomAttribute attributeName customBoolean customColorDrawableValue customColorValue customDimension customFloatValue customIntegerValue customPixelDimension customReference customStringValue methodName
+styleable CustomImageView imageUrl
 styleable DrawerArrowToggle arrowHeadLength arrowShaftLength barLength color drawableSize gapBetweenBars spinBars thickness
 styleable DrawerLayout elevation
 styleable ExtendedFloatingActionButton collapsedSize elevation extendMotionSpec extendStrategy hideMotionSpec showMotionSpec shrinkMotionSpec

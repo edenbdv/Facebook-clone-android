@@ -3,7 +3,6 @@ package com.example.foobar;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -15,13 +14,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 //import com.example.foobar.adapters.Adapter_Feed;
-import com.example.foobar.adapters.Adapter_Feed_Eden;
+import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.entities.Post_Item;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-import java.io.File;
 
 
 public class AddPostWindow extends AppCompatActivity  {
@@ -32,7 +30,7 @@ public class AddPostWindow extends AppCompatActivity  {
 
     public interface OnPostAddedListener {
         void onPostAdded(Post_Item newPost);
-        Adapter_Feed_Eden getAdapter(); // New method to retrieve the adapter
+        Adapter_Feed getAdapter(); // New method to retrieve the adapter
 
     }
 
@@ -96,12 +94,10 @@ public class AddPostWindow extends AppCompatActivity  {
                 Post_Item newPost;
                 if (selectedImageUri != null) {
                     // If an image is attached, create a post with both text and image
-                    newPost = new Post_Item(nextPostId, 0, 0, profilePicture,
-                            selectedImageUri.toString(), username, currentTime, postContent, false);
+                    newPost = new Post_Item(postContent, selectedImageUri.toString(), username, false);
                 } else {
                     // If no image is attached, create a post with only text
-                    newPost = new Post_Item(nextPostId, 0, 0, profilePicture,
-                            "", username, currentTime, postContent, false);
+                    newPost = new Post_Item(postContent, "", username, false);
                 }
 
 

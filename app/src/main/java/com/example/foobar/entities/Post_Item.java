@@ -1,106 +1,71 @@
 package com.example.foobar.entities;
+
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import com.example.foobar.R;
 
 import java.util.Date;
 
 @Entity
 public class Post_Item {
-// i added the primary key , but without auto-generate
-    @PrimaryKey
+
+    @PrimaryKey(autoGenerate = true)
     private int id;
+
+    private String _id;  // id from the mongoDB
     private String text;
-    private String postpic;
-    private String name;
-
+    private String picture;
+    private String createdBy;
+    @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
     private Date createdAt;
-    private int comments;
-    private String propic;
-    //private String name;
-
-    private String time;
-    private int likes;
     private boolean liked;
 
-    public Post_Item(int id, int likes ,int comments, String propic, String postpic, String name, String time, String text, boolean liked) {
-        this.id = id;
+    public Post_Item(String text, String picture, String createdBy, boolean liked) {
         this.text = text;
-        this.postpic = postpic;
-        this.name = name;
-
-        this.likes = likes;
-        this.comments = comments;
-        this.propic = propic;
-        this.time = time;
+        this.picture = picture;
+        this.createdBy = createdBy;
+        this.createdAt = new Date();
         this.liked = liked;
     }
 
-
-
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    public int getComments() {
-        return comments;
-    }
-
-    public void setComments(int comments) {
-        this.comments = comments;
-    }
-
-    public String getPropic() {
-        return propic;
-    }
-
-    public void setPropic(String propic) {
-        this.propic = propic;
-    }
-
-    public String getPostpic() {
-        return postpic;
-    }
-
-    public void setPostpic(String postpic) {
-        this.postpic = postpic;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String author_name) {
-        this.name = author_name;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public String getText() {
         return text;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public boolean isLiked() {
@@ -111,7 +76,23 @@ public class Post_Item {
         this.liked = liked;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    @Override
+    public String toString() {
+        return "Post_Item{" +
+                "id=" + id + '\'' +
+                ", _id" + _id + '\'' +
+                ", text='" + text + '\'' +
+                ", picture='" + picture + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
-
-
-

@@ -15,7 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foobar.adapters.Adapter_Feed_Eden;
+import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.entities.Post_Item;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import java.util.List;
 
 public class FeedActivity extends AppCompatActivity implements AddPostWindow.PostIdUpdater, AddPostWindow.OnPostAddedListener{
 
-    Adapter_Feed_Eden adapterFeed;
+    Adapter_Feed adapterFeed;
     private DrawerLayout drawerLayout;
     private ImageButton menuButton;
     private Button addPost;
@@ -35,7 +35,6 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feed_activity);
 
@@ -43,14 +42,6 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         String username = getIntent().getStringExtra("username");
         // Get user details from UsersData
         HashMap<String, String> userDetails = UsersData.getUserDetails(username);
-
-
-//        String picture = userDetails.get("profilePictureUri");
-//        Uri pictureUri = Uri.parse(picture);
-//        ImageView imageView = findViewById(R.id.profilePic);
-//        // Load the picture into the ImageView
-//        imageView.setImageURI(pictureUri);
-
 
         if (userDetails != null) {
             String picture = userDetails.get("profilePictureUri");
@@ -67,7 +58,7 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         }
 
         RecyclerView lstPosts = findViewById(R.id.lstPosts);
-        adapterFeed = new Adapter_Feed_Eden(this);
+        adapterFeed = new Adapter_Feed(this);
         lstPosts.setAdapter(adapterFeed);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
@@ -99,9 +90,6 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
             startActivity(intent);
         });
 
-
-
-
     }
 
 
@@ -117,7 +105,7 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
 
 
 
-    public Adapter_Feed_Eden getAdapter() {
+    public Adapter_Feed getAdapter() {
         return adapterFeed;
     }
 

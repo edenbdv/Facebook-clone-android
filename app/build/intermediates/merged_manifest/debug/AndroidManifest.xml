@@ -47,6 +47,12 @@
         <!-- Add CommentActivity declaration -->
         <activity android:name="com.example.foobar.CommentActivity" />
         <activity android:name="com.example.foobar.AddPostWindow" />
+        <activity android:name="com.example.foobar.ProfileActivity" />
+
+        <service
+            android:name="androidx.room.MultiInstanceInvalidationService"
+            android:directBootAware="true"
+            android:exported="false" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

@@ -1,3 +1,0 @@
-com.example.foobar.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme
