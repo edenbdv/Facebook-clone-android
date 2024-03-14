@@ -3503,7 +3503,6 @@ id post_time
 id pressed
 id proPic
 id profilePic
-id profile_info_container
 id profile_picture
 id progress_circular
 id progress_horizontal
@@ -3779,6 +3778,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_feed_try
 layout activity_main
+layout activity_profile
 layout activity_sign_up
 layout add_post_popup
 layout comment_item
@@ -3860,7 +3860,6 @@ layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
 layout post_item
-layout profile_activity
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material

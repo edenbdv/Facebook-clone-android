@@ -22,6 +22,7 @@ import com.example.foobar.entities.Post_Item;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
 
@@ -34,7 +35,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     TextView tvLike;
 
     private Context context;
-    private ArrayList<Post_Item> posts;
+    private List<Post_Item> posts;
     private Adapter_Feed adapter;
 
     public PostViewHolder(@NonNull View itemView, Context context, Adapter_Feed adapter) {
@@ -60,7 +61,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         commentContainer = itemView.findViewById(R.id.commentContainer);
     }
 
-    public void bind(Post_Item post, ArrayList<Post_Item> posts) {
+    public void bind(Post_Item post, List<Post_Item> posts) {
         this.posts = posts;
         // Load text data
         tv_name.setText(post.getCreatedBy());

@@ -8,6 +8,10 @@
         "source": "com.example.foobar.app-main-41:/layout/menu_item.xml"
     },
     {
+        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/activity_profile.xml",
+        "source": "com.example.foobar.app-main-41:/layout/activity_profile.xml"
+    },
+    {
         "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/activity_sign_up.xml",
         "source": "com.example.foobar.app-main-41:/layout/activity_sign_up.xml"
     },
@@ -18,10 +22,6 @@
     {
         "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/activity_feed_try.xml",
         "source": "com.example.foobar.app-main-41:/layout/activity_feed_try.xml"
-    },
-    {
-        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/profile_activity.xml",
-        "source": "com.example.foobar.app-main-41:/layout/profile_activity.xml"
     },
     {
         "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/menu.xml",

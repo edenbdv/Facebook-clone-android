@@ -1,0 +1,144 @@
+package com.example.foobar.webApi;
+
+import android.util.Log;
+
+import com.example.foobar.entities.Post_Item;
+
+import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class UserPostsAPI {
+
+    private Retrofit retrofit;
+    private WebServiceAPI webServiceAPI;
+
+    public UserPostsAPI() {
+
+        retrofit = new Retrofit.Builder()
+                //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
+                .baseUrl("http://192.168.0.103:12345/api/")  //we need to change it later to be save in R string
+
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        webServiceAPI = retrofit.create(WebServiceAPI.class);
+    }
+
+
+    public void createPost(String username, String text, String picture, String authToken) {
+        Call<Void> call = webServiceAPI.createPost(username, text, picture, authToken);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d("PostAPI", "Post created successfully");
+                    // Handle successful creation of the post, if needed
+                } else {
+                    try {
+                        String errorMessage = response.errorBody().string();
+                        Log.d("PostAPI", "Failed to create post. Response code: " + response.code() + ", Error message: " + errorMessage);
+                    } catch (IOException e) {
+                        Log.e("PostAPI", "Error reading error message: " + e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("PostAPI", "Failed to create post. Error: " + t.getMessage());
+            }
+        });
+    }
+
+    public void getUserPosts(String username, String authToken) {
+        Call<List<Post_Item>> call = webServiceAPI.getUserPosts(username, authToken);
+        call.enqueue(new Callback <List<Post_Item>>() {
+            @Override
+            public void onResponse(Call<List<Post_Item>> call, Response<List<Post_Item>> response) {
+                if (response.isSuccessful()) {
+                    List<Post_Item> posts = response.body();
+                    if (posts != null && !posts.isEmpty()) {
+                        for (Post_Item post : posts) {
+                            // Process each post
+                            Log.d("PostAPI", "_id: " + post.get_id());
+                            Log.d("PostAPI", "Text: " + post.getText());
+                            Log.d("PostAPI", "Picture: " + post.getPicture());
+                        }
+                    } else {
+                        try {
+                            String errorMessage = response.errorBody().string();
+                            Log.d("PostAPI", "Failed to show posts. Response code: " + response.code() + ", Error message: " + errorMessage);
+                        } catch (IOException e) {
+                            Log.e("PostAPI", "Error reading error message: " + e.getMessage());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Post_Item>> call, Throwable t) {
+                Log.e("PostAPI", "Failed to create post. Error: " + t.getMessage());
+            }
+        });
+    }
+
+
+    public void deletePost(String username, String postId, String authToken) {
+        Call<Void> call = webServiceAPI.deletePost(username, postId, authToken);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d("PostAPI", "Post deleted successfully");
+                    // Optionally, perform any action after successful deletion
+                } else {
+                    Log.d("PostAPI", "Failed to delete post. Response code: " + response.code());
+                    // Handle unsuccessful response, if needed
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("PostAPI", "Failed to delete post: " + t.getMessage());
+                // Handle the failure scenario, such as displaying an error message to the user
+            }
+        });
+    }
+
+    //
+    public void updatePost(String username, String postId, String fieldName, String fieldValue, String authToken) {
+        Call<Post_Item> call = webServiceAPI.updatePost(username, postId, fieldName, fieldValue, authToken);
+        call.enqueue(new Callback<Post_Item>() {
+            @Override
+            public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
+                if (response.isSuccessful()) {
+                    Post_Item updatedPost = response.body();
+                    if (updatedPost != null) {
+                        Log.d("PostAPI", "Post updated successfully: " + updatedPost.toString());
+                    } else {
+                        Log.e("PostAPI", "Received null response body");
+                    }
+                } else {
+                    try {
+                        String errorMessage = response.errorBody().string();
+                        Log.d("PostAPI", "Failed to update post. Response code: " + response.code() + ", Error message: " + errorMessage);
+                    } catch (IOException e) {
+                        Log.e("PostAPI", "Error reading error message: " + e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Post_Item> call, Throwable t) {
+                Log.e("PostAPI", "Failed to update post: " + t.getMessage());
+            }
+        });
+    }
+
+
+}

@@ -48,10 +48,6 @@
         "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_pencil.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_profile_activity.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/profile_activity.xml"
-    },
-    {
         "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_launcher_foreground.png.flat",
         "source": "com.example.foobar.app-pngs-35:/drawable-mdpi/ic_launcher_foreground.png"
     },
@@ -298,6 +294,10 @@
     {
         "merged": "com.example.foobar.app-merged_res-39:/drawable-xhdpi_ic_menu.png.flat",
         "source": "com.example.foobar.app-main-41:/drawable-xhdpi/ic_menu.png"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-39:/layout_activity_profile.xml.flat",
+        "source": "com.example.foobar.app-main-41:/layout/activity_profile.xml"
     },
     {
         "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_comment_btn.png.flat",

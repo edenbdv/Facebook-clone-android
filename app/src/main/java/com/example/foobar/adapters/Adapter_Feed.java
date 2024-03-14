@@ -10,33 +10,24 @@ import com.example.foobar.ProfileActivity;
 import com.example.foobar.R;
 import com.example.foobar.entities.Post_Item;
 
-import android.content.Intent;
-import android.graphics.drawable.PictureDrawable;
-import android.net.Uri;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import android.widget.EditText;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-
-
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
+
 public class Adapter_Feed extends RecyclerView.Adapter<PostViewHolder> {
 
     private final Context context;
-    private ArrayList<Post_Item> posts;
+    private List<Post_Item> posts;
 
     public Adapter_Feed(Context context) {
         this.context = context;
@@ -53,10 +44,11 @@ public class Adapter_Feed extends RecyclerView.Adapter<PostViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post_Item post = posts.get(position);
+        //String username = post.getCreatedBy();
         holder.bind(post, posts);
     }
 
-    public void SetPosts(ArrayList<Post_Item> l) {
+    public void SetPosts(List<Post_Item> l) {
         this.posts = l;
         notifyDataSetChanged();
     }
@@ -69,7 +61,7 @@ public class Adapter_Feed extends RecyclerView.Adapter<PostViewHolder> {
     }
 
     // Method to get the list of posts
-    public ArrayList<Post_Item> getPosts() {
+    public List<Post_Item> getPosts() {
         return posts;
     }
 

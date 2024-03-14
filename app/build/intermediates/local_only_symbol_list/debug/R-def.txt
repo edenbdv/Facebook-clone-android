@@ -80,7 +80,6 @@ id post_text
 id post_time
 id proPic
 id profilePic
-id profile_info_container
 id profile_picture
 id recyclerViewComments
 id refreshLayout
@@ -98,6 +97,7 @@ id usernameTextView
 id view_friends_button
 layout activity_feed_try
 layout activity_main
+layout activity_profile
 layout activity_sign_up
 layout add_post_popup
 layout comment_item
@@ -106,7 +106,6 @@ layout feed_activity
 layout menu
 layout menu_item
 layout post_item
-layout profile_activity
 mipmap ic_launcher
 mipmap ic_launcher_round
 string Signup_display_name
