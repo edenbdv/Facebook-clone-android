@@ -1,46 +1,46 @@
 [
     {
-        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/add_post_popup.xml",
-        "source": "com.example.foobar.app-main-41:/layout/add_post_popup.xml"
+        "merged": "com.example.foobar.app-mergeDebugResources-3:/layout/activity_profile.xml",
+        "source": "com.example.foobar.app-main-6:/layout/activity_profile.xml"
     },
     {
-        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/menu_item.xml",
-        "source": "com.example.foobar.app-main-41:/layout/menu_item.xml"
+        "merged": "com.example.foobar.app-mergeDebugResources-3:/layout/add_post_popup.xml",
+        "source": "com.example.foobar.app-main-6:/layout/add_post_popup.xml"
     },
     {
-        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/activity_profile.xml",
-        "source": "com.example.foobar.app-main-41:/layout/activity_profile.xml"
+        "merged": "com.example.foobar.app-mergeDebugResources-3:/layout/comment_popup.xml",
+        "source": "com.example.foobar.app-main-6:/layout/comment_popup.xml"
     },
     {
-        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/activity_sign_up.xml",
-        "source": "com.example.foobar.app-main-41:/layout/activity_sign_up.xml"
+        "merged": "com.example.foobar.app-mergeDebugResources-3:/layout/activity_feed_try.xml",
+        "source": "com.example.foobar.app-main-6:/layout/activity_feed_try.xml"
     },
     {
-        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/activity_main.xml",
-        "source": "com.example.foobar.app-main-41:/layout/activity_main.xml"
+        "merged": "com.example.foobar.app-mergeDebugResources-3:/layout/post_item.xml",
+        "source": "com.example.foobar.app-main-6:/layout/post_item.xml"
     },
     {
-        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/activity_feed_try.xml",
-        "source": "com.example.foobar.app-main-41:/layout/activity_feed_try.xml"
+        "merged": "com.example.foobar.app-mergeDebugResources-3:/layout/comment_item.xml",
+        "source": "com.example.foobar.app-main-6:/layout/comment_item.xml"
     },
     {
-        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/menu.xml",
-        "source": "com.example.foobar.app-main-41:/layout/menu.xml"
+        "merged": "com.example.foobar.app-mergeDebugResources-3:/layout/menu_item.xml",
+        "source": "com.example.foobar.app-main-6:/layout/menu_item.xml"
     },
     {
-        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/post_item.xml",
-        "source": "com.example.foobar.app-main-41:/layout/post_item.xml"
+        "merged": "com.example.foobar.app-mergeDebugResources-3:/layout/activity_sign_up.xml",
+        "source": "com.example.foobar.app-main-6:/layout/activity_sign_up.xml"
     },
     {
-        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/comment_item.xml",
-        "source": "com.example.foobar.app-main-41:/layout/comment_item.xml"
+        "merged": "com.example.foobar.app-mergeDebugResources-3:/layout/feed_activity.xml",
+        "source": "com.example.foobar.app-main-6:/layout/feed_activity.xml"
     },
     {
-        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/comment_popup.xml",
-        "source": "com.example.foobar.app-main-41:/layout/comment_popup.xml"
+        "merged": "com.example.foobar.app-mergeDebugResources-3:/layout/menu.xml",
+        "source": "com.example.foobar.app-main-6:/layout/menu.xml"
     },
     {
-        "merged": "com.example.foobar.app-mergeDebugResources-38:/layout/feed_activity.xml",
-        "source": "com.example.foobar.app-main-41:/layout/feed_activity.xml"
+        "merged": "com.example.foobar.app-mergeDebugResources-3:/layout/activity_main.xml",
+        "source": "com.example.foobar.app-main-6:/layout/activity_main.xml"
     }
 ]

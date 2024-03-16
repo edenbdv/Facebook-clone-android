@@ -43,6 +43,8 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         feedViewModel = new ViewModelProvider(this).get(FeedViewModel.class);
         feedViewModel.initRepo(this);
 
+
+
         // Observe changes to the list of posts
         feedViewModel.getPostsLiveData().observe(this, new Observer<List<Post_Item>>() {
             @Override

@@ -2,6 +2,10 @@ package com.example.foobar.webApi;
 
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+
+import com.example.foobar.daos.FeedDao;
+import com.example.foobar.daos.PostDao;
 import com.example.foobar.entities.Post_Item;
 
 import java.io.IOException;
@@ -15,14 +19,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserPostsAPI {
 
+    private MutableLiveData<List<Post_Item>> postListData;
+
     private Retrofit retrofit;
     private WebServiceAPI webServiceAPI;
+
+    private PostDao postDao;
+
+    private FeedDao feedDao;
 
     public UserPostsAPI() {
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://192.168.0.103:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://192.168.1.23:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -31,29 +41,50 @@ public class UserPostsAPI {
 
 
     public void createPost(String username, String text, String picture, String authToken) {
-        Call<Void> call = webServiceAPI.createPost(username, text, picture, authToken);
-        call.enqueue(new Callback<Void>() {
+        Call<Post_Item> call = webServiceAPI.createPost(username, text, picture, authToken);
+        call.enqueue(new Callback<Post_Item>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Log.d("PostAPI", "Post created successfully");
-                    // Handle successful creation of the post, if needed
-                } else {
-                    try {
-                        String errorMessage = response.errorBody().string();
-                        Log.d("PostAPI", "Failed to create post. Response code: " + response.code() + ", Error message: " + errorMessage);
-                    } catch (IOException e) {
-                        Log.e("PostAPI", "Error reading error message: " + e.getMessage());
-                    }
-                }
+            public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
+
+                new Thread(() -> {
+                    // Insert the newly created post into the local database
+                    Post_Item postItem = response.body();
+
+                    //need to change it to be from the server, something like:
+                    //feedDao.createPost(response.body());
+                    postDao.createPost(postItem);
+
+
+                    List<Post_Item> updatedPosts = postDao.getUserPosts("Eden");
+
+                    // Update the LiveData with the updated list of posts
+                    postListData.postValue(updatedPosts);
+                }).start();
+
+//                if (response.isSuccessful()) {
+//
+//
+//
+//                    Log.d("PostAPI", "Post created successfully");
+//                    // Handle successful creation of the post, if needed
+//                } else {
+//                    try {
+//                        String errorMessage = response.errorBody().string();
+//                        Log.d("PostAPI", "Failed to create post. Response code: " + response.code() + ", Error message: " + errorMessage);
+//                    } catch (IOException e) {
+//                        Log.e("PostAPI", "Error reading error message: " + e.getMessage());
+//                    }
+//                }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Post_Item> call, Throwable t) {
                 Log.e("PostAPI", "Failed to create post. Error: " + t.getMessage());
             }
         });
     }
+
+
 
     public void getUserPosts(String username, String authToken) {
         Call<List<Post_Item>> call = webServiceAPI.getUserPosts(username, authToken);

@@ -86,7 +86,7 @@ public interface WebServiceAPI {
 
     @POST("users/{id}/posts")
     @FormUrlEncoded
-    Call<Void> createPost(
+    Call<Post_Item> createPost(
             @Path("id") String username,
             @Field("text") String text,
             @Field("picture") String picture,
