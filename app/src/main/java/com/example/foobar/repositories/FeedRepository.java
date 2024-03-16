@@ -25,8 +25,8 @@ public class FeedRepository {
 
 
     public FeedRepository(Context context) {
-        //AppDB db = AppDB.getInstance(context);
-       // feedDao = db.feedDao();
+        AppDB db = AppDB.getInstance(context);
+        feedDao = db.feedDao();
         postListData = new PostListData();
         postsAPI = new PostsAPI(postListData, feedDao);
     }
@@ -67,8 +67,8 @@ public class FeedRepository {
         public PostListData() {
             super();
             List<Post_Item> posts = new LinkedList<Post_Item>();
-            posts.add(new Post_Item("im testing noga coda","wow.png","Eden",true));
-            posts.add(new Post_Item("make america great again","eagle.png","Tramp",false));
+//            posts.add(new Post_Item("im testing noga coda","wow.png","Eden",true));
+//            posts.add(new Post_Item("make america great again","eagle.png","Tramp",false));
 
             setValue(posts) ;
             //setValue(new LinkedList<Post_Item>()) ;
@@ -78,13 +78,13 @@ public class FeedRepository {
         @Override
         protected  void  onActive() { //extract the data from the local dbm and update live data
             super.onActive();
-//            new Thread(()->{
-//                postListData.postValue(feedDao.getPostsFromFriends("Eden"));
-//                postListData.postValue(feedDao.getPostsFromNonFriends("Eden"));
-//            }).start();
+            new Thread(()->{
+                postListData.postValue(feedDao.getPostsFromFriends("Eden"));
+                postListData.postValue(feedDao.getPostsFromNonFriends("Eden"));
+            }).start();
 
 
-            String jwtTokenRoey ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA0ODkzOTEsImV4cCI6MTcxMDU3NTc5MX0.NoiQyjG3U-STzXz7E5B-3fNlN4wYt7SyeNjPX2-8-0w";
+            String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA2MTA4NDEsImV4cCI6MTcxMDY5NzI0MX0.UafMDeAaOFAfGGbsfTA2ugWlEuLHB1Yqg1Z8yYeFoew";
             postsAPI.getPosts( "Bearer "+ jwtTokenRoey); //for example if roey is logged in
         }
 
