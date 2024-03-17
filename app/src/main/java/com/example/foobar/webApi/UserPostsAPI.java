@@ -113,15 +113,28 @@ public class UserPostsAPI {
         });
     }
 
-
-    public void deletePost(String username, String postId, String authToken) {
-        Call<Void> call = webServiceAPI.deletePost(username, postId, authToken);
-        call.enqueue(new Callback<Void>() {
+    public void deletePost(int localId, String username, String postId, String authToken) {
+        Call<Post_Item> call = webServiceAPI.deletePost(username, postId, authToken);
+        call.enqueue(new Callback<Post_Item>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
                 if (response.isSuccessful()) {
-                    Log.d("PostAPI", "Post deleted successfully");
-                    // Optionally, perform any action after successful deletion
+                    Post_Item deletedPost = response.body();
+                    if (deletedPost != null) {
+                        new Thread(() -> {
+                            // Delete the post from local database
+                            postDao.deletePost(localId);
+
+                            // Update LiveData with updated list of posts
+                            List<Post_Item> updatedPosts = new ArrayList<>(postListData.getValue());
+                            updatedPosts.remove(deletedPost);
+                            postListData.postValue(updatedPosts);
+                        }).start();
+
+                        Log.d("PostAPI", "Post deleted successfully");
+                    } else {
+                        Log.d("PostAPI", "Failed to delete post. No deleted post in response.");
+                    }
                 } else {
                     Log.d("PostAPI", "Failed to delete post. Response code: " + response.code());
                     // Handle unsuccessful response, if needed
@@ -129,42 +142,44 @@ public class UserPostsAPI {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Post_Item> call, Throwable t) {
                 Log.e("PostAPI", "Failed to delete post: " + t.getMessage());
                 // Handle the failure scenario, such as displaying an error message to the user
             }
         });
     }
 
-    //
-    public void updatePost(String username, String postId, String fieldName, String fieldValue, String authToken) {
-        Call<Post_Item> call = webServiceAPI.updatePost(username, postId, fieldName, fieldValue, authToken);
-        call.enqueue(new Callback<Post_Item>() {
-            @Override
-            public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
-                if (response.isSuccessful()) {
-                    Post_Item updatedPost = response.body();
-                    if (updatedPost != null) {
-                        Log.d("PostAPI", "Post updated successfully: " + updatedPost.toString());
-                    } else {
-                        Log.e("PostAPI", "Received null response body");
-                    }
-                } else {
-                    try {
-                        String errorMessage = response.errorBody().string();
-                        Log.d("PostAPI", "Failed to update post. Response code: " + response.code() + ", Error message: " + errorMessage);
-                    } catch (IOException e) {
-                        Log.e("PostAPI", "Error reading error message: " + e.getMessage());
-                    }
-                }
-            }
 
-            @Override
-            public void onFailure(Call<Post_Item> call, Throwable t) {
-                Log.e("PostAPI", "Failed to update post: " + t.getMessage());
-            }
-        });
-    }
+
+//    //
+//    public void updatePost(String username, String postId, String fieldName, String fieldValue, String authToken) {
+//        Call<Post_Item> call = webServiceAPI.updatePost(username, postId, fieldName, fieldValue, authToken);
+//        call.enqueue(new Callback<Post_Item>() {
+//            @Override
+//            public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
+//                if (response.isSuccessful()) {
+//                    Post_Item updatedPost = response.body();
+//                    if (updatedPost != null) {
+//                        Log.d("PostAPI", "Post updated successfully: " + updatedPost.toString());
+//                    } else {
+//                        Log.e("PostAPI", "Received null response body");
+//                    }
+//                } else {
+//                    try {
+//                        String errorMessage = response.errorBody().string();
+//                        Log.d("PostAPI", "Failed to update post. Response code: " + response.code() + ", Error message: " + errorMessage);
+//                    } catch (IOException e) {
+//                        Log.e("PostAPI", "Error reading error message: " + e.getMessage());
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Post_Item> call, Throwable t) {
+//                Log.e("PostAPI", "Failed to update post: " + t.getMessage());
+//            }
+//        });
+//    }
 
 
 }

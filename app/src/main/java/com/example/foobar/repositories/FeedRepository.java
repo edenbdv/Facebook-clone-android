@@ -50,10 +50,14 @@ public class FeedRepository {
         String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userPostsAPI.createPost(username,text,picture,authToken);
-
-        // need to add dao !!!!!!!!!!!!! (in api..)
     }
 
+
+    public void  deletePost(int localId,String username, String postId) {
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
+        String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
+        userPostsAPI.deletePost(localId, username, postId, authToken);
+    }
 
 
 
@@ -78,8 +82,6 @@ public class FeedRepository {
 
             String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
             postsAPI.getPosts( "Bearer "+ jwtTokenRoey); //for example if roey is logged in
-
-
         }
 
 
