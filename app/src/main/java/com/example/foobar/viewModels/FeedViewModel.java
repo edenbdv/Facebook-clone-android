@@ -29,10 +29,6 @@ public class FeedViewModel extends ViewModel {
 
     }
 
-    // Method to set post data
-//    public void setPosts(List<Post_Item> posts) {
-//        postsLiveData.setValue(posts);
-//    }
 
 
     // Expose LiveData to observe posts
@@ -40,12 +36,15 @@ public class FeedViewModel extends ViewModel {
         return posts;
     }
 
-    // Method to fetch posts from the repository
-//    public LiveData<List<Post_Item>> getPosts(String username) {
-//        return feedRepository.getPosts(username);
-//    }
 
+    public  void  createPost(Post_Item postItem)  {
+        String username = postItem.getCreatedBy();
+        String text = postItem.getText();
+        String picture = postItem.getPicture();
 
+       // String authToken =
+        feedRepository.createPost(username, text, picture);
+    }
 
 
 }

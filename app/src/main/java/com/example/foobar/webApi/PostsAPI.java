@@ -31,7 +31,7 @@ public class PostsAPI {
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://192.168.1.24:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://192.168.1.25:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -39,12 +39,53 @@ public class PostsAPI {
     }
 
 
+//    public void getPosts(String authToken) {
+//        Call<List<Post_Item>> call = webServiceAPI.getPosts(authToken);
+//        call.enqueue(new Callback<List<Post_Item>>() {
+//            @Override
+//            public void onResponse(Call<List<Post_Item>> call, Response<List<Post_Item>> response) {
+//                Log.e("PostsAPI", "yay");
+//
+//                new Thread(() -> {
+//                    // Perform database operations asynchronously
+//                    feedDao.clear(); // Clear existing data in the table
+//                    feedDao.insertList(response.body()); // Insert new data into the table (maybe need here feed.get??)
+//                }).start();
+//
+//                postListData.setValue(response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Post_Item>> call, Throwable t) {
+//                Log.e("PostsAPI", "Failed to get posts: " + t.getMessage());
+//            }
+//        });
+//    }
+
+
     public void getPosts(String authToken) {
         Call<List<Post_Item>> call = webServiceAPI.getPosts(authToken);
         call.enqueue(new Callback<List<Post_Item>>() {
             @Override
             public void onResponse(Call<List<Post_Item>> call, Response<List<Post_Item>> response) {
-                    postListData.setValue(response.body());
+                if (response.isSuccessful()) {
+                    Log.e("PostsAPI", "Posts retrieved successfully");
+
+                    List<Post_Item> posts = response.body();
+                    if (posts != null) {
+                        // Perform database operations asynchronously
+                        new Thread(() -> {
+                            feedDao.clear(); // Clear existing data in the table
+                            feedDao.insertList(posts); // Insert new data into the table
+                        }).start();
+
+                        postListData.setValue(posts); // Update LiveData with new data
+                    } else {
+                        Log.e("PostsAPI", "Response body is null");
+                    }
+                } else {
+                    Log.e("PostsAPI", "Failed to get posts: " + response.message());
+                }
             }
 
             @Override
@@ -53,4 +94,6 @@ public class PostsAPI {
             }
         });
     }
+
+
 }

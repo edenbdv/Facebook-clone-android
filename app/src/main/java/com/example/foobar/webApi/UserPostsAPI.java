@@ -9,6 +9,7 @@ import com.example.foobar.daos.PostDao;
 import com.example.foobar.entities.Post_Item;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -24,20 +25,28 @@ public class UserPostsAPI {
     private Retrofit retrofit;
     private WebServiceAPI webServiceAPI;
 
+    private MutableLiveData<Post_Item> postData;
+
+
     private PostDao postDao;
 
-    private FeedDao feedDao;
+   // private FeedDao feedDao;
 
-    public UserPostsAPI() {
+    public UserPostsAPI(MutableLiveData<List<Post_Item>> postListData,PostDao postDao) {
+
+        this.postListData = postListData;
+        this.postDao = postDao;
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://192.168.1.23:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://192.168.1.25:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
+
+
 
 
     public void createPost(String username, String text, String picture, String authToken) {
@@ -50,31 +59,17 @@ public class UserPostsAPI {
                     // Insert the newly created post into the local database
                     Post_Item postItem = response.body();
 
-                    //need to change it to be from the server, something like:
-                    //feedDao.createPost(response.body());
+                    //need to change also room:
+
                     postDao.createPost(postItem);
-
-
-                    List<Post_Item> updatedPosts = postDao.getUserPosts("Eden");
+                    List<Post_Item> updatedPosts =  new ArrayList<>(postListData.getValue());
+                    updatedPosts.add(postItem);
 
                     // Update the LiveData with the updated list of posts
+
                     postListData.postValue(updatedPosts);
                 }).start();
 
-//                if (response.isSuccessful()) {
-//
-//
-//
-//                    Log.d("PostAPI", "Post created successfully");
-//                    // Handle successful creation of the post, if needed
-//                } else {
-//                    try {
-//                        String errorMessage = response.errorBody().string();
-//                        Log.d("PostAPI", "Failed to create post. Response code: " + response.code() + ", Error message: " + errorMessage);
-//                    } catch (IOException e) {
-//                        Log.e("PostAPI", "Error reading error message: " + e.getMessage());
-//                    }
-//                }
             }
 
             @Override

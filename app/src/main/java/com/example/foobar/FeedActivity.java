@@ -84,7 +84,11 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
     @Override
     public void onPostAdded(Post_Item newPost) {
         //adapterFeed.addPost(newPost); // Add the new post to the RecyclerView
-        adapterFeed.getPosts().add(0, newPost); // Add the new post to the beginning of the list
+        //adapterFeed.getPosts().add(0, newPost); // Add the new post to the beginning of the list
+
+
+        newPost.setCreatedBy("Roey");
+        feedViewModel.createPost(newPost);
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 
