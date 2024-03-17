@@ -11,55 +11,30 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.foobar.entities.Post_Item;
 import com.example.foobar.entities.User_Item;
+import com.example.foobar.repositories.FeedRepository;
 import com.example.foobar.repositories.UsersRepository;
 
 import java.util.List;
 
-public class UserViewModel extends AndroidViewModel {
+public class UserViewModel extends ViewModel {
 
-    private MutableLiveData<User_Item> userItemLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<Post_Item>> postsLiveData = new MutableLiveData<>();
+    private LiveData<String> tokenLiveData;
     private UsersRepository userRepository;
-    public UserViewModel(@NonNull Application application) {
-        super(application);
-        userRepository = new UsersRepository(application);
+
+    public UserViewModel() {
     }
 
-    // Method to create a new user
-    public void createUser(User_Item user) {
-        userRepository.createUser(user);
+    public void initRepo(Context context) {
+        userRepository = new UsersRepository(context);
+        // Initialize LiveData from repository
+        tokenLiveData = userRepository.getToken();
+
+    }
+    // Method to retrieve token LiveData
+    public LiveData<String> getTokenLiveData() {
+        return tokenLiveData;
     }
 
-    // Method to delete a user
-    public void deleteUser(String username) {
-        userRepository.deleteUser(username);
-    }
-
-    // Method to get the current user data
-    public LiveData<User_Item> getCurrentUser(String username) {
-        return userRepository.getUser(username);
-    }
-
-     //Method to get all posts of the current user
-//    public LiveData<List<Post_Item>> getUserPosts(String username) {
-//        return userRepository.getUserPosts(username);
-//    }
-
-
-    // Method to create a new post
-//    public void createPost(String username, String text, String picture, String authToken) {
-//        userRepository.createPost(username, text, picture, authToken);
-//    }
-
-    // Method to set user data
-    public void setUserItem(User_Item userItem) {
-        userItemLiveData.setValue(userItem);
-    }
-
-    // Method to set post data
-    public void setPosts(List<Post_Item> posts) {
-        postsLiveData.setValue(posts);
-    }
 
 
 }

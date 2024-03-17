@@ -56,6 +56,7 @@ public class UserPostsAPI {
     }
 
     public void getUserPosts(String username, String authToken) {
+        //return webServiceAPI.getUserPosts(username, authToken);
         Call<List<Post_Item>> call = webServiceAPI.getUserPosts(username, authToken);
         call.enqueue(new Callback <List<Post_Item>>() {
             @Override

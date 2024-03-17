@@ -29,7 +29,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FooBar" >
+        android:theme="@style/Theme.FooBar"
+        android:usesCleartextTraffic="true" >
         <activity
             android:name="com.example.foobar.FeedActivityTry"
             android:exported="false" />

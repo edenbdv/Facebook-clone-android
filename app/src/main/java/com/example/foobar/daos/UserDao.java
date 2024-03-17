@@ -46,4 +46,10 @@ public interface UserDao {
     void deleteUser(String username);
 
 
+
+    // check if user exists and password matches (if >0 , correct details)
+    @Query("SELECT COUNT(*) FROM User_Item WHERE username = :username AND password = :password")
+    int validateUser(String username, String password);
+
+
 }

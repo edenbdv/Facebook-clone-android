@@ -18,10 +18,7 @@ public interface PostDao {
     @Query("SELECT * FROM Post_Item WHERE createdBy = :username ORDER BY createdAt DESC")
     List<Post_Item> getUserPosts(String username);
 
-
-
     // update new user by specific field
-
     @Query("UPDATE Post_Item SET text = :newText WHERE id = :id")
     void updateText(int id, String newText);
 

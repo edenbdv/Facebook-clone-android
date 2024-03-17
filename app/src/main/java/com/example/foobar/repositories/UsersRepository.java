@@ -1,6 +1,7 @@
 package com.example.foobar.repositories;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,69 +13,46 @@ import com.example.foobar.viewModels.UserViewModel;
 import com.example.foobar.webApi.UserAPI;
 import com.example.foobar.webApi.UserPostsAPI;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Executor;
 
-
-import java.util.LinkedList;
 import java.util.List;
 
 public class UsersRepository {
+
     private UserDao userDao;
     private UserAPI userAPI;
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
-    //private PostListData userPosts;
+    private TokenLiveData token;
 
     public UsersRepository(Context context) {
-        AppDB userDatabase = AppDB.getInstance(context);
-        userDao = userDatabase.userDao();
-        userAPI = new UserAPI();
-
-        //userPosts = new PostListData(postDao);
-        //userData = new UserData(userDao);
+        userDao = AppDB.getInstance(context).userDao();
+        token= new TokenLiveData("Noga", "Noga1234");
+        userAPI = new UserAPI(token, userDao);
     }
 
-    public LiveData<User_Item> getUser(String username) {
-        MutableLiveData<User_Item> userData = new MutableLiveData<>();
-
-        // Perform data fetching asynchronously
-        Executors.newSingleThreadExecutor().execute(() -> {
-            // Access the DAO to fetch user data
-            User_Item user = userDao.getFullUserData(username);
-
-            // Post the fetched user data to the LiveData
-            userData.postValue(user);
-        });
-
-        return userData;
+    public LiveData<String> getToken() {
+        return token;
     }
 
 
-//    public void createUser(User_Item user) {
-//        userDao.createUser(user);
-//        userAPI.createUser(user);
-//    }
+    class TokenLiveData extends MutableLiveData<String> {
+        private final String username;
+        private final String password;
 
-    public void createUser(User_Item user) {
-        executor.execute(() -> {
-            // Perform database operation asynchronously
-            userDao.createUser(user);
-            userAPI.createUser(user);
-        });
-    }
+        public TokenLiveData(String username, String password) {
+            super();
+            this.username = username;
+            this.password = password;
+            setValue("");
+        }
 
-//    public void deleteUser(String username) {
-//        userDao.deleteUser(username);
-//        //userAPI.deleteUser(username);
-//    }
+        @Override
+        protected void onActive() {
+            super.onActive();
+            new Thread(()-> {
+                // Logic to generate token when LiveData becomes active
+                userAPI.createToken(username, password);
+            }).start();
+        }
 
-    public void deleteUser(String username) {
-        executor.execute(() -> {
-            // Perform database operation asynchronously
-            userDao.deleteUser(username);
-            //userAPI.deleteUser(username);
-        });
     }
 
 }
