@@ -3,18 +3,17 @@ package com.example.foobar.daos;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.foobar.entities.Friendship;
+import com.example.foobar.entities.Post_Item;
 
 import java.util.List;
 
 @Dao
 public interface FriendshipDao {
 
-    // add new friendship
-    @Insert
-    void insert(Friendship friendship);
 
     // delete friendship
     @Delete
@@ -26,5 +25,19 @@ public interface FriendshipDao {
             "FROM friendships WHERE user1_username = :username OR user2_username = :username")
     List<String> getUserFriends(String username);
 
+
+
+    @Query("DELETE FROM friendships")
+    void clear();
+
+
+    //inset list of friendships
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertList(List<Friendship> friendships);
+
+
+    // insert one friendship
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(Friendship friendship);
 
 }

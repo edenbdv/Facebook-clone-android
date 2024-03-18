@@ -6,6 +6,7 @@ import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
+import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import com.example.foobar.entities.Friendship;
@@ -25,13 +26,15 @@ public final class FriendshipDao_Impl implements FriendshipDao {
 
   private final EntityDeletionOrUpdateAdapter<Friendship> __deletionAdapterOfFriendship;
 
+  private final SharedSQLiteStatement __preparedStmtOfClear;
+
   public FriendshipDao_Impl(@NonNull final RoomDatabase __db) {
     this.__db = __db;
     this.__insertionAdapterOfFriendship = new EntityInsertionAdapter<Friendship>(__db) {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR ABORT INTO `friendships` (`user1_username`,`user2_username`) VALUES (?,?)";
+        return "INSERT OR REPLACE INTO `friendships` (`user1_username`,`user2_username`) VALUES (?,?)";
       }
 
       @Override
@@ -71,6 +74,26 @@ public final class FriendshipDao_Impl implements FriendshipDao {
         }
       }
     };
+    this.__preparedStmtOfClear = new SharedSQLiteStatement(__db) {
+      @Override
+      @NonNull
+      public String createQuery() {
+        final String _query = "DELETE FROM friendships";
+        return _query;
+      }
+    };
+  }
+
+  @Override
+  public void insertList(final List<Friendship> friendships) {
+    __db.assertNotSuspendingTransaction();
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfFriendship.insert(friendships);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
   }
 
   @Override
@@ -94,6 +117,23 @@ public final class FriendshipDao_Impl implements FriendshipDao {
       __db.setTransactionSuccessful();
     } finally {
       __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void clear() {
+    __db.assertNotSuspendingTransaction();
+    final SupportSQLiteStatement _stmt = __preparedStmtOfClear.acquire();
+    try {
+      __db.beginTransaction();
+      try {
+        _stmt.executeUpdateDelete();
+        __db.setTransactionSuccessful();
+      } finally {
+        __db.endTransaction();
+      }
+    } finally {
+      __preparedStmtOfClear.release(_stmt);
     }
   }
 

@@ -2,10 +2,17 @@ package com.example.foobar.viewModels;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.example.foobar.repositories.FeedRepository;
+import com.example.foobar.repositories.UsersRepository;
+
 import java.util.List;
 
 public class FriendsViewModel extends ViewModel {
     private MutableLiveData<List<String>> friendListLiveData = new MutableLiveData<>();
+
+    private UsersRepository usersRepository;
+
 
     // Method to fetch the friend list
     public void fetchFriendList() {
@@ -19,6 +26,11 @@ public class FriendsViewModel extends ViewModel {
     // LiveData to observe friend list data changes
     public LiveData<List<String>> getFriendList() {
         return friendListLiveData;
+    }
+
+
+    public void  getUserFriends(String username) {
+        usersRepository.getUserFriends(username);
     }
 }
 
