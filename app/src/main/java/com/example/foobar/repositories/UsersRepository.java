@@ -24,8 +24,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UsersRepository {
-
-    private PostDao postDao;
     private UserDao userDao;
     private UserAPI userAPI;
 
@@ -36,55 +34,21 @@ public class UsersRepository {
     public UsersRepository(Context context) {
         AppDB userDatabase = AppDB.getInstance(context);
         userDao = userDatabase.userDao();
-        userAPI = new UserAPI();
-
-        //userPosts = new PostListData(postDao);
-        //userData = new UserData(userDao);
+        userAPI = new UserAPI(userDao);  //maybe need to add live data here??
     }
 
-//    public LiveData<User_Item> getUser(String username) {
-//        MutableLiveData<User_Item> userData = new MutableLiveData<>();
-//
-//        // Perform data fetching asynchronously
-//        Executors.newSingleThreadExecutor().execute(() -> {
-//            // Access the DAO to fetch user data
-//            User_Item user = userDao.getFullUserData(username);
-//
-//            // Post the fetched user data to the LiveData
-//            userData.postValue(user);
-//        });
-//
-//        return userData;
-//    }
-//
-//
-////    public void createUser(User_Item user) {
-////        userDao.createUser(user);
-////        userAPI.createUser(user);
-////    }
-//
-//    public void createUser(User_Item user) {
-//        executor.execute(() -> {
-//            // Perform database operation asynchronously
-//            userDao.createUser(user);
-//            userAPI.createUser(user);
-//        });
-//    }
-//
-////    public void deleteUser(String username) {
-////        userDao.deleteUser(username);
-////        //userAPI.deleteUser(username);
-////    }
-//
-//    public void deleteUser(String username) {
-//        executor.execute(() -> {
-//            // Perform database operation asynchronously
-//            userDao.deleteUser(username);
-//            //userAPI.deleteUser(username);
-//        });
-//    }
+    public void deleteUser(String username) {
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
+        String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
+        userAPI.deleteUser(username,authToken);
+        //userDao.deleteUser(username);
+    }
 
 
-
+    public void  updateUser(String username, String fieldName, String fieldValue) {
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
+        String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
+        userAPI.updateUser(username,fieldName,fieldValue, authToken);
+    }
 
 }

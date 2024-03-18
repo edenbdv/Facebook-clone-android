@@ -2,10 +2,14 @@ package com.example.foobar.webApi;
 
 import android.util.Log;
 
+import com.example.foobar.daos.UserDao;
+import com.example.foobar.entities.Post_Item;
 import com.example.foobar.entities.TokenRes;
 import com.example.foobar.entities.User_Item;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,7 +21,11 @@ public class UserAPI {
     private Retrofit retrofit;
     private WebServiceAPI webServiceAPI;
 
-    public UserAPI() {
+    private  UserDao userDao;
+
+    public UserAPI(UserDao userDao) {
+
+        this.userDao = userDao;
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
@@ -109,6 +117,8 @@ public class UserAPI {
         });
     }
 
+
+
     public void updateUser(String username,String fieldName, String fieldValue, String authToken) {
         Call<User_Item> call = webServiceAPI.updateUser(username, fieldName,fieldValue, authToken);
         call.enqueue(new Callback<User_Item>() {
@@ -116,10 +126,17 @@ public class UserAPI {
             public void onResponse(Call<User_Item> call, Response<User_Item> response) {
                 if (response.isSuccessful()) {
                     User_Item updatedUser = response.body();
-                    Log.d("UserAPI", "User updated successfully: " +updatedUser);
-                    // Handle updated user data here
-                } else {
-                    Log.d("UserAPI", "Failed to update user. Response code: " + response.code());
+
+                    if (updatedUser != null) {
+                        Log.d("UserAPI", "User updated successfully: " + updatedUser);
+
+                        new Thread(() -> {
+                            userDao.updateUser(updatedUser);
+                        }).start();
+
+                    } else {
+                        Log.d("UserAPI", "Failed to update user. Response code: " + response.code());
+                    }
                 }
             }
 
@@ -131,13 +148,65 @@ public class UserAPI {
     }
 
 
+
+//
+//    public void updatePost(String username, String postId, String fieldName, String fieldValue, String authToken) {
+//        Call<Post_Item> call = webServiceAPI.updatePost(username, postId, fieldName, fieldValue, authToken);
+//        call.enqueue(new Callback<Post_Item>() {
+//            @Override
+//            public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
+//
+//
+//                if (response.isSuccessful()) {
+//                    Post_Item updatedPost = response.body();
+//                    if (updatedPost != null) {
+//                        Log.d("PostAPI", "Post updated successfully: " + updatedPost.toString());
+//
+//                        new Thread(() -> {
+//                            // Insert the newly updated post into the local database
+//                            Post_Item postItem = response.body();
+//                            postDao.updatePost(postItem);
+//
+//                            List<Post_Item> updatedPosts =  new ArrayList<>(postListData.getValue());
+//                            updatedPosts.add(postItem);
+//
+//                            // Update the LiveData with the updated list of posts
+//                            postListData.postValue(updatedPosts);
+//                        }).start();
+//
+//
+//
+//                    } else {
+//                        Log.e("PostAPI", "Received null response body");
+//                    }
+//                } else {
+//                    try {
+//                        String errorMessage = response.errorBody().string();
+//                        Log.d("PostAPI", "Failed to update post. Response code: " + response.code() + ", Error message: " + errorMessage);
+//                    } catch (IOException e) {
+//                        Log.e("PostAPI", "Error reading error message: " + e.getMessage());
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Post_Item> call, Throwable t) {
+//                Log.e("PostAPI", "Failed to update post: " + t.getMessage());
+//            }
+//        });
+//    }
+
+
     public void deleteUser(String username, String authToken) {
         Call<Void> call = webServiceAPI.deleteUser(username, authToken);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    // Handle successful deletion
+                        new Thread(() -> {
+                            userDao.deleteUser(username);
+                        }).start();
+
                     Log.d("UserAPI", "User deleted successfully");
                 } else {
                     // Handle unsuccessful response
@@ -154,3 +223,4 @@ public class UserAPI {
     }
 
 }
+

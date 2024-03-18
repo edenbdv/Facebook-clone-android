@@ -39,30 +39,6 @@ public class PostsAPI {
     }
 
 
-//    public void getPosts(String authToken) {
-//        Call<List<Post_Item>> call = webServiceAPI.getPosts(authToken);
-//        call.enqueue(new Callback<List<Post_Item>>() {
-//            @Override
-//            public void onResponse(Call<List<Post_Item>> call, Response<List<Post_Item>> response) {
-//                Log.e("PostsAPI", "yay");
-//
-//                new Thread(() -> {
-//                    // Perform database operations asynchronously
-//                    feedDao.clear(); // Clear existing data in the table
-//                    feedDao.insertList(response.body()); // Insert new data into the table (maybe need here feed.get??)
-//                }).start();
-//
-//                postListData.setValue(response.body());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Post_Item>> call, Throwable t) {
-//                Log.e("PostsAPI", "Failed to get posts: " + t.getMessage());
-//            }
-//        });
-//    }
-
-
     public void getPosts(String authToken) {
         Call<List<Post_Item>> call = webServiceAPI.getPosts(authToken);
         call.enqueue(new Callback<List<Post_Item>>() {

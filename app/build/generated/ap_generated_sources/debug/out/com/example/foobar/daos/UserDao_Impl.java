@@ -2,6 +2,7 @@ package com.example.foobar.daos;
 
 import android.database.Cursor;
 import androidx.annotation.NonNull;
+import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
@@ -22,6 +23,8 @@ public final class UserDao_Impl implements UserDao {
   private final RoomDatabase __db;
 
   private final EntityInsertionAdapter<User_Item> __insertionAdapterOfUser_Item;
+
+  private final EntityDeletionOrUpdateAdapter<User_Item> __updateAdapterOfUser_Item;
 
   private final SharedSQLiteStatement __preparedStmtOfUpdateUsername;
 
@@ -63,6 +66,42 @@ public final class UserDao_Impl implements UserDao {
           statement.bindNull(4);
         } else {
           statement.bindString(4, entity.getProfilePic());
+        }
+      }
+    };
+    this.__updateAdapterOfUser_Item = new EntityDeletionOrUpdateAdapter<User_Item>(__db) {
+      @Override
+      @NonNull
+      protected String createQuery() {
+        return "UPDATE OR ABORT `User_Item` SET `username` = ?,`password` = ?,`displayName` = ?,`profilePic` = ? WHERE `username` = ?";
+      }
+
+      @Override
+      protected void bind(@NonNull final SupportSQLiteStatement statement, final User_Item entity) {
+        if (entity.getUsername() == null) {
+          statement.bindNull(1);
+        } else {
+          statement.bindString(1, entity.getUsername());
+        }
+        if (entity.getPassword() == null) {
+          statement.bindNull(2);
+        } else {
+          statement.bindString(2, entity.getPassword());
+        }
+        if (entity.getDisplayName() == null) {
+          statement.bindNull(3);
+        } else {
+          statement.bindString(3, entity.getDisplayName());
+        }
+        if (entity.getProfilePic() == null) {
+          statement.bindNull(4);
+        } else {
+          statement.bindString(4, entity.getProfilePic());
+        }
+        if (entity.getUsername() == null) {
+          statement.bindNull(5);
+        } else {
+          statement.bindString(5, entity.getUsername());
         }
       }
     };
@@ -114,6 +153,18 @@ public final class UserDao_Impl implements UserDao {
     __db.beginTransaction();
     try {
       __insertionAdapterOfUser_Item.insert(user);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void updateUser(final User_Item user) {
+    __db.assertNotSuspendingTransaction();
+    __db.beginTransaction();
+    try {
+      __updateAdapterOfUser_Item.handle(user);
       __db.setTransactionSuccessful();
     } finally {
       __db.endTransaction();

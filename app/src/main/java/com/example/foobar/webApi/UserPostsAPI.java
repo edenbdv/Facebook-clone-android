@@ -27,10 +27,8 @@ public class UserPostsAPI {
 
     private MutableLiveData<Post_Item> postData;
 
-
     private PostDao postDao;
 
-   // private FeedDao feedDao;
 
     public UserPostsAPI(MutableLiveData<List<Post_Item>> postListData,PostDao postDao) {
 
