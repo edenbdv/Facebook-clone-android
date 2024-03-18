@@ -2,6 +2,7 @@ package com.example.foobar.daos;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.foobar.entities.Post_Item;
@@ -35,12 +36,21 @@ public interface PostDao {
     @Query("DELETE FROM Post_Item WHERE id = :id")
     void deletePost(int id);
 
-
-
     // use in case the user was deleted from the system
     @Query("DELETE FROM Post_Item WHERE createdBy = :userName")
 
     void deletePostByUser(String userName);
+
+    @Query("DELETE FROM Post_Item")
+    void clear();
+
+    //inset list of posts
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertList(List<Post_Item> postItems);
+
+    // insert one post
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(Post_Item postItem);
 
 
 }

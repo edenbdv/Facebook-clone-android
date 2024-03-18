@@ -7,13 +7,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.foobar.daos.UserDao;
 import com.example.foobar.AppDB;
-import com.example.foobar.entities.Post_Item;
 import com.example.foobar.entities.User_Item;
-import com.example.foobar.viewModels.UserViewModel;
 import com.example.foobar.webApi.UserAPI;
 import com.example.foobar.webApi.UserPostsAPI;
-
-
 import java.util.List;
 
 public class UsersRepository {
@@ -21,10 +17,12 @@ public class UsersRepository {
     private UserDao userDao;
     private UserAPI userAPI;
     private TokenLiveData token;
+    private String username;
+    private String password;
 
-    public UsersRepository(Context context) {
+    public UsersRepository(Context context, String username, String password) {
         userDao = AppDB.getInstance(context).userDao();
-        token= new TokenLiveData("Noga", "Noga1234");
+        token= new TokenLiveData(username, password);
         userAPI = new UserAPI(token, userDao);
     }
 
@@ -32,6 +30,16 @@ public class UsersRepository {
         return token;
     }
 
+    // Method to validate user credentials
+    public int validateUser(String username, String password) {
+        return userDao.validateUser(username, password);
+    }
+
+    public void createUser(User_Item user) {
+        new Thread(() -> userDao.createUser(user)).start();
+        userAPI.createUser(user);
+        Log.d("created user", user.getUsername());
+    }
 
     class TokenLiveData extends MutableLiveData<String> {
         private final String username;

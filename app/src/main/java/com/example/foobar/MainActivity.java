@@ -10,19 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.foobar.FeedActivity;
-import com.example.foobar.R;
-import com.example.foobar.SignUp;
-import com.example.foobar.entities.TokenRes;
-import com.example.foobar.repositories.UsersRepository;
-import com.example.foobar.viewModels.FeedViewModel;
 import com.example.foobar.viewModels.UserViewModel;
 import com.example.foobar.webApi.UserAPI;
 import android.util.Log;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         //userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.initRepo(this);
+
 
         usernameEditText = findViewById(R.id.editTextText);
         passwordEditText = findViewById(R.id.editTextTextPassword);
@@ -55,25 +45,32 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(v -> {
-            boolean isValid = validateForm();
-            if (isValid) {
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+            String username = usernameEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
+            userViewModel.initRepo(this, username, password);
 
-                //userAPI.createToken(username, password);
-
-                // Call the web API to create token
-                // Observe token LiveData
-                userViewModel.getTokenLiveData().observe(this, token -> {
-                    if (!token.isEmpty()) {
-                        // Token received, navigate to FeedActivity
-                        Log.d("Token", token);
-                        saveCurrentUserAndToken(username, token);
-                        navigateToFeedActivity(username);
+            // Perform user validation asynchronously
+            new Thread(() -> {
+                int result = userViewModel.validateUser(username, password);
+                runOnUiThread(() -> {
+                    if (result > 0) {
+                        // Valid user credentials, proceed with login
+                        // Call the web API to create token
+                        userViewModel.getTokenLiveData().observe(this, token -> {
+                            if (!token.isEmpty()) {
+                                // Token received, navigate to FeedActivity
+                                Log.d("Token", token);
+                                saveCurrentUserAndToken(username, token);
+                                navigateToFeedActivity(username);
+                            }
+                        });
+                    } else {
+                        // Invalid user credentials, show error message
+                        Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                     }
                 });
+            }).start();
 
-            }
         });
 
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
@@ -83,17 +80,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateForm() {
-        // Your validation logic here
-        return true;
-    }
 
     private void saveCurrentUserAndToken(String username, String token) {
         // Save the current user's username and token in SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("username", username);
+        Log.d("Saved username: ", username);
         editor.putString("token", token);
+        Log.d("Saved token: ", token);
         editor.apply();
     }
 

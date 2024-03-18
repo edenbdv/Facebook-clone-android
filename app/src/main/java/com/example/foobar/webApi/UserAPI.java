@@ -34,7 +34,7 @@ public class UserAPI {
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://192.168.0.103:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://192.168.0.106:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -83,36 +83,6 @@ public class UserAPI {
             }
         });
     }
-
-
-//    public void createToken(String username, String password) {
-//        // return webServiceAPI.createToken(username, password);
-//        Call<TokenRes> call = webServiceAPI.createToken(username, password);
-//        call.enqueue(new Callback<TokenRes>() {
-//            @Override
-//            public void onResponse(Call<TokenRes> call, Response<TokenRes> response) {
-//                if (response.isSuccessful()) {
-//                    TokenRes token = response.body();
-//                    Log.d("UserAPI", "Token received: " + token.getToken());
-//                    // Handle token response here
-//                } else {
-//                    try {
-//                        String errorMessage = response.errorBody().string();
-//                        Log.d("UserAPI", "Failed to create token. Response code: " + response.code() + ", Error message: " + errorMessage);
-//
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                    // Handle unsuccessful response
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<TokenRes> call, Throwable t) {
-//                Log.e("UserAPI", "Connection to server failed with error: " + t.getMessage());
-//
-//            }
-//        });
-//    }
 
 
     // ask noga how handle if the user itself/other user asked

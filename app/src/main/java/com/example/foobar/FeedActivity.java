@@ -1,6 +1,8 @@
 package com.example.foobar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -82,7 +84,12 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
     @Override
     public void onPostAdded(Post_Item newPost) {
         //adapterFeed.addPost(newPost); // Add the new post to the RecyclerView
-        adapterFeed.getPosts().add(0, newPost); // Add the new post to the beginning of the list
+        //adapterFeed.getPosts().add(0, newPost); // Add the new post to the beginning of the list
+
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        newPost.setCreatedBy(username);
+        feedViewModel.createPost(newPost);
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 

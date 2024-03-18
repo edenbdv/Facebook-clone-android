@@ -11,7 +11,6 @@ public interface UserDao {
 
     //according to  http://foo.com/api/users/:id
 
-
     // get user- data (username,displayName , profile pic) according to his username
     // need to change according to the token!!
     @Query("SELECT username, displayName, profilePic FROM User_Item WHERE username = :username")
@@ -45,11 +44,8 @@ public interface UserDao {
     @Query("DELETE FROM User_Item WHERE username = :username")
     void deleteUser(String username);
 
-
-
     // check if user exists and password matches (if >0 , correct details)
     @Query("SELECT COUNT(*) FROM User_Item WHERE username = :username AND password = :password")
     int validateUser(String username, String password);
-
 
 }

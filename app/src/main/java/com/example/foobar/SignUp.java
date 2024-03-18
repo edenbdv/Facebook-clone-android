@@ -38,7 +38,6 @@ public class SignUp extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
 
     private UserViewModel userViewModel;
-    private UsersRepository userRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userRepository = new UsersRepository(this);
+        userViewModel.initRepo(this, "", "");
 
         usernameEditText = findViewById(R.id.editTextUsername);
         passwordEditText = findViewById(R.id.editTextPassword);
@@ -143,9 +142,6 @@ public class SignUp extends AppCompatActivity {
         String confirmPassword = confirmPasswordEditText.getText().toString();
         String displayName = displayNameEditText.getText().toString();
 
-        // Retrieve all existing usernames from UsersData
-        //HashMap<String, HashMap<String, String>> allUsers = UsersData.getAllUsers();
-
         // Validate username
         if (username.isEmpty()) {
             usernameEditText.setError("Username is required");
@@ -204,7 +200,7 @@ public class SignUp extends AppCompatActivity {
             profilePictureUri = imageUri.toString();
         }
         User_Item newUser = new User_Item(username, password, displayName, profilePictureUri);
-        //userViewModel.createUser(newUser);
+        userViewModel.createUser(newUser);
     }
 
 

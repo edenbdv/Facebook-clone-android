@@ -3,6 +3,7 @@ package com.example.foobar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foobar.viewModels.FriendsViewModel;
+import com.example.foobar.viewModels.UserPostsViewModel;
 import com.example.foobar.viewModels.UserViewModel;
 import com.example.foobar.adapters.Adapter_Profile;
 import com.example.foobar.entities.Post_Item;
@@ -26,6 +28,7 @@ import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private UserPostsViewModel userPostsViewModel;
     private UserViewModel userViewModel;
     private Adapter_Profile profileAdapter;
     private FriendsViewModel friendsViewModel;
@@ -45,38 +48,34 @@ public class ProfileActivity extends AppCompatActivity {
         // Retrieve the username and token from SharedPreferences
         retrieveUserInfo();
 
-        // Retrieve the username from intent extras
-        if (getIntent().hasExtra(EXTRA_USERNAME)) {
-            username = getIntent().getStringExtra(EXTRA_USERNAME);
-        } else {
-            // Handle case where username is not provided
-            finish(); // Close the activity if username is not provided
-            return;
-        }
-
         // Initialize ViewModel
+        userPostsViewModel = new ViewModelProvider(this).get(UserPostsViewModel.class);
+        userPostsViewModel.initRepo(this);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         friendsViewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
 
         // Initialize adapter
         profileAdapter = new Adapter_Profile();
 
+        // Observe changes to user posts data
+        userPostsViewModel.getUserPosts(username).observe(this, new Observer<List<Post_Item>>() {
+            @Override
+            public void onChanged(List<Post_Item> posts) {
+                profileAdapter.setPosts(posts);
+            }
+        });
+
+        // Fetch user profile data
+//        userViewModel.getUser(username).observe(this, new Observer<User_Item>() {
+//            @Override
+//            public void onChanged(User_Item user) {
+//                updateUI(user);
+//            }
+//        });
+
         RecyclerView postList = findViewById(R.id.post_list);
         postList.setAdapter(profileAdapter);
         postList.setLayoutManager(new LinearLayoutManager(this));
-
-        // Observe changes to user data
-//        userViewModel.getCurrentUser(username).observe(this, user -> {
-//            // Update UI with user data
-//            updateUI(user);
-//        });
-
-        // Observe changes to user posts
-//        userViewModel.getUserPosts(username, "Bearer "+ authToken).observe(this, posts -> {
-//            // Update RecyclerView with user posts
-//            profileAdapter.setPosts(posts);
-//        });
-
 
         // Add click listener to the "View Friends" button
         Button viewFriendsButton = findViewById(R.id.view_friends_button);
@@ -102,7 +101,9 @@ public class ProfileActivity extends AppCompatActivity {
     private void retrieveUserInfo() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         username = sharedPreferences.getString("username", "");
+        Log.d("username", username);
         authToken = sharedPreferences.getString("token", "");
+        Log.d("token", authToken);
     }
 
     // Method to display friend list in a dialog
@@ -120,9 +121,5 @@ public class ProfileActivity extends AppCompatActivity {
         ImageView profilePicImageView = findViewById(R.id.profile_picture);
 
         usernameTextView.setText(user.getUsername());
-        // Set profile picture using user.getProfilePic()
-
-        // You can use an image loading library like Glide or Picasso to load the image from URL
-        // Glide.with(this).load(user.getProfilePic()).into(profilePicImageView);
     }
 }

@@ -34,6 +34,15 @@ public class FeedViewModel extends ViewModel {
         return posts;
     }
 
+    public  void  createPost(Post_Item postItem)  {
+        String username = postItem.getCreatedBy();
+        String text = postItem.getText();
+        String picture = postItem.getPicture();
+
+        // String authToken =
+        feedRepository.createPost(username, text, picture);
+    }
+
 
 
 

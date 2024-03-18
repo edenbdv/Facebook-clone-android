@@ -1,17 +1,8 @@
 package com.example.foobar.viewModels;
-
-import android.app.Application;
 import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.example.foobar.entities.Post_Item;
 import com.example.foobar.entities.User_Item;
-import com.example.foobar.repositories.FeedRepository;
 import com.example.foobar.repositories.UsersRepository;
 
 import java.util.List;
@@ -24,8 +15,8 @@ public class UserViewModel extends ViewModel {
     public UserViewModel() {
     }
 
-    public void initRepo(Context context) {
-        userRepository = new UsersRepository(context);
+    public void initRepo(Context context, String username, String password) {
+        userRepository = new UsersRepository(context, username, password);
         // Initialize LiveData from repository
         tokenLiveData = userRepository.getToken();
 
@@ -33,6 +24,15 @@ public class UserViewModel extends ViewModel {
     // Method to retrieve token LiveData
     public LiveData<String> getTokenLiveData() {
         return tokenLiveData;
+    }
+
+    // Method to validate user credentials
+    public int validateUser(String username, String password) {
+        return userRepository.validateUser(username, password);
+    }
+
+    public void createUser(User_Item user) {
+        userRepository.createUser(user);
     }
 
 
