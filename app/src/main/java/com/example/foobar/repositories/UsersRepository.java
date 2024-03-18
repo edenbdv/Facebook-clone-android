@@ -23,6 +23,8 @@ public class UsersRepository {
     public UsersRepository(Context context, String username, String password) {
         userDao = AppDB.getInstance(context).userDao();
         token= new TokenLiveData(username, password);
+        Log.d("Repo token", token.toString());
+
         userAPI = new UserAPI(token, userDao);
     }
 
@@ -33,6 +35,19 @@ public class UsersRepository {
     // Method to validate user credentials
     public int validateUser(String username, String password) {
         return userDao.validateUser(username, password);
+    }
+
+    public void deleteUser(String username) {
+        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
+        String authToken =  "Bearer "+ "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vZ2EiLCJpYXQiOjE3MTA3OTY0MTQsImV4cCI6MTcxMDg4MjgxNH0.cXi8MYbiPqvV8W0KvZdNZJcpSDi1Zp2dU1FsUmthV_Q"; //for example if roey is logged in
+        userAPI.deleteUser(username,authToken);
+        //userDao.deleteUser(username);
+    }
+
+    public void  updateUser(String username, String fieldName, String fieldValue) {
+        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
+        String authToken =  "Bearer "+ "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5vZ2EiLCJpYXQiOjE3MTA3OTY0MTQsImV4cCI6MTcxMDg4MjgxNH0.cXi8MYbiPqvV8W0KvZdNZJcpSDi1Zp2dU1FsUmthV_Q"; //for example if roey is logged in
+        userAPI.updateUser(username,fieldName,fieldValue, authToken);
     }
 
     public void createUser(User_Item user) {

@@ -100,7 +100,7 @@ public interface WebServiceAPI {
 
 
     @DELETE("users/{id}/posts/{pid}")
-    Call<Void> deletePost(
+    Call<Post_Item> deletePost(
             @Path("id") String username,
             @Path("pid") String postId,
             @Header("Authorization") String authToken

@@ -19,8 +19,9 @@ public class UserPostsViewModel extends ViewModel {
     public UserPostsViewModel() {
     }
 
-    public void initRepo(Context context) {
-        userPostsRepository = new UserPostsRepository(context);
+    public void initRepo(Context context, String username) {
+        userPostsRepository = new UserPostsRepository(context, username);
+        Log.d("VM username", username);
         userPostsLive = userPostsRepository.getUserPosts();
     }
 

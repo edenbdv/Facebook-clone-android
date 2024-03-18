@@ -25,6 +25,7 @@
     <string name="login_etPassword">Password</string>
     <string name="login_etUsername">Username</string>
     <string name="name">John Doe</string>
+    <string name="profile">Profile</string>
     <string name="see_friend_requests">See Friend Requests</string>
     <string name="share">Share</string>
     <string name="signup_btn_submit">Submit form</string>

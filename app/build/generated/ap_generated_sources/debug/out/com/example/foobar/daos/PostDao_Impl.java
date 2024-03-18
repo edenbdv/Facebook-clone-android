@@ -2,6 +2,7 @@ package com.example.foobar.daos;
 
 import android.database.Cursor;
 import androidx.annotation.NonNull;
+import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
@@ -28,6 +29,8 @@ public final class PostDao_Impl implements PostDao {
   private final EntityInsertionAdapter<Post_Item> __insertionAdapterOfPost_Item;
 
   private final EntityInsertionAdapter<Post_Item> __insertionAdapterOfPost_Item_1;
+
+  private final EntityDeletionOrUpdateAdapter<Post_Item> __updateAdapterOfPost_Item;
 
   private final SharedSQLiteStatement __preparedStmtOfUpdateText;
 
@@ -123,6 +126,47 @@ public final class PostDao_Impl implements PostDao {
         statement.bindLong(7, _tmp_1);
       }
     };
+    this.__updateAdapterOfPost_Item = new EntityDeletionOrUpdateAdapter<Post_Item>(__db) {
+      @Override
+      @NonNull
+      protected String createQuery() {
+        return "UPDATE OR ABORT `Post_Item` SET `id` = ?,`_id` = ?,`text` = ?,`picture` = ?,`createdBy` = ?,`createdAt` = ?,`liked` = ? WHERE `id` = ?";
+      }
+
+      @Override
+      protected void bind(@NonNull final SupportSQLiteStatement statement, final Post_Item entity) {
+        statement.bindLong(1, entity.getId());
+        if (entity.get_id() == null) {
+          statement.bindNull(2);
+        } else {
+          statement.bindString(2, entity.get_id());
+        }
+        if (entity.getText() == null) {
+          statement.bindNull(3);
+        } else {
+          statement.bindString(3, entity.getText());
+        }
+        if (entity.getPicture() == null) {
+          statement.bindNull(4);
+        } else {
+          statement.bindString(4, entity.getPicture());
+        }
+        if (entity.getCreatedBy() == null) {
+          statement.bindNull(5);
+        } else {
+          statement.bindString(5, entity.getCreatedBy());
+        }
+        final Long _tmp = DateConverter.toTimestamp(entity.getCreatedAt());
+        if (_tmp == null) {
+          statement.bindNull(6);
+        } else {
+          statement.bindLong(6, _tmp);
+        }
+        final int _tmp_1 = entity.isLiked() ? 1 : 0;
+        statement.bindLong(7, _tmp_1);
+        statement.bindLong(8, entity.getId());
+      }
+    };
     this.__preparedStmtOfUpdateText = new SharedSQLiteStatement(__db) {
       @Override
       @NonNull
@@ -203,6 +247,18 @@ public final class PostDao_Impl implements PostDao {
     __db.beginTransaction();
     try {
       __insertionAdapterOfPost_Item_1.insert(postItem);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void updatePost(final Post_Item post) {
+    __db.assertNotSuspendingTransaction();
+    __db.beginTransaction();
+    try {
+      __updateAdapterOfPost_Item.handle(post);
       __db.setTransactionSuccessful();
     } finally {
       __db.endTransaction();

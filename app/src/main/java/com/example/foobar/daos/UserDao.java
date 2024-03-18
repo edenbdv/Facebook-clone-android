@@ -3,6 +3,7 @@ package com.example.foobar.daos;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.foobar.entities.User_Item;
 
@@ -26,6 +27,9 @@ public interface UserDao {
     @Insert
     void createUser(User_Item user);
 
+    // update user with new user object
+    @Update
+    void updateUser(User_Item user);
 
     // update new user by specific field
     @Query("UPDATE User_Item SET username = :newUsername WHERE username = :username")

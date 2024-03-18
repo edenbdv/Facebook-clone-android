@@ -8,7 +8,6 @@ import com.example.foobar.repositories.UsersRepository;
 import java.util.List;
 
 public class UserViewModel extends ViewModel {
-
     private LiveData<String> tokenLiveData;
     private UsersRepository userRepository;
 
@@ -35,6 +34,14 @@ public class UserViewModel extends ViewModel {
         userRepository.createUser(user);
     }
 
+    //Method to delete a user
+    public void deleteUser(String username) {
+        userRepository.deleteUser(username);
+    }
+
+    public void updateUser(String username, String fieldName, String fieldValue)  {
+        userRepository.updateUser(username,fieldName,fieldValue);
+    }
 
 
 }

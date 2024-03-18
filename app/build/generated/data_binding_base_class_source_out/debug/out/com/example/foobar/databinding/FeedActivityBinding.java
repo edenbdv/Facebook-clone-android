@@ -47,6 +47,9 @@ public final class FeedActivityBinding implements ViewBinding {
   public final Button postEditText;
 
   @NonNull
+  public final Button profileButton;
+
+  @NonNull
   public final ImageView profilePic;
 
   @NonNull
@@ -58,8 +61,9 @@ public final class FeedActivityBinding implements ViewBinding {
   private FeedActivityBinding(@NonNull DrawerLayout rootView, @NonNull DrawerLayout drawerLayout,
       @NonNull RelativeLayout formContainer, @NonNull RelativeLayout headerLayout,
       @NonNull ImageView logoImageView, @NonNull RecyclerView lstPosts,
-      @NonNull ImageButton menuButton, @NonNull Button postEditText, @NonNull ImageView profilePic,
-      @NonNull SwipeRefreshLayout refreshLayout, @NonNull TextView titleTextView) {
+      @NonNull ImageButton menuButton, @NonNull Button postEditText, @NonNull Button profileButton,
+      @NonNull ImageView profilePic, @NonNull SwipeRefreshLayout refreshLayout,
+      @NonNull TextView titleTextView) {
     this.rootView = rootView;
     this.drawerLayout = drawerLayout;
     this.formContainer = formContainer;
@@ -68,6 +72,7 @@ public final class FeedActivityBinding implements ViewBinding {
     this.lstPosts = lstPosts;
     this.menuButton = menuButton;
     this.postEditText = postEditText;
+    this.profileButton = profileButton;
     this.profilePic = profilePic;
     this.refreshLayout = refreshLayout;
     this.titleTextView = titleTextView;
@@ -138,6 +143,12 @@ public final class FeedActivityBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.profileButton;
+      Button profileButton = ViewBindings.findChildViewById(rootView, id);
+      if (profileButton == null) {
+        break missingId;
+      }
+
       id = R.id.profilePic;
       ImageView profilePic = ViewBindings.findChildViewById(rootView, id);
       if (profilePic == null) {
@@ -157,8 +168,8 @@ public final class FeedActivityBinding implements ViewBinding {
       }
 
       return new FeedActivityBinding((DrawerLayout) rootView, drawerLayout, formContainer,
-          headerLayout, logoImageView, lstPosts, menuButton, postEditText, profilePic,
-          refreshLayout, titleTextView);
+          headerLayout, logoImageView, lstPosts, menuButton, postEditText, profileButton,
+          profilePic, refreshLayout, titleTextView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

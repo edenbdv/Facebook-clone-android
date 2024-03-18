@@ -97,7 +97,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 // Start the ProfileActivity with dummy parameters
                 Intent intent = new Intent(context, ProfileActivity.class);
-                intent.putExtra("username", "dummy_username"); // Dummy username
+                intent.putExtra("username", post.getCreatedBy()); // Dummy username
                 intent.putExtra("profilePicture", "dummy_profile_picture_uri"); // Dummy profile picture URI
                 context.startActivity(intent);
             }

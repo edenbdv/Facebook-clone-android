@@ -22,12 +22,15 @@ public class UserPostsRepository {
     private UserPostsAPI userPostsAPI;
     private LiveUserPosts userPostsLive;
     private String token;
+    //private String username;
 
-    public UserPostsRepository(Context context) {
+    public UserPostsRepository(Context context, String username) {
         AppDB db = AppDB.getInstance(context);
         postDao = db.postDao();
-        userPostsLive = new LiveUserPosts("");
+        userPostsLive = new LiveUserPosts(username);
         userPostsAPI = new UserPostsAPI(userPostsLive, postDao);
+
+        //this.username = username;
 
         // Extract token from SharedPreferences
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
@@ -58,7 +61,7 @@ public class UserPostsRepository {
             token = "Bearer "+ token;
             Log.d("repo token", token);
             Log.d("repo user", username);
-            userPostsAPI.getUserPosts("Noga", token);
+            userPostsAPI.getUserPosts(username, token);
             Log.d("msg", "Sent Request to get user posts");
         }
         public LiveData<List<Post_Item>> getAll() {

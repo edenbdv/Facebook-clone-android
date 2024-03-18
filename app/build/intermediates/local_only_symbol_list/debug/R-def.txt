@@ -79,6 +79,7 @@ id post_list
 id post_text
 id post_time
 id proPic
+id profileButton
 id profilePic
 id profile_picture
 id recyclerViewComments
@@ -125,6 +126,7 @@ string login_btnSignup
 string login_etPassword
 string login_etUsername
 string name
+string profile
 string see_friend_requests
 string share
 string signup_btn_submit

@@ -1,5 +1,6 @@
 package com.example.foobar;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,9 +30,10 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
     private Adapter_Feed adapterFeed;
     private FeedViewModel feedViewModel;
     private DrawerLayout drawerLayout;
-    private ImageButton menuButton;
     private Button addPost;
     private int nextPostId = 11; // Starting ID for posts
+
+    private static final String SHARED_PREF_NAME = "user_prefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,21 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
             @Override
             public void onChanged(List<Post_Item> postItems) {
                 adapterFeed.SetPosts(postItems); // Update RecyclerView with new data
+            }
+        });
+
+        Button profileButton = findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Retrieve the username from SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                String currentUsername = sharedPreferences.getString("username", "");
+                // Handle the click event to navigate to the profile activity of the current user
+                Intent intent = new Intent(FeedActivity.this, ProfileActivity.class);
+                // Pass the current user's username to the profile activity if needed
+                intent.putExtra("username", currentUsername);
+                startActivity(intent);
             }
         });
     }

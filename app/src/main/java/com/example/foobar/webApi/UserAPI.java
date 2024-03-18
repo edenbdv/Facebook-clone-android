@@ -122,10 +122,17 @@ public class UserAPI {
             public void onResponse(Call<User_Item> call, Response<User_Item> response) {
                 if (response.isSuccessful()) {
                     User_Item updatedUser = response.body();
-                    Log.d("UserAPI", "User updated successfully: " +updatedUser);
-                    // Handle updated user data here
-                } else {
-                    Log.d("UserAPI", "Failed to update user. Response code: " + response.code());
+
+                    if (updatedUser != null) {
+                        Log.d("UserAPI", "User updated successfully: " + updatedUser);
+
+                        new Thread(() -> {
+                            userDao.updateUser(updatedUser);
+                        }).start();
+
+                    } else {
+                        Log.d("UserAPI", "Failed to update user. Response code: " + response.code());
+                    }
                 }
             }
 
@@ -143,7 +150,10 @@ public class UserAPI {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    // Handle successful deletion
+                    new Thread(() -> {
+                        userDao.deleteUser(username);
+                    }).start();
+
                     Log.d("UserAPI", "User deleted successfully");
                 } else {
                     // Handle unsuccessful response
