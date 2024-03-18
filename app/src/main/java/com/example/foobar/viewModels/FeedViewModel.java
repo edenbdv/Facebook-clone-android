@@ -54,4 +54,12 @@ public class FeedViewModel extends ViewModel {
     }
 
 
+    public  void  updatePost(Post_Item postItem, String fieldName, String fieldValue)  {
+        String username = postItem.getCreatedBy();
+        String postId = postItem.get_id();
+
+        feedRepository.updatePost(username,postId,fieldName,fieldValue);
+    }
+
+
 }

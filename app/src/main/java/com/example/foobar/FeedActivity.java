@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,13 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.entities.Post_Item;
-import com.example.foobar.entities.User_Item;
 import com.example.foobar.viewModels.FeedViewModel;
-import com.example.foobar.viewModels.UserViewModel;
 
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity implements AddPostWindow.PostIdUpdater, AddPostWindow.OnPostAddedListener {
+public class FeedActivity extends AppCompatActivity implements AddPostWindow.PostIdUpdater, AddPostWindow.OnPostAddedListener,PostViewHolder.OnPostActionListener {
 
     private Adapter_Feed adapterFeed;
     private FeedViewModel feedViewModel;
@@ -89,12 +86,22 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
     }
 
 
-
+    @Override
     public void onPostDeleted(Post_Item delPost) {
         delPost.setCreatedBy("Roey");   // need to change according to the logged in username
         feedViewModel.deletePost(delPost);
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
+
+    @Override
+    public void onPostUpdatedText(Post_Item updatedPost) {
+        updatedPost.setCreatedBy("Roey");   // need to change according to the logged in username
+        String fieldVal = updatedPost.getText();
+        feedViewModel.updatePost(updatedPost,"text",fieldVal);
+        adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
+    }
+
+    
 
 
     @Override

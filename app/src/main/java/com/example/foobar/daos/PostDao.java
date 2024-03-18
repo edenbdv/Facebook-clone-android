@@ -3,6 +3,7 @@ package com.example.foobar.daos;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.foobar.entities.Post_Item;
 
@@ -17,6 +18,11 @@ public interface PostDao {
 
     @Query("SELECT * FROM Post_Item WHERE createdBy = :username ORDER BY createdAt DESC")
     List<Post_Item> getUserPosts(String username);
+
+
+    // update post with new post object
+    @Update
+    void updatePost(Post_Item post);
 
 
 

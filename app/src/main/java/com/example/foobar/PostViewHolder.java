@@ -13,18 +13,30 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 
 import com.example.foobar.ImageLoader;
 import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.entities.Post_Item;
+import com.example.foobar.viewModels.FeedViewModel;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+
 public class PostViewHolder extends RecyclerView.ViewHolder {
+
+    public interface OnPostActionListener {
+        void onPostDeleted(Post_Item post);
+        void onPostUpdatedText(Post_Item post);
+    }
+
+     private OnPostActionListener onPostActionListener;
+
 
     ImageButton btnEdit, btnTrash;
     TextView tv_name, tv_time, tv_status;
@@ -38,10 +50,12 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     private List<Post_Item> posts;
     private Adapter_Feed adapter;
 
+
     public PostViewHolder(@NonNull View itemView, Context context, Adapter_Feed adapter) {
         super(itemView);
         this.context = context;
         this.adapter=adapter;
+
 
         // Initialize other views
         btnEdit = itemView.findViewById(R.id.btnEdit);
@@ -59,7 +73,16 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         tvLike = itemView.findViewById(R.id.tvLike);
 
         commentContainer = itemView.findViewById(R.id.commentContainer);
+
+        // Set  listener
+        if (context instanceof OnPostActionListener) {
+            onPostActionListener = (OnPostActionListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnPostDeleteListener");
+        }
+
     }
+
 
     public void bind(Post_Item post, List<Post_Item> posts) {
         this.posts = posts;
@@ -108,7 +131,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 // Handle delete post action
-                deletePostById(post.getId());
+                deletePostById(post, post.getId());
             }
         });
 
@@ -132,7 +155,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     }
 
     // Method to delete a post by its ID
-    public void deletePostById(int postId) {
+    public void deletePostById(Post_Item post,int postId) {
         int len = posts.size();
         for (int i = 0; i < len; i++) {
             if (posts.get(i).getId() == postId) {
@@ -140,6 +163,10 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                 adapter.notifyItemRemoved(i);
                 break;
             }
+        }
+
+        if (onPostActionListener != null) {
+            onPostActionListener.onPostDeleted(post);
         }
     }
 
@@ -167,9 +194,13 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String editedPostText = input.getText().toString();
-                        // Update the post text
+                        // Update the post text (need to add update to photo also!!!!!!!!!!!)
                         Post_Item post = posts.get(position);
                         post.setText(editedPostText);
+                        if (onPostActionListener != null) {
+                            onPostActionListener.onPostUpdatedText(post);
+                        }
+
                         // Notify adapter that the item has changed at the specified position
                         adapter.notifyItemChanged(getAdapterPosition());
 

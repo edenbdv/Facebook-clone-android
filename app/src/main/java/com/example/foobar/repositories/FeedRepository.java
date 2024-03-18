@@ -60,6 +60,13 @@ public class FeedRepository {
     }
 
 
+    public void  updatePost(String username, String postId, String fieldName, String fieldValue) {
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
+        String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
+        userPostsAPI.updatePost(username, postId, fieldName,fieldValue,authToken);
+    }
+
+
 
     //inner class:
     class PostListData extends MutableLiveData<List<Post_Item>> {
