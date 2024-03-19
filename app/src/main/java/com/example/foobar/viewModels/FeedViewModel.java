@@ -43,6 +43,22 @@ public class FeedViewModel extends ViewModel {
         feedRepository.createPost(username, text, picture);
     }
 
+    public  void  deletePost(Post_Item postItem)  {
+        String username = postItem.getCreatedBy();
+        String postId = postItem.get_id();
+        int localId = postItem.getId();
+
+        feedRepository.deletePost(localId, username, postId);
+    }
+
+
+    public  void  updatePost(Post_Item postItem, String fieldName, String fieldValue)  {
+        String username = postItem.getCreatedBy();
+        String postId = postItem.get_id();
+
+        feedRepository.updatePost(username,postId,fieldName,fieldValue);
+    }
+
 
 
 

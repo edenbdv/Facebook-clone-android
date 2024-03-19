@@ -5,17 +5,25 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.foobar.daos.FriendRequestDao;
+import com.example.foobar.daos.FriendshipDao;
 import com.example.foobar.daos.UserDao;
 import com.example.foobar.AppDB;
 import com.example.foobar.entities.User_Item;
 import com.example.foobar.webApi.UserAPI;
+import com.example.foobar.webApi.UserFriendsAPI;
 import com.example.foobar.webApi.UserPostsAPI;
 import java.util.List;
 
 public class UsersRepository {
 
     private UserDao userDao;
+    private FriendshipDao friendshipDao;
+    private FriendRequestDao friendRequestDao;
     private UserAPI userAPI;
+    private UserFriendsAPI userFriendsAPI;
+    private  UserPostsAPI userPostsAPI;
     private TokenLiveData token;
     private String username;
     private String password;
@@ -23,9 +31,8 @@ public class UsersRepository {
     public UsersRepository(Context context, String username, String password) {
         userDao = AppDB.getInstance(context).userDao();
         token= new TokenLiveData(username, password);
-        Log.d("Repo token", token.toString());
-
         userAPI = new UserAPI(token, userDao);
+        //userFriendsAPI = new UserFriendsAPI(friendshipDao,friendRequestDao); //maybe need to add live data here??
     }
 
     public LiveData<String> getToken() {
@@ -36,6 +43,8 @@ public class UsersRepository {
     public int validateUser(String username, String password) {
         return userDao.validateUser(username, password);
     }
+
+
 
     public void deleteUser(String username) {
         //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";

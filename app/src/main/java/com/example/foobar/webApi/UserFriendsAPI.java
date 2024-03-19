@@ -2,6 +2,11 @@ package com.example.foobar.webApi;
 
 import android.util.Log;
 
+import com.example.foobar.daos.FriendRequestDao;
+import com.example.foobar.daos.FriendshipDao;
+import com.example.foobar.entities.FriendRequest;
+import com.example.foobar.entities.Friendship;
+import com.example.foobar.entities.Post_Item;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,20 +23,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserFriendsAPI {
 
+    private FriendshipDao friendshipDao;
+
+    private FriendRequestDao friendRequestDao;
+
     private Retrofit retrofit;
     private WebServiceAPI webServiceAPI;
 
-    public UserFriendsAPI() {
+    public UserFriendsAPI(FriendshipDao friendshipDao, FriendRequestDao friendRequestDao) {
+
+        this.friendshipDao = friendshipDao;
+        this.friendRequestDao = friendRequestDao;
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://192.168.0.103:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://192.168.0.106:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
-
 
     public void getUserFriends(String username, String authToken) {
         Call<JsonObject> call = webServiceAPI.getUserFriends(username, authToken);
@@ -42,14 +53,21 @@ public class UserFriendsAPI {
                     JsonObject responseBody = response.body();
                     if (responseBody != null) {
                         // Process the response based on its structure
-                        // For example, if the response contains an array under a specific key:
                         JsonArray friendsArray = responseBody.getAsJsonArray("friends");
                         if (friendsArray != null && friendsArray.size() > 0) {
-                            List<String> friends = new ArrayList<>();
-                            for (JsonElement element : friendsArray) {
-                                friends.add(element.getAsString());
-                            }
-                            Log.d("UserAPI", username + " Friends: " + friends);
+
+                            //Perform database operations asynchronously
+                            new Thread(() -> {
+                                friendshipDao.clear(); // Clear existing data in the table
+
+                                Friendship friendship;
+                                for (JsonElement element : friendsArray) {
+                                    friendship = new Friendship(username,element.getAsString());
+                                    friendshipDao.insert(friendship);
+                                }
+                            }).start();
+
+                            Log.d("UserAPI", "got user friends");
                         } else {
                             Log.d("UserAPI", "User has no friends or response format is unexpected.");
                         }
@@ -72,7 +90,6 @@ public class UserFriendsAPI {
             }
         });
     }
-
 
     public void addFriendRequest(String receiverUsername, String authToken) {
         Call<Void> call = webServiceAPI.addFriendReq(receiverUsername, authToken);

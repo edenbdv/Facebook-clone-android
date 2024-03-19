@@ -69,6 +69,8 @@ public class ProfileActivity extends AppCompatActivity {
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.initRepo(this, current_username, "");
         friendsViewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
+        friendsViewModel.initRepo(this, profile_username); // Initialize FriendsViewModel
+
 
         // Initialize adapter
         profileAdapter = new Adapter_Profile();
@@ -115,22 +117,19 @@ public class ProfileActivity extends AppCompatActivity {
         postList.setAdapter(profileAdapter);
         postList.setLayoutManager(new LinearLayoutManager(this));
 
-        // Add click listener to the "View Friends" button
+// Add click listener to the "View Friends" button
         Button viewFriendsButton = findViewById(R.id.view_friends_button);
         viewFriendsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Fetch friend list data from FriendsViewModel
-                friendsViewModel.fetchFriendList();
-            }
-        });
-
-        // Observe changes to friend list data
-        friendsViewModel.getFriendList().observe(this, new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> friendList) {
-                // Display friend list in a dialog or popup
-                showFriendListDialog(friendList);
+                friendsViewModel.getFriendList().observe(ProfileActivity.this, new Observer<List<User_Item>>() {
+                    @Override
+                    public void onChanged(List<User_Item> friendList) {
+                        // Display friend list in a dialog
+                        showFriendListDialog(friendList);
+                    }
+                });
             }
         });
 
@@ -148,7 +147,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     // Method to display friend list in a dialog
-    private void showFriendListDialog(List<String> friendList) {
+    private void showFriendListDialog(List<User_Item> friendList) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Friends");
 
@@ -156,13 +155,20 @@ public class ProfileActivity extends AppCompatActivity {
             // Show a message indicating no friends to show
             builder.setMessage("No friends to show");
         } else {
+            // Create an array to store the usernames
+            String[] usernames = new String[friendList.size()];
+            for (int i = 0; i < friendList.size(); i++) {
+                usernames[i] = friendList.get(i).getUsername();
+            }
+
             // Show the friend list
-            builder.setItems(friendList.toArray(new String[0]), null);
+            builder.setItems(usernames, null);
         }
 
         builder.setPositiveButton("OK", null);
         builder.create().show();
     }
+
 
     private void updateUI(User_Item user) {
         // Update TextViews with user data

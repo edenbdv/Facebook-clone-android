@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,9 +40,6 @@ public final class FeedActivityBinding implements ViewBinding {
   public final RecyclerView lstPosts;
 
   @NonNull
-  public final ImageButton menuButton;
-
-  @NonNull
   public final Button postEditText;
 
   @NonNull
@@ -61,16 +57,14 @@ public final class FeedActivityBinding implements ViewBinding {
   private FeedActivityBinding(@NonNull DrawerLayout rootView, @NonNull DrawerLayout drawerLayout,
       @NonNull RelativeLayout formContainer, @NonNull RelativeLayout headerLayout,
       @NonNull ImageView logoImageView, @NonNull RecyclerView lstPosts,
-      @NonNull ImageButton menuButton, @NonNull Button postEditText, @NonNull Button profileButton,
-      @NonNull ImageView profilePic, @NonNull SwipeRefreshLayout refreshLayout,
-      @NonNull TextView titleTextView) {
+      @NonNull Button postEditText, @NonNull Button profileButton, @NonNull ImageView profilePic,
+      @NonNull SwipeRefreshLayout refreshLayout, @NonNull TextView titleTextView) {
     this.rootView = rootView;
     this.drawerLayout = drawerLayout;
     this.formContainer = formContainer;
     this.headerLayout = headerLayout;
     this.logoImageView = logoImageView;
     this.lstPosts = lstPosts;
-    this.menuButton = menuButton;
     this.postEditText = postEditText;
     this.profileButton = profileButton;
     this.profilePic = profilePic;
@@ -131,12 +125,6 @@ public final class FeedActivityBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.menuButton;
-      ImageButton menuButton = ViewBindings.findChildViewById(rootView, id);
-      if (menuButton == null) {
-        break missingId;
-      }
-
       id = R.id.postEditText;
       Button postEditText = ViewBindings.findChildViewById(rootView, id);
       if (postEditText == null) {
@@ -168,8 +156,8 @@ public final class FeedActivityBinding implements ViewBinding {
       }
 
       return new FeedActivityBinding((DrawerLayout) rootView, drawerLayout, formContainer,
-          headerLayout, logoImageView, lstPosts, menuButton, postEditText, profileButton,
-          profilePic, refreshLayout, titleTextView);
+          headerLayout, logoImageView, lstPosts, postEditText, profileButton, profilePic,
+          refreshLayout, titleTextView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

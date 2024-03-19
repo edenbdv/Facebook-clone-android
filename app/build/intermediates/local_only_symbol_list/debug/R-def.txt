@@ -70,7 +70,6 @@ id linearLayoutSignup
 id linearLayoutSubmit
 id logoImageView
 id lstPosts
-id menuButton
 id menu_layout
 id name
 id postEditText

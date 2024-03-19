@@ -18,6 +18,7 @@ import java.util.List;
 
 public class FeedRepository {
 
+    private String token;
     private FeedDao feedDao;
     private PostDao postDao;
     private PostListData postListData;  // is a mutable live data, that extended live data
@@ -27,6 +28,7 @@ public class FeedRepository {
 
     public FeedRepository(Context context) {
         this.sharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
         AppDB db = AppDB.getInstance(context);
         feedDao = db.feedDao();
         postDao = db.postDao();
@@ -43,12 +45,25 @@ public class FeedRepository {
 
     public void  createPost(String username,String text,String picture) {
 
-        String token = sharedPreferences.getString("token", "");
+
         //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
         String authToken =  "Bearer "+ token; //for example if roey is logged in
         userPostsAPI.createPost(username,text,picture,authToken);
 
         // need to add dao !!!!!!!!!!!!! (in api..)
+    }
+
+    public void  deletePost(int localId,String username, String postId) {
+        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
+        String authToken =  "Bearer "+ token; //for example if roey is logged in
+        userPostsAPI.deletePost(localId, username, postId, authToken);
+    }
+
+
+    public void  updatePost(String username, String postId, String fieldName, String fieldValue) {
+        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
+        String authToken =  "Bearer "+ token; //for example if roey is logged in
+        userPostsAPI.updatePost(username, postId, fieldName,fieldValue,authToken);
     }
 
     //inner class:
