@@ -55,6 +55,11 @@ public class FriendsRepository {
 
     public void acceptFriendRequest(String senderUsername) {
         friendsAPI.acceptReq(senderUsername, username, "Bearer " + token);
+        List<String> friendRequests = friendsRequestData.getValue();
+        if (friendRequests != null) {
+            friendRequests.remove(senderUsername);
+            friendsRequestData.setValue(friendRequests);
+        }
 
     }
 

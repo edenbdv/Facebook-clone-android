@@ -202,6 +202,17 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         tvLike.setTextColor(ContextCompat.getColor(context, likeButtonColor)); // Update text color
     }
 
+    // Method to show the edit and delete icons
+    public void showOwnershipIcon() {
+        btnEdit.setVisibility(View.VISIBLE);
+        btnTrash.setVisibility(View.VISIBLE);
+    }
+
+    // Method to hide the edit and delete icons
+    public void hideOwnershipIcon() {
+        btnEdit.setVisibility(View.GONE);
+        btnTrash.setVisibility(View.GONE);
+    }
 
 
 }

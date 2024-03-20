@@ -76,7 +76,6 @@ public class ProfileActivity extends AppCompatActivity {
         friendsViewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
         friendsViewModel.initRepo(this, profile_username); // Initialize FriendsViewModel
 
-
         // Initialize adapter
         profileAdapter = new Adapter_Profile();
 
@@ -139,21 +138,57 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         // Add click listener to the "View Friend Requests" button
+//        Button viewFriendRequestsButton = findViewById(R.id.see_friend_requests_button);
+//        viewFriendRequestsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                friendsViewModel.getFriendRequests().observe(ProfileActivity.this, new Observer<List<String>>() {
+//                    @Override
+//                    public void onChanged(List<String> friendRequests) {
+//                        if (friendRequests != null && !friendRequests.isEmpty()) {
+//                            showFriendRequestsDialog(friendRequests);
+//                        }
+//                    }
+//                });
+//            }
+//        });
+
+        // Add click listener to the "View Friend Requests" button
         Button viewFriendRequestsButton = findViewById(R.id.see_friend_requests_button);
         viewFriendRequestsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Fetch friend requests data from FriendsViewModel
                 friendsViewModel.getFriendRequests().observe(ProfileActivity.this, new Observer<List<String>>() {
                     @Override
                     public void onChanged(List<String> friendRequests) {
-                        if (friendRequests != null && !friendRequests.isEmpty()) {
+                        //if (friendRequests != null && !friendRequests.isEmpty()) {
+                        if (friendRequests != null) {
                             showFriendRequestsDialog(friendRequests);
+                        } else {
+                            // If there are no friend requests, show a toast message
+                            Toast.makeText(ProfileActivity.this, "No friend requests found.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
         });
 
+        // Add an observer to the friend requests LiveData
+//        friendsViewModel.getFriendRequests().observe(this, new Observer<List<String>>() {
+//            @Override
+//            public void onChanged(List<String> friendRequests) {
+//                // Update the UI based on changes in the friend requests list
+//                if (friendRequests != null && !friendRequests.isEmpty()) {
+//                    // If friend requests list is not empty, show the dialog
+//                    showFriendRequestsDialog(friendRequests);
+//                } else {
+//                    // If friend requests list is empty, display a message or handle it as needed
+//                    // For example, show a toast message
+//                    Toast.makeText(ProfileActivity.this, "No friend requests found.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
         TextView usernameTextView = findViewById(R.id.user_name);
         usernameTextView.setText(profile_username);
     }
@@ -187,41 +222,50 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     private void showFriendRequestsDialog(List<String> friendRequests) {
-        // Inflate the layout for friend request items
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_friends_request, null);
-        RecyclerView friendRequestsRecyclerView = dialogView.findViewById(R.id.friend_requests_list);
-
-        // Create a layout manager for the RecyclerView
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        friendRequestsRecyclerView.setLayoutManager(layoutManager);
-
-        // Create and set adapter for friend requests RecyclerView
-        friendRequestAdapter = new Adapter_FriendRequest(friendRequests, new Adapter_FriendRequest.OnButtonClickListener() {
-            @Override
-            public void onAcceptButtonClick(String senderUsername) {
-                // Handle accept button click
-                acceptFriendRequest(senderUsername);
-            }
-
-            @Override
-            public void onCancelButtonClick(String senderUsername) {
-                cancelFriendRequest(senderUsername);
-            }
-        });
-        friendRequestsRecyclerView.setAdapter(friendRequestAdapter);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(dialogView);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setTitle("Friend Requests");
 
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
+        if (friendRequests.isEmpty()) {
+            // If the list is empty, set the message to "No friend requests found."
+            builder.setMessage("No friend requests found.");
+            builder.create().show();
+        } else {
+                // Inflate the layout for friend request items
+                View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_friends_request, null);
+                RecyclerView friendRequestsRecyclerView = dialogView.findViewById(R.id.friend_requests_list);
+
+                // Create a layout manager for the RecyclerView
+                LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+                friendRequestsRecyclerView.setLayoutManager(layoutManager);
+
+                // Create and set adapter for friend requests RecyclerView
+                friendRequestAdapter = new Adapter_FriendRequest(friendRequests, new Adapter_FriendRequest.OnButtonClickListener() {
+                    @Override
+                    public void onAcceptButtonClick(String senderUsername) {
+                        // Handle accept button click
+                        acceptFriendRequest(senderUsername);
+                    }
+
+                    @Override
+                    public void onCancelButtonClick(String senderUsername) {
+                        cancelFriendRequest(senderUsername);
+                    }
+                });
+                friendRequestsRecyclerView.setAdapter(friendRequestAdapter);
+
+                builder.setView(dialogView);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        }
 
 
     // Method to accept a friend request

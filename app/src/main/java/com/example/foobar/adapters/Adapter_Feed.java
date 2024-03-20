@@ -11,6 +11,7 @@ import com.example.foobar.R;
 import com.example.foobar.entities.Post_Item;
 
 
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import java.util.List;
 
 public class Adapter_Feed extends RecyclerView.Adapter<PostViewHolder> {
 
+    private static final String SHARED_PREF_NAME = "user_prefs";
     private final Context context;
     private List<Post_Item> posts;
 
@@ -46,6 +48,20 @@ public class Adapter_Feed extends RecyclerView.Adapter<PostViewHolder> {
         Post_Item post = posts.get(position);
         //String username = post.getCreatedBy();
         holder.bind(post, posts);
+
+        // Retrieve current username from SharedPreferences
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String currentUsername = sharedPreferences.getString("username", "");
+
+        // Check if the post was created by the current user
+        if (post.getCreatedBy().equals(currentUsername)) {
+            // Show the icon indicating ownership
+            holder.showOwnershipIcon();
+        } else {
+            // Hide the icon
+            holder.hideOwnershipIcon();
+        }
+
     }
 
     public void SetPosts(List<Post_Item> l) {
