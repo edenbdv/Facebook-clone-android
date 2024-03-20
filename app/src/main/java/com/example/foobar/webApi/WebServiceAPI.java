@@ -60,6 +60,12 @@ public interface WebServiceAPI {
             @Path("id") String username,
             @Header("Authorization") String authToken);
 
+    @GET("users/{id}/friends-requests")
+    Call<JsonObject> getFriendRequests(
+        @Path("id") String username,
+        @Header("Authorization") String authToken);
+
+
 
 
     @POST("users/{id}/friends")
@@ -82,6 +88,8 @@ public interface WebServiceAPI {
             @Path("fid") String friend,
             @Header("Authorization") String authToken
     );
+
+
 
 
     @POST("users/{id}/posts")

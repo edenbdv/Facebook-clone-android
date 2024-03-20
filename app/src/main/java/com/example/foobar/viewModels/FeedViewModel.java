@@ -59,9 +59,4 @@ public class FeedViewModel extends ViewModel {
         feedRepository.updatePost(username,postId,fieldName,fieldValue);
     }
 
-
-
-
-
-
 }

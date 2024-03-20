@@ -1,10 +1,12 @@
 package com.example.foobar;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,17 +21,20 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foobar.adapters.Adapter_FriendRequest;
 import com.example.foobar.viewModels.FriendsViewModel;
 import com.example.foobar.viewModels.UserPostsViewModel;
 import com.example.foobar.viewModels.UserViewModel;
 import com.example.foobar.adapters.Adapter_Profile;
 import com.example.foobar.entities.Post_Item;
 import com.example.foobar.entities.User_Item;
+import com.example.foobar.webApi.UserFriendsAPI;
 
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private Adapter_FriendRequest friendRequestAdapter; // Declare FriendRequestAdapter
     private UserPostsViewModel userPostsViewModel;
     private UserViewModel userViewModel;
     private Adapter_Profile profileAdapter;
@@ -123,11 +128,27 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Fetch friend list data from FriendsViewModel
-                friendsViewModel.getFriendList().observe(ProfileActivity.this, new Observer<List<User_Item>>() {
+                friendsViewModel.getFriendList().observe(ProfileActivity.this, new Observer<List<String>>() {
                     @Override
-                    public void onChanged(List<User_Item> friendList) {
+                    public void onChanged(List<String> friendList) {
                         // Display friend list in a dialog
                         showFriendListDialog(friendList);
+                    }
+                });
+            }
+        });
+
+        // Add click listener to the "View Friend Requests" button
+        Button viewFriendRequestsButton = findViewById(R.id.see_friend_requests_button);
+        viewFriendRequestsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                friendsViewModel.getFriendRequests().observe(ProfileActivity.this, new Observer<List<String>>() {
+                    @Override
+                    public void onChanged(List<String> friendRequests) {
+                        if (friendRequests != null && !friendRequests.isEmpty()) {
+                            showFriendRequestsDialog(friendRequests);
+                        }
                     }
                 });
             }
@@ -147,7 +168,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     // Method to display friend list in a dialog
-    private void showFriendListDialog(List<User_Item> friendList) {
+    private void showFriendListDialog(List<String> friendList) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Friends");
 
@@ -155,12 +176,7 @@ public class ProfileActivity extends AppCompatActivity {
             // Show a message indicating no friends to show
             builder.setMessage("No friends to show");
         } else {
-            // Create an array to store the usernames
-            String[] usernames = new String[friendList.size()];
-            for (int i = 0; i < friendList.size(); i++) {
-                usernames[i] = friendList.get(i).getUsername();
-            }
-
+            String[] usernames = friendList.toArray(new String[0]);
             // Show the friend list
             builder.setItems(usernames, null);
         }
@@ -169,6 +185,62 @@ public class ProfileActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+
+    private void showFriendRequestsDialog(List<String> friendRequests) {
+        // Inflate the layout for friend request items
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_friends_request, null);
+        RecyclerView friendRequestsRecyclerView = dialogView.findViewById(R.id.friend_requests_list);
+
+        // Create a layout manager for the RecyclerView
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        friendRequestsRecyclerView.setLayoutManager(layoutManager);
+
+        // Create and set adapter for friend requests RecyclerView
+        friendRequestAdapter = new Adapter_FriendRequest(friendRequests, new Adapter_FriendRequest.OnButtonClickListener() {
+            @Override
+            public void onAcceptButtonClick(String senderUsername) {
+                // Handle accept button click
+                acceptFriendRequest(senderUsername);
+            }
+
+            @Override
+            public void onCancelButtonClick(String senderUsername) {
+                cancelFriendRequest(senderUsername);
+            }
+        });
+        friendRequestsRecyclerView.setAdapter(friendRequestAdapter);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+
+    // Method to accept a friend request
+    private void acceptFriendRequest(String senderUsername) {
+        // Method to accept a friend request
+            friendsViewModel.acceptFriendRequest(senderUsername);
+            friendsViewModel.removeFriendRequest(senderUsername);
+            showToast("Friend request from " + senderUsername + " accepted successfully");
+    }
+
+    private void cancelFriendRequest(String senderUsername) {
+        // Method to accept a friend request
+        friendsViewModel.removeFriendRequest(senderUsername);
+        showToast("Friend request from " + senderUsername + " deleted successfully");
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 
     private void updateUI(User_Item user) {
         // Update TextViews with user data

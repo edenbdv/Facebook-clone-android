@@ -29,6 +29,7 @@ public class FriendsRepository {
     private FriendRequestDao friendRequestDao;
     UserFriendsAPI friendsAPI;
     private FriendsRepository.FriendsListData friendsListData;  // is a mutable live data, that extended live data
+    private FriendsRepository.FriendsRequestData friendsRequestData;  // is a mutable live data, that extended live data
     private SharedPreferences sharedPreferences;
     private String username;
 
@@ -37,36 +38,71 @@ public class FriendsRepository {
         token = sharedPreferences.getString("token", "");
         friendDao = AppDB.getInstance(context).friendshipDao();
         friendRequestDao = AppDB.getInstance(context).friendRequestDao(); // Initialize friendRequestDao
-        friendsAPI = new UserFriendsAPI(friendDao,friendRequestDao); //maybe need to add live data here??
-        this.username=username;
         friendsListData = new FriendsListData(); // Initialize friendsListData
-
+        friendsRequestData = new FriendsRequestData(); // Initialize friendsListData
+        friendsAPI = new UserFriendsAPI(friendDao,friendRequestDao, friendsListData, friendsRequestData); //maybe need to add live data here??
+        this.username=username;
     }
 
-    public LiveData<List<User_Item>> getAll() {
+    public LiveData<List<String>> getAll() {
         return friendsListData;
     }
 
+    public LiveData<List<String>> getFriendsRequest() {
+        return friendsRequestData;
+    }
 
-    class FriendsListData extends MutableLiveData<List<User_Item>> {
+
+    public void acceptFriendRequest(String senderUsername) {
+        friendsAPI.acceptReq(senderUsername, username, "Bearer " + token);
+
+    }
+
+    public void removeFriendRequest(String friendRequestUsername) {
+        List<String> friendRequests = friendsRequestData.getValue();
+        if (friendRequests != null) {
+            friendRequests.remove(friendRequestUsername);
+            friendsRequestData.setValue(friendRequests);
+        }
+    }
+
+    class FriendsListData extends MutableLiveData<List<String>> {
         public FriendsListData() {
             super();
-            List<User_Item> friends = new LinkedList<User_Item>();
+            List<String> friends = new LinkedList<>();
             setValue(friends) ;
+        }
+
+        @Override
+        protected void onActive() { //extract the data from the local dbm and update live data
+            super.onActive();
+            new Thread(()->{
+            }).start();
+
+            String token = sharedPreferences.getString("token", "");
+            friendsAPI.getUserFriends(username, "Bearer "+ token);
+        }
+
+    }
+
+
+    class FriendsRequestData extends MutableLiveData<List<String>> {
+        public FriendsRequestData() {
+            super();
+            List<String> friendsRequest = new LinkedList<>();
+            setValue(friendsRequest) ;
         }
 
         @Override
         protected  void  onActive() { //extract the data from the local dbm and update live data
             super.onActive();
             new Thread(()->{
-                //postListData.postValue(feedDao.getPostsFromFriends("Eden"));
-                //postListData.postValue(feedDao.getPostsFromNonFriends("Eden"));
             }).start();
 
             String token = sharedPreferences.getString("token", "");
-            //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA2MTA4NDEsImV4cCI6MTcxMDY5NzI0MX0.UafMDeAaOFAfGGbsfTA2ugWlEuLHB1Yqg1Z8yYeFoew";
-            friendsAPI.getUserFriends(username, "Bearer "+ token);
+            friendsAPI.getFriendRequests(username, "Bearer "+ token);
         }
 
     }
+
 }

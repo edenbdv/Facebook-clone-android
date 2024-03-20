@@ -20,6 +20,7 @@ public class Adapter_Profile extends RecyclerView.Adapter<Adapter_Profile.PostVi
         notifyDataSetChanged();
     }
 
+
     @NonNull
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

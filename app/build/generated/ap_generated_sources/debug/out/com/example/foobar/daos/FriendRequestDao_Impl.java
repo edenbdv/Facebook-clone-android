@@ -6,6 +6,7 @@ import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
+import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
@@ -24,7 +25,11 @@ public final class FriendRequestDao_Impl implements FriendRequestDao {
 
   private final EntityInsertionAdapter<FriendRequest> __insertionAdapterOfFriendRequest;
 
+  private final EntityInsertionAdapter<FriendRequest> __insertionAdapterOfFriendRequest_1;
+
   private final EntityDeletionOrUpdateAdapter<FriendRequest> __deletionAdapterOfFriendRequest;
+
+  private final SharedSQLiteStatement __preparedStmtOfClear;
 
   public FriendRequestDao_Impl(@NonNull final RoomDatabase __db) {
     this.__db = __db;
@@ -33,6 +38,28 @@ public final class FriendRequestDao_Impl implements FriendRequestDao {
       @NonNull
       protected String createQuery() {
         return "INSERT OR ABORT INTO `friend_requests` (`senderUsername`,`receiverUsername`) VALUES (?,?)";
+      }
+
+      @Override
+      protected void bind(@NonNull final SupportSQLiteStatement statement,
+          final FriendRequest entity) {
+        if (entity.getSenderUsername() == null) {
+          statement.bindNull(1);
+        } else {
+          statement.bindString(1, entity.getSenderUsername());
+        }
+        if (entity.getReceiverUsername() == null) {
+          statement.bindNull(2);
+        } else {
+          statement.bindString(2, entity.getReceiverUsername());
+        }
+      }
+    };
+    this.__insertionAdapterOfFriendRequest_1 = new EntityInsertionAdapter<FriendRequest>(__db) {
+      @Override
+      @NonNull
+      protected String createQuery() {
+        return "INSERT OR REPLACE INTO `friend_requests` (`senderUsername`,`receiverUsername`) VALUES (?,?)";
       }
 
       @Override
@@ -72,6 +99,14 @@ public final class FriendRequestDao_Impl implements FriendRequestDao {
         }
       }
     };
+    this.__preparedStmtOfClear = new SharedSQLiteStatement(__db) {
+      @Override
+      @NonNull
+      public String createQuery() {
+        final String _query = "DELETE FROM friend_requests";
+        return _query;
+      }
+    };
   }
 
   @Override
@@ -87,6 +122,30 @@ public final class FriendRequestDao_Impl implements FriendRequestDao {
   }
 
   @Override
+  public void insertList(final List<FriendRequest> friendRequests) {
+    __db.assertNotSuspendingTransaction();
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfFriendRequest_1.insert(friendRequests);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void insert(final FriendRequest friendRequest) {
+    __db.assertNotSuspendingTransaction();
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfFriendRequest_1.insert(friendRequest);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
   public void deleteFriendReq(final FriendRequest friendRequest) {
     __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
@@ -95,6 +154,23 @@ public final class FriendRequestDao_Impl implements FriendRequestDao {
       __db.setTransactionSuccessful();
     } finally {
       __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void clear() {
+    __db.assertNotSuspendingTransaction();
+    final SupportSQLiteStatement _stmt = __preparedStmtOfClear.acquire();
+    try {
+      __db.beginTransaction();
+      try {
+        _stmt.executeUpdateDelete();
+        __db.setTransactionSuccessful();
+      } finally {
+        __db.endTransaction();
+      }
+    } finally {
+      __preparedStmtOfClear.release(_stmt);
     }
   }
 

@@ -34,7 +34,7 @@ public class UserPostsAPI {
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://192.168.0.106:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://172.18.60.64:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

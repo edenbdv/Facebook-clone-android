@@ -3111,6 +3111,7 @@ id SYM
 id TOP_END
 id TOP_START
 id accelerate
+id accept_button
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
 id accessibility_custom_action_1
@@ -3320,6 +3321,7 @@ id floating
 id forever
 id formContainer
 id fragment_container_view_tag
+id friend_requests_list
 id frost
 id fullscreen_header
 id ghost_view
@@ -3643,6 +3645,7 @@ id up
 id useLogo
 id user_name
 id usernameTextView
+id username_text_view
 id vertical_only
 id view_friends_button
 id view_offset_helper
@@ -3799,7 +3802,9 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout dialog_friends_request
 layout feed_activity
+layout friend_request_item
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title

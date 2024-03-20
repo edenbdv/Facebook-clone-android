@@ -140,6 +140,10 @@
         "source": "com.example.foobar.app-main-41:/drawable/logo.png"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-39:/layout_dialog_friends_request.xml.flat",
+        "source": "com.example.foobar.app-main-41:/layout/dialog_friends_request.xml"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-39:/layout_post_item.xml.flat",
         "source": "com.example.foobar.app-main-41:/layout/post_item.xml"
     },
@@ -224,6 +228,10 @@
         "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_close.png"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-39:/layout_friend_request_item.xml.flat",
+        "source": "com.example.foobar.app-main-41:/layout/friend_request_item.xml"
+    },
+    {
         "merged": "com.example.foobar.app-merged_res-39:/drawable-xxhdpi_ic_like_btn.png.flat",
         "source": "com.example.foobar.app-main-41:/drawable-xxhdpi/ic_like_btn.png"
     },
@@ -300,12 +308,12 @@
         "source": "com.example.foobar.app-main-41:/layout/activity_profile.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_comment_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_comment_btn.png"
-    },
-    {
         "merged": "com.example.foobar.app-merged_res-39:/drawable-anydpi_ic_comment_btn.xml.flat",
         "source": "com.example.foobar.app-main-41:/drawable-anydpi/ic_comment_btn.xml"
+    },
+    {
+        "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_comment_btn.png.flat",
+        "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_comment_btn.png"
     },
     {
         "merged": "com.example.foobar.app-merged_res-39:/layout_activity_feed_try.xml.flat",
