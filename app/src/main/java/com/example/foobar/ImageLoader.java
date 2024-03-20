@@ -1,19 +1,36 @@
 package com.example.foobar;
 
+import android.app.Application;
 import android.content.Context;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import com.example.foobar.entities.Post_Item;
+import com.example.foobar.viewModels.UserViewModel;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+
 public class ImageLoader {
+
+//    private UserViewModel userViewModel;
+//    private FeedActivity feedActivity;
+
+    public ImageLoader() {
+//        this.feedActivity = activity;
+//        this.userViewModel = new ViewModelProvider(activity).get(UserViewModel.class);
+    }
+
     public void loadImageFromAssets(Context context, String path, ImageView imageView) {
         try {
             InputStream inputStream = context.getAssets().open(path.substring(1));
@@ -46,4 +63,12 @@ public class ImageLoader {
             loadImageFromUri(post.getPicture(), postPicImageView);
         }
     }
+
+    private void loadProfilePicture(String createdBy) {
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
+        String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
+
+        //userViewModel.getUser(createdBy);
+    }
+
 }

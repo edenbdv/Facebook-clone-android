@@ -52,8 +52,9 @@ public class UserViewModel extends AndroidViewModel {
         userRepository.updateUser(username,fieldName,fieldValue);
     }
 
-
-
+    private  void  getUser(String username) {
+        userRepository.getUser(username);
+    }
 
     //Method to get the current user data
 //    public LiveData<User_Item> getCurrentUser(String username) {

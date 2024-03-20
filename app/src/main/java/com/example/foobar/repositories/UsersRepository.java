@@ -39,36 +39,44 @@ public class UsersRepository {
 
     private  UserPostsAPI userPostsAPI;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
+
+    private MutableLiveData<User_Item> userLiveData = new MutableLiveData<>();
+
     //private PostListData userPosts;
 
     public UsersRepository(Context context) {
         AppDB userDatabase = AppDB.getInstance(context);
         userDao = userDatabase.userDao();
-        userAPI = new UserAPI(userDao);  //maybe need to add live data here??
+        userAPI = new UserAPI(userLiveData, userDao);  //maybe need to add live data here??
         userFriendsAPI = new UserFriendsAPI(friendshipDao,friendRequestDao); //maybe need to add live data here??
     }
+
+    public void getUser(String username) {
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
+        String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
+        userAPI.getUser(username,authToken);
+    }
+
 
     public void deleteUser(String username) {
         String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userAPI.deleteUser(username,authToken);
-        //userDao.deleteUser(username);
     }
 
 
     public void  updateUser(String username, String fieldName, String fieldValue) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NDM1NjUsImV4cCI6MTcxMTAyOTk2NX0.NjmMccqiNDkpb4vCXUWPYHpDyMj71dJhLBjWPvRdohk";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userAPI.updateUser(username,fieldName,fieldValue, authToken);
     }
 
     public void  getUserFriends(String username) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NDM1NjUsImV4cCI6MTcxMTAyOTk2NX0.NjmMccqiNDkpb4vCXUWPYHpDyMj71dJhLBjWPvRdohk";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userFriendsAPI.getUserFriends(username, authToken);
     }
 
 
 
-
-}
+    }

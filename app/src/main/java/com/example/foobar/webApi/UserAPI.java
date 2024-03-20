@@ -2,6 +2,8 @@ package com.example.foobar.webApi;
 
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.foobar.daos.UserDao;
 import com.example.foobar.entities.Post_Item;
 import com.example.foobar.entities.TokenRes;
@@ -23,13 +25,17 @@ public class UserAPI {
 
     private  UserDao userDao;
 
-    public UserAPI(UserDao userDao) {
+    private MutableLiveData<User_Item> userData;
+
+
+    public UserAPI( MutableLiveData<User_Item> userData,UserDao userDao) {
 
         this.userDao = userDao;
+        this.userData =userData;
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://192.168.1.26:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://172.20.10.3:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -85,37 +91,40 @@ public class UserAPI {
     }
 
 
-
-
-    // ask noga how handle if the user itself/other user asked
     public void getUser(String username, String authToken) {
         Call<User_Item> call = webServiceAPI.getUser(username, authToken);
         call.enqueue(new Callback<User_Item>() {
             @Override
             public void onResponse(Call<User_Item> call, Response<User_Item> response) {
                 if (response.isSuccessful()) {
+                    User_Item userItem = response.body();
 
-                    Log.d("UserAPI","username: "+ response.body().getUsername());
-                    Log.d("UserAPI","password: "+response.body().getPassword());
-                    Log.d("UserAPI","display name: "+response.body().getDisplayName());
-                    Log.d("UserAPI","profile pic: "+response.body().getProfilePic());
-                    Log.d("UserAPI","friendRequests: "+response.body().getFriendRequests());
-
-
-                } else {
-                    try {
-                        String errorMessage = response.errorBody().string();
-                        Log.d("UserAPI", "Failed to get user. Response code: " + response.code() + ", Error message: " + errorMessage);
-                    } catch (IOException e) {
+                    if (userItem != null) {
+                        Log.d("UserAPI", "Got user successfully: " + userItem);
+                        new Thread(() -> {
+                            userDao.createUser(userItem);
+                        }).start();
+                        userData.setValue(userItem);
+                    } else {
+                        try {
+                            String errorMessage = response.errorBody().string();
+                            Log.d("UserAPI", "Failed to get user. Response code: " + response.code() + ", Error message: " + errorMessage);
+                        } catch (IOException e) {
+                            Log.e("UserAPI", "Error reading error message: " + e.getMessage());
+                        }
                     }
+                } else {
+                    Log.d("UserAPI", "Failed to get user. Response code: " + response.code());
                 }
             }
+
             @Override
             public void onFailure(Call<User_Item> call, Throwable t) {
                 Log.e("UserAPI", "Connection to server failed with error: " + t.getMessage());
             }
         });
     }
+
 
 
 
@@ -203,9 +212,9 @@ public class UserAPI {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                        new Thread(() -> {
-                            userDao.deleteUser(username);
-                        }).start();
+                    new Thread(() -> {
+                        userDao.deleteUser(username);
+                    }).start();
 
                     Log.d("UserAPI", "User deleted successfully");
                 } else {

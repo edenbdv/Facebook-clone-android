@@ -8,10 +8,12 @@
 8        android:minSdkVersion="21"
 9        android:targetSdkVersion="34" />
 10
-11    <!-- Add INTERNET permission -->
-12    <uses-permission android:name="android.permission.INTERNET" />
-12-->C:\Users\Public\androidProjects\FB-android\app\src\main\AndroidManifest.xml:6:5-67
-12-->C:\Users\Public\androidProjects\FB-android\app\src\main\AndroidManifest.xml:6:22-64
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\Public\androidProjects\FB-android\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\Users\Public\androidProjects\FB-android\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+12-->C:\Users\Public\androidProjects\FB-android\app\src\main\AndroidManifest.xml:6:5-80
+12-->C:\Users\Public\androidProjects\FB-android\app\src\main\AndroidManifest.xml:6:22-77
 13
 14    <permission
 14-->[androidx.core:core:1.9.0] C:\Users\עדן\.gradle\caches\transforms-3\87f22283ee55c8414d476f8251d5c8dc\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47

@@ -1,9 +1,15 @@
 package com.example.foobar;
 
+import static android.app.PendingIntent.getActivity;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 
 import com.example.foobar.ImageLoader;
@@ -83,6 +91,14 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
 
     }
 
+    private Bitmap decodeBase64ToBitmap(String base64String) {
+        if (base64String == null) {
+            return null;
+        }
+        byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
 
     public void bind(Post_Item post, List<Post_Item> posts) {
         this.posts = posts;
@@ -95,9 +111,20 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         tv_time.setText(formattedDate); // Set the formatted date string to the TextView
         tv_status.setText(post.getText());
 
+
         ImageLoader ImageHandler = new ImageLoader();
+
         // Load images based on post ID range
         ImageHandler.loadImagesBasedOnPostId(context, post, imgView_proPic, imgView_postPic);
+
+
+        // Decode base64 string to Bitmap and set it to ImageView
+        Bitmap bitmap = decodeBase64ToBitmap(post.getPicture());
+        imgView_postPic.setImageBitmap(bitmap);
+
+        // Load profile picture
+       // ImageHandler.loadProfilePicture(post.getCreatedBy());
+
 
         // Update like button state
         updateLikeButtonState(post);
@@ -226,13 +253,29 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
+    // Method to compress and encode the image
+    private String compressAndEncodeImage(String base64Image) {
+        // Convert base64 string to byte array
+        byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+
+        // Decode byte array to Bitmap
+        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+        // Compress the Bitmap (adjust compression quality as needed)
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+
+        // Encode the compressed Bitmap to base64 string
+        byte[] compressedBytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(compressedBytes, Base64.DEFAULT);
+    }
+
     private void updateLikeButtonState (Post_Item post){
         // Set initial like button color based on post's liked status
         int likeButtonColor = post.isLiked() ? R.color.colorPrimary : R.color.grey;
         btnLike.setColorFilter(ContextCompat.getColor(context, likeButtonColor));
         tvLike.setTextColor(ContextCompat.getColor(context, likeButtonColor)); // Update text color
     }
-
 
 
 }

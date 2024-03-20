@@ -8,8 +8,8 @@
         android:minSdkVersion="21"
         android:targetSdkVersion="34" />
 
-    <!-- Add INTERNET permission -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <permission
         android:name="com.example.foobar.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"

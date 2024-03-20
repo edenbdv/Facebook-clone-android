@@ -37,7 +37,7 @@ public class UserPostsAPI {
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://192.168.1.26:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://172.20.10.3:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -48,10 +48,12 @@ public class UserPostsAPI {
 
 
     public void createPost(String username, String text, String picture, String authToken) {
+
         Call<Post_Item> call = webServiceAPI.createPost(username, text, picture, authToken);
         call.enqueue(new Callback<Post_Item>() {
             @Override
             public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
+
 
                 new Thread(() -> {
                     // Insert the newly created post into the local database

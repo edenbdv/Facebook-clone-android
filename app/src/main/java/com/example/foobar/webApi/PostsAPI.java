@@ -31,13 +31,12 @@ public class PostsAPI {
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://192.168.1.26:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://172.20.10.3:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
-
 
     public void getPosts(String authToken) {
         Call<List<Post_Item>> call = webServiceAPI.getPosts(authToken);
