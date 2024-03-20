@@ -47,21 +47,21 @@ public class FeedRepository {
     // Call createPost method in FeedViewModel to handle creating the post
 
     public void  createPost(String username,String text,String picture) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NDM1NjUsImV4cCI6MTcxMTAyOTk2NX0.NjmMccqiNDkpb4vCXUWPYHpDyMj71dJhLBjWPvRdohk";
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NjIxNjEsImV4cCI6MTcxMTA0ODU2MX0.Sjok6qVTsOZFDzfEonvfWwfjDB9jfLxwdNpPEsJ-RSE";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userPostsAPI.createPost(username,text,picture,authToken);
     }
 
 
     public void  deletePost(int localId,String username, String postId) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NDM1NjUsImV4cCI6MTcxMTAyOTk2NX0.NjmMccqiNDkpb4vCXUWPYHpDyMj71dJhLBjWPvRdohk";
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NjIxNjEsImV4cCI6MTcxMTA0ODU2MX0.Sjok6qVTsOZFDzfEonvfWwfjDB9jfLxwdNpPEsJ-RSE";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userPostsAPI.deletePost(localId, username, postId, authToken);
     }
 
 
     public void  updatePost(String username, String postId, String fieldName, String fieldValue) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NDM1NjUsImV4cCI6MTcxMTAyOTk2NX0.NjmMccqiNDkpb4vCXUWPYHpDyMj71dJhLBjWPvRdohk";
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NjIxNjEsImV4cCI6MTcxMTA0ODU2MX0.Sjok6qVTsOZFDzfEonvfWwfjDB9jfLxwdNpPEsJ-RSE";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userPostsAPI.updatePost(username, postId, fieldName,fieldValue,authToken);
     }
@@ -87,7 +87,7 @@ public class FeedRepository {
                 //postListData.postValue(feedDao.getPostsFromNonFriends("Eden"));
             }).start();
 
-            String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NDM1NjUsImV4cCI6MTcxMTAyOTk2NX0.NjmMccqiNDkpb4vCXUWPYHpDyMj71dJhLBjWPvRdohk";
+            String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NjIxNjEsImV4cCI6MTcxMTA0ODU2MX0.Sjok6qVTsOZFDzfEonvfWwfjDB9jfLxwdNpPEsJ-RSE";
             postsAPI.getPosts( "Bearer "+ jwtTokenRoey); //for example if roey is logged in
         }
 

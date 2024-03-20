@@ -30,6 +30,7 @@ public class UserPostsAPI {
     private PostDao postDao;
 
 
+
     public UserPostsAPI(MutableLiveData<List<Post_Item>> postListData,PostDao postDao) {
 
         this.postListData = postListData;
@@ -54,10 +55,25 @@ public class UserPostsAPI {
             @Override
             public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
 
-
                 new Thread(() -> {
                     // Insert the newly created post into the local database
+
                     Post_Item postItem = response.body();
+                    Log.d("PostAPI", " local id:"+ postItem.getId());
+
+
+                    String text =  postItem.getText();
+                    String picture = postItem.getPicture();
+                    String username = postItem.getCreatedBy();
+
+                    Post_Item localPost = new Post_Item(text,picture,username,false);
+                    Log.d("PostAPI", "  fixed local id:"+ localPost.getId());
+
+
+                    // Manually assign an ID using the counter
+//                    postItem.setId(postIdCounter++);
+//                    Log.d("PostAPI", " fixed id:"+ postItem.getId());
+
                     postDao.createPost(postItem);
                     List<Post_Item> updatedPosts =  new ArrayList<>(postListData.getValue());
                     updatedPosts.add(postItem);
@@ -119,8 +135,11 @@ public class UserPostsAPI {
                     Post_Item deletedPost = response.body();
                     if (deletedPost != null) {
                         new Thread(() -> {
-                            // Delete the post from local database
+                             //Delete the post from local database
+
                             postDao.deletePost(localId);
+//                            String idMongo = deletedPost.get_id();
+//                            postDao.deletePost2(idMongo);
 
                             // Update LiveData with updated list of posts
                             List<Post_Item> updatedPosts = new ArrayList<>(postListData.getValue());

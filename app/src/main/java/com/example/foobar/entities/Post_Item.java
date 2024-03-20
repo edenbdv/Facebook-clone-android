@@ -12,7 +12,6 @@ public class Post_Item {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     private String _id;  // id from the mongoDB
     private String text;
     private String picture;
@@ -22,6 +21,7 @@ public class Post_Item {
     private boolean liked;
 
     public Post_Item(String text, String picture, String createdBy, boolean liked) {
+
         this.text = text;
         this.picture = picture;
         this.createdBy = createdBy;
