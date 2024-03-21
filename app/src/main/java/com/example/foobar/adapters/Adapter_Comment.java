@@ -105,6 +105,7 @@ public class Adapter_Comment extends RecyclerView.Adapter<Adapter_Comment.Commen
 
 
     private void editComment(int position) {
+        Log.i("check","HEYYYY");
         Comment_Item comment = comments.get(position);
         String originalCommentText = comment.getText();
 

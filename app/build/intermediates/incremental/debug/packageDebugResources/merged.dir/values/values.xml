@@ -13,9 +13,12 @@
     <string name="Signup_upload_photo">Upload photo</string>
     <string name="_11_hrs">11 hrs</string>
     <string name="app_name">Foo Bar</string>
+    <string name="base_url">http://192.168.1.29:12345/api/</string>
     <string name="comment">Comment</string>
     <string name="delete">Delete</string>
+    <string name="delete_profile">Delete Profile</string>
     <string name="edit">Edit</string>
+    <string name="edit_profile">Edit Profile</string>
     <string name="foobar">FooBar</string>
     <string name="like">Like</string>
     <string name="login_btnLogin">Login</string>
@@ -23,12 +26,18 @@
     <string name="login_etPassword">Password</string>
     <string name="login_etUsername">Username</string>
     <string name="name">John Doe</string>
+    <string name="profile">Profile</string>
+    <string name="see_friend_requests">See Friend Requests</string>
     <string name="share">Share</string>
     <string name="signup_btn_submit">Submit form</string>
+    <string name="view_friends">View Friends</string>
     <string name="what_s_on_your_mind">What\'s on your mind?</string>
     <style name="Base.Theme.FooBar" parent="Theme.Material3.DayNight.NoActionBar">
         
         
     </style>
     <style name="Theme.FooBar" parent="Base.Theme.FooBar"/>
+    <declare-styleable name="CustomImageView">
+            <attr format="string" name="imageUrl"/>
+        </declare-styleable>
 </resources>

@@ -1,10 +1,12 @@
 package com.example.foobar;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,13 +16,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+//import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.entities.Post_Item;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-import java.io.File;
 
 
 public class AddPostWindow extends AppCompatActivity  {
@@ -92,21 +97,23 @@ public class AddPostWindow extends AppCompatActivity  {
                     return;
                 }
 
-                Post_Item newPost;
+                // Convert the selected image URI to a base64-encoded string
+                String imageBase64 = null;
                 if (selectedImageUri != null) {
-                    // If an image is attached, create a post with both text and image
-                    newPost = new Post_Item(nextPostId, 0, 0, profilePicture,
-                            selectedImageUri.toString(), username, currentTime, postContent, false);
-                } else {
-                    // If no image is attached, create a post with only text
-                    newPost = new Post_Item(nextPostId, 0, 0, profilePicture,
-                            "", username, currentTime, postContent, false);
+                    try {
+                        Bitmap bitmap = getBitmapFromUri(selectedImageUri);
+                        imageBase64 = bitmapToBase64(bitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
 
-                // Create a new Post_Item object with the post content and any other necessary data
-//                Post_Item newPost = new Post_Item(nextPostId, 0, 0, profilePicture,
-//                        selectedImageUri.toString(), username, currentTime, postContent, false);
+
+
+                // Create a new Post_Item object with the post content and base64-encoded image
+                Post_Item newPost = new Post_Item(postContent, imageBase64, username, false);
+
 
                 // Notify the listener that a new post has been added
                 if (listener != null) {
@@ -171,5 +178,21 @@ public class AddPostWindow extends AppCompatActivity  {
             attachedImageView.setImageURI(selectedImageUri);
             attachedImageView.setVisibility(View.VISIBLE); // Make ImageView visible
         }
+    }
+
+
+
+    // Convert URI to Bitmap
+    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
+        InputStream input = getContentResolver().openInputStream(uri);
+        return BitmapFactory.decodeStream(input);
+    }
+
+    // Convert Bitmap to base64 string
+    private String bitmapToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 }

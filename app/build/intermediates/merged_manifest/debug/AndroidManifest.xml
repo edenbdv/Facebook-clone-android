@@ -8,6 +8,9 @@
         android:minSdkVersion="21"
         android:targetSdkVersion="34" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <permission
         android:name="com.example.foobar.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
@@ -15,6 +18,7 @@
     <uses-permission android:name="com.example.foobar.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
+        android:name="com.example.foobar.MyApplication"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -47,6 +51,7 @@
         <!-- Add CommentActivity declaration -->
         <activity android:name="com.example.foobar.CommentActivity" />
         <activity android:name="com.example.foobar.AddPostWindow" />
+        <activity android:name="com.example.foobar.ProfileActivity" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -62,6 +67,11 @@
                 android:name="androidx.profileinstaller.ProfileInstallerInitializer"
                 android:value="androidx.startup" />
         </provider>
+
+        <service
+            android:name="androidx.room.MultiInstanceInvalidationService"
+            android:directBootAware="true"
+            android:exported="false" />
 
         <receiver
             android:name="androidx.profileinstaller.ProfileInstallReceiver"
