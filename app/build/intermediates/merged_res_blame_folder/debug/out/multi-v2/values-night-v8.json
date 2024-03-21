@@ -4,6 +4,25 @@
             "outputFile": "com.example.foobar.app-mergeDebugResources-2:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
+                    "source": "C:\\Users\\Public\\androidProjects\\final\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "from": {
+                        "startLines": "2,19,11,15,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "66,461,245,354,163",
+                        "endLines": "4,23,13,17,6",
+                        "endColumns": "12,12,12,12,55",
+                        "endOffsets": "155,625,346,453,214"
+                    },
+                    "to": {
+                        "startLines": "2,5,10,13,23",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,147,310,413,1146",
+                        "endLines": "4,9,12,15,23",
+                        "endColumns": "12,12,12,12,54",
+                        "endOffsets": "142,305,408,509,1196"
+                    }
+                },
+                {
                     "source": "C:\\Users\\עדן\\.gradle\\caches\\transforms-3\\cae0069d1585611eb98b1d4f16fa8d6e\\transformed\\appcompat-1.6.1\\res\\values-night-v8\\values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
@@ -35,25 +54,6 @@
                         "startOffsets": "1201,1276,1387,1476,1577,1684,1791,1890,1997,2100,2188,2312,2414,2516,2632,2734,2848,2976,3092,3214,3350,3470,3604,3724,3836,4051,4168,4292,4422,4544,4682,4816,4932",
                         "endColumns": "74,110,88,100,106,106,98,106,102,87,123,101,101,115,101,113,127,115,121,135,119,133,119,111,125,116,123,129,121,137,133,115,119",
                         "endOffsets": "1271,1382,1471,1572,1679,1786,1885,1992,2095,2183,2307,2409,2511,2627,2729,2843,2971,3087,3209,3345,3465,3599,3719,3831,3957,4163,4287,4417,4539,4677,4811,4927,5047"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Public\\androidProjects\\checking\\app\\src\\main\\res\\values-night\\themes.xml",
-                    "from": {
-                        "startLines": "2,19,11,15,6",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "66,461,245,354,163",
-                        "endLines": "4,23,13,17,6",
-                        "endColumns": "12,12,12,12,55",
-                        "endOffsets": "155,625,346,453,214"
-                    },
-                    "to": {
-                        "startLines": "2,5,10,13,23",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "55,147,310,413,1146",
-                        "endLines": "4,9,12,15,23",
-                        "endColumns": "12,12,12,12,54",
-                        "endOffsets": "142,305,408,509,1196"
                     }
                 }
             ]

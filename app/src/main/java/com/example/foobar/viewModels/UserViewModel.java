@@ -20,17 +20,38 @@ public class UserViewModel extends AndroidViewModel {
     private MutableLiveData<User_Item> user ;
 
     private MutableLiveData<User_Item> userItemLiveData = new MutableLiveData<>();
+    private LiveData<String> tokenLiveData;
     private UsersRepository userRepository;
 
 
 
     public UserViewModel(@NonNull Application application) {
         super(application);
-        userRepository = new UsersRepository(application);
+        //serRepository = new UsersRepository(application);
 
         user = new MutableLiveData<User_Item>();
     }
 
+    public void initRepo(Context context, String username, String password) {
+        userRepository = new UsersRepository(context, username, password);
+        // Initialize LiveData from repository
+        tokenLiveData = userRepository.getToken();
+
+    }
+
+    // Method to retrieve token LiveData
+    public LiveData<String> getTokenLiveData() {
+        return tokenLiveData;
+    }
+
+    public void createUser(User_Item user) {
+        userRepository.createUser(user);
+    }
+
+    // Method to validate user credentials
+    public int validateUser(String username, String password) {
+        return userRepository.validateUser(username, password);
+    }
 
 
      //Method to delete a user

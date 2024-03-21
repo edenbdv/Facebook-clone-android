@@ -20,18 +20,22 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserAPI {
+
+    private MutableLiveData<String> tokenLiveData;
+    private  UserDao userDao;
+
     private Retrofit retrofit;
     private WebServiceAPI webServiceAPI;
 
-    private  UserDao userDao;
 
-    private MutableLiveData<User_Item> userData;
+   // private MutableLiveData<User_Item> userData;
 
 
-    public UserAPI( MutableLiveData<User_Item> userData,UserDao userDao) {
+    public UserAPI(MutableLiveData<String> tokenLiveData, UserDao userDao) {
 
+        this.tokenLiveData = tokenLiveData;
         this.userDao = userDao;
-        this.userData =userData;
+       // this.userData =userData;
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
@@ -68,24 +72,18 @@ public class UserAPI {
             @Override
             public void onResponse(Call<TokenRes> call, Response<TokenRes> response) {
                 if (response.isSuccessful()) {
-                    TokenRes token = response.body();
-                    Log.d("UserAPI", "Token received: " + token.getToken());
-                    // Handle token response here
+                    TokenRes tokenRes = response.body();
+                    String token = tokenRes.getToken();
+                    Log.d("Token", token); // Print the token to the logcat
+                    tokenLiveData.postValue(token); // Update LiveData with the generated token
                 } else {
-                    try {
-                        String errorMessage = response.errorBody().string();
-                        Log.d("UserAPI", "Failed to create token. Response code: " + response.code() + ", Error message: " + errorMessage);
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    // Handle unsuccessful response
+                    Log.e("UserAPI", "Failed to generate token. Response code: " + response.code());
                 }
             }
+
             @Override
             public void onFailure(Call<TokenRes> call, Throwable t) {
-                Log.e("UserAPI", "Connection to server failed with error: " + t.getMessage());
-
+                Log.e("UserAPI", "Failed to generate token: " + t.getMessage());
             }
         });
     }
@@ -104,7 +102,7 @@ public class UserAPI {
                         new Thread(() -> {
                             userDao.createUser(userItem);
                         }).start();
-                        userData.setValue(userItem);
+                        //AuserData.setValue(userItem);
                     } else {
                         try {
                             String errorMessage = response.errorBody().string();
