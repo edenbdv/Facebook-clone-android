@@ -43,5 +43,8 @@ public class UserViewModel extends ViewModel {
         userRepository.updateUser(username,fieldName,fieldValue);
     }
 
+    private  void  getUser(String username) {
+        userRepository.getUser(username);
+    }
 
 }

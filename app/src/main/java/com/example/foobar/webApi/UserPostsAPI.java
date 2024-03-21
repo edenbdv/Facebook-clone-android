@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.foobar.Post_IDGenerator;
 import com.example.foobar.daos.FeedDao;
 import com.example.foobar.daos.PostDao;
 import com.example.foobar.daos.UserDao;
@@ -34,7 +35,7 @@ public class UserPostsAPI {
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://172.18.60.64:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://192.168.222.169:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -42,22 +43,68 @@ public class UserPostsAPI {
     }
 
 
+//    public void createPost(String username, String text, String picture, String authToken) {
+//        Call<Post_Item> call = webServiceAPI.createPost(username, text, picture, authToken);
+//        call.enqueue(new Callback<Post_Item>() {
+//            @Override
+//            public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
+//                new Thread(() -> {
+//                    // Insert the newly created post into the local database
+//                    Post_Item postItem = response.body();
+//                    //need to change also room:
+//                    postDao.createPost(postItem);
+//                    List<Post_Item> updatedPosts =  new ArrayList<>(LiveUserPosts.getValue());
+//                    updatedPosts.add(postItem);
+//                    // Update the LiveData with the updated list of posts
+//                    LiveUserPosts.postValue(updatedPosts);
+//                }).start();
+//            }
+//            @Override
+//            public void onFailure(Call<Post_Item> call, Throwable t) {
+//                Log.e("PostAPI", "Failed to create post. Error: " + t.getMessage());
+//            }
+//        });
+//    }
+
+
     public void createPost(String username, String text, String picture, String authToken) {
+
         Call<Post_Item> call = webServiceAPI.createPost(username, text, picture, authToken);
         call.enqueue(new Callback<Post_Item>() {
             @Override
             public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
+
                 new Thread(() -> {
+                    // Generate a numerical ID for the newly created post
+                    int postId = Post_IDGenerator.getNextId();
+
                     // Insert the newly created post into the local database
+
                     Post_Item postItem = response.body();
-                    //need to change also room:
+                    //Log.d("PostAPI", " local id:"+ postItem.getId());
+                    Post_Item localPost = new Post_Item(text,picture,username,false);
+                    Log.d("PostAPI", " local id:"+ postItem.getId());
+
+                    localPost.setId(postId);
                     postDao.createPost(postItem);
+
+                    String text =  postItem.getText();
+                    String picture = postItem.getPicture();
+                    String username = postItem.getCreatedBy();
+
+                    //Post_Item localPost = new Post_Item(text,picture,username,false);
+                    //Log.d("PostAPI", "  fixed local id:"+ localPost.getId());
+
+                    //postDao.createPost(postItem);
                     List<Post_Item> updatedPosts =  new ArrayList<>(LiveUserPosts.getValue());
                     updatedPosts.add(postItem);
+
                     // Update the LiveData with the updated list of posts
                     LiveUserPosts.postValue(updatedPosts);
                 }).start();
+
             }
+
             @Override
             public void onFailure(Call<Post_Item> call, Throwable t) {
                 Log.e("PostAPI", "Failed to create post. Error: " + t.getMessage());
@@ -98,6 +145,42 @@ public class UserPostsAPI {
     }
 
 
+//    public void deletePost(int localId, String username, String postId, String authToken) {
+//        Call<Post_Item> call = webServiceAPI.deletePost(username, postId, authToken);
+//        call.enqueue(new Callback<Post_Item>() {
+//            @Override
+//            public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
+//                if (response.isSuccessful()) {
+//                    Post_Item deletedPost = response.body();
+//                    if (deletedPost != null) {
+//                        new Thread(() -> {
+//                            // Delete the post from local database
+//                            postDao.deletePost(localId);
+//
+//                            // Update LiveData with updated list of posts
+//                            List<Post_Item> updatedPosts = new ArrayList<>(LiveUserPosts.getValue());
+//                            updatedPosts.remove(deletedPost);
+//                            LiveUserPosts.postValue(updatedPosts);
+//                        }).start();
+//
+//                        Log.d("PostAPI", "Post deleted successfully");
+//                    } else {
+//                        Log.d("PostAPI", "Failed to delete post. No deleted post in response.");
+//                    }
+//                } else {
+//                    Log.d("PostAPI", "Failed to delete post. Response code: " + response.code());
+//                    // Handle unsuccessful response, if needed
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Post_Item> call, Throwable t) {
+//                Log.e("PostAPI", "Failed to delete post: " + t.getMessage());
+//                // Handle the failure scenario, such as displaying an error message to the user
+//            }
+//        });
+//    }
+
     public void deletePost(int localId, String username, String postId, String authToken) {
         Call<Post_Item> call = webServiceAPI.deletePost(username, postId, authToken);
         call.enqueue(new Callback<Post_Item>() {
@@ -107,8 +190,11 @@ public class UserPostsAPI {
                     Post_Item deletedPost = response.body();
                     if (deletedPost != null) {
                         new Thread(() -> {
-                            // Delete the post from local database
+                            //Delete the post from local database
+
                             postDao.deletePost(localId);
+//                            String idMongo = deletedPost.get_id();
+//                            postDao.deletePost2(idMongo);
 
                             // Update LiveData with updated list of posts
                             List<Post_Item> updatedPosts = new ArrayList<>(LiveUserPosts.getValue());
@@ -134,8 +220,6 @@ public class UserPostsAPI {
         });
     }
 
-    //
-
     public void updatePost(String username, String postId, String fieldName, String fieldValue, String authToken) {
         Call<Post_Item> call = webServiceAPI.updatePost(username, postId, fieldName, fieldValue, authToken);
         call.enqueue(new Callback<Post_Item>() {
@@ -159,8 +243,6 @@ public class UserPostsAPI {
                             // Update the LiveData with the updated list of posts
                             LiveUserPosts.postValue(updatedPosts);
                         }).start();
-
-
 
                     } else {
                         Log.e("PostAPI", "Received null response body");

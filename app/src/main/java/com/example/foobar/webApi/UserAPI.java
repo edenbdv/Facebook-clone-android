@@ -34,7 +34,7 @@ public class UserAPI {
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://172.18.60.64:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://192.168.222.169:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -86,34 +86,69 @@ public class UserAPI {
 
 
     // ask noga how handle if the user itself/other user asked
+//    public void getUser(String username, String authToken) {
+//        Call<User_Item> call = webServiceAPI.getUser(username, authToken);
+//        call.enqueue(new Callback<User_Item>() {
+//            @Override
+//            public void onResponse(Call<User_Item> call, Response<User_Item> response) {
+//                if (response.isSuccessful()) {
+//
+//                    Log.d("UserAPI","username: "+ response.body().getUsername());
+//                    Log.d("UserAPI","password: "+response.body().getPassword());
+//                    Log.d("UserAPI","display name: "+response.body().getDisplayName());
+//                    Log.d("UserAPI","profile pic: "+response.body().getProfilePic());
+//                    Log.d("UserAPI","friendRequests: "+response.body().getFriendRequests());
+//
+//
+//                } else {
+//                    try {
+//                        String errorMessage = response.errorBody().string();
+//                        Log.d("UserAPI", "Failed to get user. Response code: " + response.code() + ", Error message: " + errorMessage);
+//                    } catch (IOException e) {
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<User_Item> call, Throwable t) {
+//                Log.e("UserAPI", "Connection to server failed with error: " + t.getMessage());
+//            }
+//        });
+//    }
+
+
     public void getUser(String username, String authToken) {
         Call<User_Item> call = webServiceAPI.getUser(username, authToken);
         call.enqueue(new Callback<User_Item>() {
             @Override
             public void onResponse(Call<User_Item> call, Response<User_Item> response) {
                 if (response.isSuccessful()) {
+                    User_Item userItem = response.body();
 
-                    Log.d("UserAPI","username: "+ response.body().getUsername());
-                    Log.d("UserAPI","password: "+response.body().getPassword());
-                    Log.d("UserAPI","display name: "+response.body().getDisplayName());
-                    Log.d("UserAPI","profile pic: "+response.body().getProfilePic());
-                    Log.d("UserAPI","friendRequests: "+response.body().getFriendRequests());
-
-
-                } else {
-                    try {
-                        String errorMessage = response.errorBody().string();
-                        Log.d("UserAPI", "Failed to get user. Response code: " + response.code() + ", Error message: " + errorMessage);
-                    } catch (IOException e) {
+                    if (userItem != null) {
+                        Log.d("UserAPI", "Got user successfully: " + userItem);
+                        new Thread(() -> {
+                            userDao.createUser(userItem);
+                        }).start();
+                        //userData.setValue(userItem);
+                    } else {
+                        try {
+                            String errorMessage = response.errorBody().string();
+                            Log.d("UserAPI", "Failed to get user. Response code: " + response.code() + ", Error message: " + errorMessage);
+                        } catch (IOException e) {
+                            Log.e("UserAPI", "Error reading error message: " + e.getMessage());
+                        }
                     }
-                }
+                } else {
+                    Log.d("UserAPI", "Failed to get user. Response code: " + response.code());
+               }
             }
+
             @Override
             public void onFailure(Call<User_Item> call, Throwable t) {
                 Log.e("UserAPI", "Connection to server failed with error: " + t.getMessage());
             }
-        });
-    }
+            });
+        }
 
     public void updateUser(String username,String fieldName, String fieldValue, String authToken) {
         Call<User_Item> call = webServiceAPI.updateUser(username, fieldName,fieldValue, authToken);

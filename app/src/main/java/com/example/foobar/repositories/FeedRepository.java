@@ -43,27 +43,29 @@ public class FeedRepository {
         return postListData;
     }
 
-    public void  createPost(String username,String text,String picture) {
+    public void createPost(String username,String text,String picture) {
 
-
-        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
-        String authToken =  "Bearer "+ token; //for example if roey is logged in
+        String authToken =  "Bearer "+ token;
         userPostsAPI.createPost(username,text,picture,authToken);
-
-        // need to add dao !!!!!!!!!!!!! (in api..)
     }
 
     public void  deletePost(int localId,String username, String postId) {
-        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
         String authToken =  "Bearer "+ token; //for example if roey is logged in
         userPostsAPI.deletePost(localId, username, postId, authToken);
     }
 
 
     public void  updatePost(String username, String postId, String fieldName, String fieldValue) {
-        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
         String authToken =  "Bearer "+ token; //for example if roey is logged in
         userPostsAPI.updatePost(username, postId, fieldName,fieldValue,authToken);
+    }
+
+    public void reload() {
+        // Call the appropriate method to fetch the latest posts from your data source
+        // For example, if you're fetching posts from an API:
+        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTc0MTIsImV4cCI6MTcxMTEwMzgxMn0.6gS4QVaveXhk7hbPq5Nkg9ty5r8sBRGID_FwJAtejvk";
+        String authToken =  "Bearer "+ token; //for example if roey is logged in
+        postsAPI.getPosts(authToken);
     }
 
     //inner class:
@@ -71,9 +73,6 @@ public class FeedRepository {
         public PostListData() {
             super();
             List<Post_Item> posts = new LinkedList<Post_Item>();
-//            posts.add(new Post_Item("im testing noga coda","wow.png","Eden",true));
-//            posts.add(new Post_Item("make america great again","eagle.png","Tramp",false));
-
             setValue(posts) ;
         }
 

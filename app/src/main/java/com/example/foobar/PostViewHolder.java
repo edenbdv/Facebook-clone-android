@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 
 import com.example.foobar.ImageLoader;
@@ -25,6 +30,13 @@ import java.util.Date;
 import java.util.List;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
+
+    public interface OnPostActionListener {
+        void onPostDeleted(Post_Item post);
+        void onPostUpdatedText(Post_Item post);
+    }
+
+    private OnPostActionListener onPostActionListener;
 
     ImageButton btnEdit, btnTrash;
     TextView tv_name, tv_time, tv_status;
@@ -38,10 +50,11 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     private List<Post_Item> posts;
     private Adapter_Feed adapter;
 
-    public PostViewHolder(@NonNull View itemView, Context context, Adapter_Feed adapter) {
+    public PostViewHolder(@NonNull View itemView, Context context, Adapter_Feed adapter, OnPostActionListener listener) {
         super(itemView);
         this.context = context;
         this.adapter=adapter;
+        this.onPostActionListener = listener;
 
         // Initialize other views
         btnEdit = itemView.findViewById(R.id.btnEdit);
@@ -59,6 +72,22 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         tvLike = itemView.findViewById(R.id.tvLike);
 
         commentContainer = itemView.findViewById(R.id.commentContainer);
+
+        // Set  listener
+        if (context instanceof OnPostActionListener) {
+            onPostActionListener = (OnPostActionListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnPostDeleteListener");
+        }
+    }
+
+
+    private Bitmap decodeBase64ToBitmap(String base64String) {
+        if (base64String == null) {
+            return null;
+        }
+        byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 
     public void bind(Post_Item post, List<Post_Item> posts) {
@@ -72,9 +101,25 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         tv_time.setText(formattedDate); // Set the formatted date string to the TextView
         tv_status.setText(post.getText());
 
-        ImageLoader ImageHandler = new ImageLoader();
+//        ImageLoader ImageHandler = new ImageLoader();
+//        // Load images based on post ID range
+//        ImageHandler.loadImagesBasedOnPostId(context, post, imgView_proPic, imgView_postPic);
+
+        ImageLoader imageLoader = new ImageLoader();
+        imageLoader.loadProfilePicture(post.getCreatedBy());
+
+        // Create an instance of ImageLoader
+        //ImageLoader imageLoader = new ImageLoader(profilePictureLoadedListener);
+
         // Load images based on post ID range
-        ImageHandler.loadImagesBasedOnPostId(context, post, imgView_proPic, imgView_postPic);
+        imageLoader.loadImagesBasedOnPostId(context, post, imgView_proPic, imgView_postPic);
+
+        // Decode base64 string to Bitmap and set it to ImageView
+        Bitmap bitmap = decodeBase64ToBitmap(post.getPicture());
+        imgView_postPic.setImageBitmap(bitmap);
+
+        // Load profile picture
+        // ImageHandler.loadProfilePicture(post.getCreatedBy());
 
         // Update like button state
         updateLikeButtonState(post);
@@ -108,7 +153,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 // Handle delete post action
-                deletePostById(post.getId());
+                deletePostById(post, post.getId());
             }
         });
 
@@ -132,7 +177,19 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     }
 
     // Method to delete a post by its ID
-    public void deletePostById(int postId) {
+//    public void deletePostById(int postId) {
+//        int len = posts.size();
+//        for (int i = 0; i < len; i++) {
+//            if (posts.get(i).getId() == postId) {
+//                posts.remove(i);
+//                adapter.notifyItemRemoved(i);
+//                break;
+//            }
+//        }
+//    }
+
+    // Method to delete a post by its ID
+    public void deletePostById(Post_Item post,int postId) {
         int len = posts.size();
         for (int i = 0; i < len; i++) {
             if (posts.get(i).getId() == postId) {
@@ -140,6 +197,10 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                 adapter.notifyItemRemoved(i);
                 break;
             }
+        }
+
+        if (onPostActionListener != null) {
+            onPostActionListener.onPostDeleted(post);
         }
     }
 
@@ -170,11 +231,14 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                         // Update the post text
                         Post_Item post = posts.get(position);
                         post.setText(editedPostText);
+
+                        if (onPostActionListener != null) {
+                            onPostActionListener.onPostUpdatedText(post);
+                        }
+
                         // Notify adapter that the item has changed at the specified position
                         adapter.notifyItemChanged(getAdapterPosition());
-
                         // Handle picture editing
-
                     }
                 });
 
@@ -193,6 +257,23 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                 break; // Exit the loop once the post is found
             }
         }
+    }
+
+    // Method to compress and encode the image
+    private String compressAndEncodeImage(String base64Image) {
+        // Convert base64 string to byte array
+        byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+
+        // Decode byte array to Bitmap
+        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+        // Compress the Bitmap (adjust compression quality as needed)
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+
+        // Encode the compressed Bitmap to base64 string
+        byte[] compressedBytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(compressedBytes, Base64.DEFAULT);
     }
 
     private void updateLikeButtonState (Post_Item post){

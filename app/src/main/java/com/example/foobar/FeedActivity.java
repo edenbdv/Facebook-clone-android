@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.entities.Post_Item;
@@ -25,13 +26,15 @@ import com.example.foobar.viewModels.UserViewModel;
 
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity implements AddPostWindow.PostIdUpdater, AddPostWindow.OnPostAddedListener {
+public class FeedActivity extends AppCompatActivity implements AddPostWindow.PostIdUpdater, AddPostWindow.OnPostAddedListener, PostViewHolder.OnPostActionListener {
 
     private Adapter_Feed adapterFeed;
     private FeedViewModel feedViewModel;
     private DrawerLayout drawerLayout;
     private Button addPost;
     private int nextPostId = 11; // Starting ID for posts
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ImageLoader imageLoader;
 
     private static final String SHARED_PREF_NAME = "user_prefs";
 
@@ -47,11 +50,28 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         feedViewModel = new ViewModelProvider(this).get(FeedViewModel.class);
         feedViewModel.initRepo(this);
 
+        imageLoader = new ImageLoader();
+        swipeRefreshLayout = findViewById(R.id.refreshLayout);
+
+        // Call loadProfilePicture function
+        imageLoader.loadProfilePicture("createdByValue");
+
         // Observe changes to the list of posts
         feedViewModel.getPostsLiveData().observe(this, new Observer<List<Post_Item>>() {
             @Override
             public void onChanged(List<Post_Item> postItems) {
                 adapterFeed.SetPosts(postItems); // Update RecyclerView with new data
+            }
+        });
+
+        // Set up SwipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Fetch the latest posts from the ViewModel
+                feedViewModel.reload();
+                // Stop the refreshing animation after the data is fetched
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -107,6 +127,25 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         String username = sharedPreferences.getString("username", "");
         newPost.setCreatedBy(username);
         feedViewModel.createPost(newPost);
+        adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
+    }
+
+    @Override
+    public void onPostDeleted(Post_Item delPost) {
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        delPost.setCreatedBy(username);   // need to change according to the logged in username
+        feedViewModel.deletePost(delPost);
+        adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
+    }
+
+    @Override
+    public void onPostUpdatedText(Post_Item updatedPost) {
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        updatedPost.setCreatedBy(username);   // need to change according to the logged in username
+        String fieldVal = updatedPost.getText();
+        feedViewModel.updatePost(updatedPost,"text",fieldVal);
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 

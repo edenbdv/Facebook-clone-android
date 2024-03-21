@@ -81,15 +81,12 @@ public interface WebServiceAPI {
             @Header("Authorization") String authToken
     );
 
-
     @DELETE("users/{id}/friends/{fid}")
     Call<Void> deleteFriend(
             @Path("id") String user,
             @Path("fid") String friend,
             @Header("Authorization") String authToken
     );
-
-
 
 
     @POST("users/{id}/posts")

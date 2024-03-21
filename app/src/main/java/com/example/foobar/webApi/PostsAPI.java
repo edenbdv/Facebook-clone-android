@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.foobar.Post_IDGenerator;
 import com.example.foobar.daos.FeedDao;
 import com.example.foobar.entities.Post_Item;
 
@@ -31,7 +32,7 @@ public class PostsAPI {
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://172.18.60.64:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://192.168.222.169:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -48,6 +49,13 @@ public class PostsAPI {
 
                     List<Post_Item> posts = response.body();
                     if (posts != null) {
+                        // Map _id to id for each post
+                        for (Post_Item post : posts) {
+                            // Assign a unique numerical ID to the post
+                            post.setId(Post_IDGenerator.getNextId());
+                        }
+                        Log.e("API", " fixed posts" + posts);
+
                         // Perform database operations asynchronously
                         new Thread(() -> {
                             feedDao.clear(); // Clear existing data in the table
@@ -70,40 +78,4 @@ public class PostsAPI {
         });
     }
 
-
-//    public void getPosts(String authToken) {
-//        Call<List<Post_Item>> call = webServiceAPI.getPosts(authToken);
-//        call.enqueue(new Callback<List<Post_Item>>() {
-//            @Override
-//            public void onResponse(Call<List<Post_Item>> call, Response<List<Post_Item>> response) {
-//                postListData.setValue(response.body());
-//
-//                if (response.isSuccessful()) {
-//                    List<Post_Item> posts = response.body();
-//                    if (posts != null) {
-//                        new Thread(() -> {
-//                            // Clear existing posts
-//                            feedDao.clear();
-//
-//                            // Insert new posts individually
-//                            for (Post_Item post : posts) {
-//                                feedDao.insert(post);
-//                            }
-//
-//                            // Update LiveData with the latest posts
-//                            postListData.postValue(feedDao.getPostsFromFriends("Eden"));
-//                            postListData.postValue(feedDao.getPostsFromNonFriends("Eden"));
-//                        }).start();
-//                    }
-//                } else {
-//                    Log.e("PostsAPI", "Failed to get posts: " + response.message());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Post_Item>> call, Throwable t) {
-//                Log.e("PostsAPI", "Failed to get posts: " + t.getMessage());
-//            }
-//        });
-//    }
 }
