@@ -3,6 +3,7 @@ package com.example.foobar.daos;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.foobar.entities.FriendRequest;
@@ -27,9 +28,22 @@ public interface FriendRequestDao {
     List<String> getFriendRequests(String username);
 
 
+    @Query("DELETE FROM friend_requests")
+    void clear();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertList(List<FriendRequest> friendRequests);
+
+    // insert one friendship
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(FriendRequest friendRequest);
+
+
 
     // Retrieve a specific friend request by sender and receiver usernames
     @Query("SELECT * FROM friend_requests WHERE senderUsername = :sender AND receiverUsername = :receiver LIMIT 1")
     FriendRequest getFriendRequest(String sender, String receiver);
+
+
 
 }

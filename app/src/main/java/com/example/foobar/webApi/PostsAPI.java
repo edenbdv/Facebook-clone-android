@@ -4,7 +4,9 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.foobar.MyApplication;
 import com.example.foobar.Post_IDGenerator;
+import com.example.foobar.R;
 import com.example.foobar.daos.FeedDao;
 import com.example.foobar.entities.Post_Item;
 
@@ -31,11 +33,10 @@ public class PostsAPI {
         this.feedDao = feedDao;
 
         retrofit = new Retrofit.Builder()
-                //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://192.168.1.29:12345/api/")  //we need to change it later to be save in R string
-
+                .baseUrl(MyApplication.context.getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 

@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.foobar.MyApplication;
+import com.example.foobar.R;
 import com.example.foobar.daos.UserDao;
 import com.example.foobar.entities.Post_Item;
 import com.example.foobar.entities.TokenRes;
@@ -37,12 +39,20 @@ public class UserAPI {
         this.userDao = userDao;
        // this.userData =userData;
 
-        retrofit = new Retrofit.Builder()
-                //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://192.168.1.29:12345/api/")  //we need to change it later to be save in R string
 
+
+//        retrofit = new Retrofit.Builder()
+//
+//                //.baseUrl("http://192.168.1.29:12345/api/")  //we need to change it later to be save in R string
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        webServiceAPI = retrofit.create(WebServiceAPI.class);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(MyApplication.context.getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 

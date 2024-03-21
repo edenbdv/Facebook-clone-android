@@ -4,7 +4,9 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.foobar.MyApplication;
 import com.example.foobar.Post_IDGenerator;
+import com.example.foobar.R;
 import com.example.foobar.daos.FeedDao;
 import com.example.foobar.daos.PostDao;
 import com.example.foobar.entities.Post_Item;
@@ -38,11 +40,10 @@ public class UserPostsAPI {
         this.postDao = postDao;
 
         retrofit = new Retrofit.Builder()
-                //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://192.168.1.29:12345/api/")  //we need to change it later to be save in R string
-
+                .baseUrl(MyApplication.context.getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
@@ -87,30 +88,27 @@ public class UserPostsAPI {
 
 
     public void getUserPosts(String username, String authToken) {
+        //return webServiceAPI.getUserPosts(username, authToken);
         Call<List<Post_Item>> call = webServiceAPI.getUserPosts(username, authToken);
         call.enqueue(new Callback <List<Post_Item>>() {
             @Override
             public void onResponse(Call<List<Post_Item>> call, Response<List<Post_Item>> response) {
                 if (response.isSuccessful()) {
-                    List<Post_Item> posts = response.body();
-                    if (posts != null && !posts.isEmpty()) {
-                        for (Post_Item post : posts) {
-                            // Process each post
-                            Log.d("PostAPI", "_id: " + post.get_id());
-                            Log.d("PostAPI", "Text: " + post.getText());
-                            Log.d("PostAPI", "Picture: " + post.getPicture());
+                    Log.e("PostsAPI", "Posts retrieved successfully");
 
-                            // change the id !
-                            post.setId(Post_IDGenerator.getNextId());
-                        }
+                    List<Post_Item> userPosts = response.body();
+                    if (userPosts != null) {
+                        // Perform database operations asynchronously
+                        new Thread(() -> {
+                            postDao.clear(); // Clear existing data in the table
+                            postDao.insertList(userPosts); // Insert new data into the table
+                        }).start();
+                        postListData.setValue(userPosts); // Update LiveData with new data
                     } else {
-                        try {
-                            String errorMessage = response.errorBody().string();
-                            Log.d("PostAPI", "Failed to show posts. Response code: " + response.code() + ", Error message: " + errorMessage);
-                        } catch (IOException e) {
-                            Log.e("PostAPI", "Error reading error message: " + e.getMessage());
-                        }
+                        Log.e("PostsAPI", "Response body is null");
                     }
+                } else {
+                    Log.e("PostsAPI", "Failed to get posts: " + response.message());
                 }
             }
 

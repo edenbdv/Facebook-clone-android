@@ -30,6 +30,7 @@ drawable logo2
 drawable post1
 drawable profile_pic
 drawable rounded_corner_background
+id accept_button
 id attachedImageView
 id btnAddComment
 id btnComment
@@ -43,6 +44,7 @@ id btnTrash
 id btnUploadPhoto
 id buttonClose
 id buttonPost
+id cancel_button
 id commentContainer
 id delete_profile_button
 id displayNameTextView
@@ -57,6 +59,7 @@ id editTextTextPassword
 id editTextUsername
 id edit_profile_button
 id formContainer
+id friend_requests_list
 id headerLayout
 id imageView
 id imageViewAttach
@@ -70,7 +73,6 @@ id linearLayoutSignup
 id linearLayoutSubmit
 id logoImageView
 id lstPosts
-id menuButton
 id menu_layout
 id name
 id postEditText
@@ -79,6 +81,7 @@ id post_list
 id post_text
 id post_time
 id proPic
+id profileButton
 id profilePic
 id profile_picture
 id recyclerViewComments
@@ -94,6 +97,7 @@ id tvLike
 id tvShare
 id user_name
 id usernameTextView
+id username_text_view
 id view_friends_button
 layout activity_feed_try
 layout activity_main
@@ -102,7 +106,9 @@ layout activity_sign_up
 layout add_post_popup
 layout comment_item
 layout comment_popup
+layout dialog_friends_request
 layout feed_activity
+layout friend_request_item
 layout menu
 layout menu_item
 layout post_item
@@ -113,6 +119,7 @@ string Signup_password_verification
 string Signup_upload_photo
 string _11_hrs
 string app_name
+string base_url
 string comment
 string delete
 string delete_profile
@@ -125,6 +132,7 @@ string login_btnSignup
 string login_etPassword
 string login_etUsername
 string name
+string profile
 string see_friend_requests
 string share
 string signup_btn_submit

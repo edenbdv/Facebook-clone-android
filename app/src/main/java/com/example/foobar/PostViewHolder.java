@@ -7,8 +7,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 
 import android.view.View;
@@ -45,6 +47,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     }
 
      private OnPostActionListener onPostActionListener;
+    private static final String SHARED_PREF_NAME = "user_prefs";
 
 
     ImageButton btnEdit, btnTrash;
@@ -60,11 +63,16 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     private Adapter_Feed adapter;
 
 
+
+
+
     public PostViewHolder(@NonNull View itemView, Context context, Adapter_Feed adapter,OnPostActionListener listener) {
         super(itemView);
         this.context = context;
         this.adapter=adapter;
         this.onPostActionListener = listener;
+
+
 
 
 
@@ -154,7 +162,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 // Start the ProfileActivity with dummy parameters
                 Intent intent = new Intent(context, ProfileActivity.class);
-                intent.putExtra("username", "dummy_username"); // Dummy username
+                intent.putExtra("username", post.getCreatedBy()); // Dummy username
                 intent.putExtra("profilePicture", "dummy_profile_picture_uri"); // Dummy profile picture URI
                 context.startActivity(intent);
             }
@@ -282,6 +290,18 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         int likeButtonColor = post.isLiked() ? R.color.colorPrimary : R.color.grey;
         btnLike.setColorFilter(ContextCompat.getColor(context, likeButtonColor));
         tvLike.setTextColor(ContextCompat.getColor(context, likeButtonColor)); // Update text color
+    }
+
+    // Method to show the edit and delete icons
+    public void showOwnershipIcon() {
+        btnEdit.setVisibility(View.VISIBLE);
+        btnTrash.setVisibility(View.VISIBLE);
+    }
+
+    // Method to hide the edit and delete icons
+    public void hideOwnershipIcon() {
+        btnEdit.setVisibility(View.GONE);
+        btnTrash.setVisibility(View.GONE);
     }
 
 

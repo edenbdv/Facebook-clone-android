@@ -1,6 +1,8 @@
 package com.example.foobar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +36,9 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
     private int nextPostId = 11; // Starting ID for posts
 
     private ImageLoader imageLoader;
+
+    private static final String SHARED_PREF_NAME = "user_prefs";
+
 
 
     @Override
@@ -77,8 +82,27 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
             }
         });
 
+        Button profileButton = findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Retrieve the username from SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                String currentUsername = sharedPreferences.getString("username", "");
+                // Handle the click event to navigate to the profile activity of the current user
+                Intent intent = new Intent(FeedActivity.this, ProfileActivity.class);
+                // Pass the current user's username to the profile activity if needed
+                intent.putExtra("username", currentUsername);
+                startActivity(intent);
+            }
+        });
+
 
     }
+
+
+
+
 
     private void initializeViews() {
         // Initialize RecyclerView
@@ -109,7 +133,11 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
 
     @Override
     public void onPostAdded(Post_Item newPost) {
-        newPost.setCreatedBy("Roey");   // need to change according to the logged in username
+        //newPost.setCreatedBy("Roey");   // need to change according to the logged in username
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        newPost.setCreatedBy(username);
+
         feedViewModel.createPost(newPost);
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
@@ -117,14 +145,20 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
 
     @Override
     public void onPostDeleted(Post_Item delPost) {
-        delPost.setCreatedBy("Roey");   // need to change according to the logged in username
+        //delPost.setCreatedBy("Roey");   // need to change according to the logged in username
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        delPost.setCreatedBy(username);   // need to change according to the logged in username
         feedViewModel.deletePost(delPost);
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 
     @Override
     public void onPostUpdatedText(Post_Item updatedPost) {
-        updatedPost.setCreatedBy("Roey");   // need to change according to the logged in username
+        //updatedPost.setCreatedBy("Roey");   // need to change according to the logged in username
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        updatedPost.setCreatedBy(username);   // need to change according to the logged in username
         String fieldVal = updatedPost.getText();
         feedViewModel.updatePost(updatedPost,"text",fieldVal);
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed

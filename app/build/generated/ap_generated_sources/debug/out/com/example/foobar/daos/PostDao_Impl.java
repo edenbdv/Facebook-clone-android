@@ -28,6 +28,8 @@ public final class PostDao_Impl implements PostDao {
 
   private final EntityInsertionAdapter<Post_Item> __insertionAdapterOfPost_Item;
 
+  private final EntityInsertionAdapter<Post_Item> __insertionAdapterOfPost_Item_1;
+
   private final EntityDeletionOrUpdateAdapter<Post_Item> __updateAdapterOfPost_Item;
 
   private final SharedSQLiteStatement __preparedStmtOfUpdateText;
@@ -40,6 +42,8 @@ public final class PostDao_Impl implements PostDao {
 
   private final SharedSQLiteStatement __preparedStmtOfDeletePostByUser;
 
+  private final SharedSQLiteStatement __preparedStmtOfClear;
+
   public PostDao_Impl(@NonNull final RoomDatabase __db) {
     this.__db = __db;
     this.__insertionAdapterOfPost_Item = new EntityInsertionAdapter<Post_Item>(__db) {
@@ -47,6 +51,46 @@ public final class PostDao_Impl implements PostDao {
       @NonNull
       protected String createQuery() {
         return "INSERT OR ABORT INTO `Post_Item` (`id`,`_id`,`text`,`picture`,`createdBy`,`createdAt`,`liked`) VALUES (nullif(?, 0),?,?,?,?,?,?)";
+      }
+
+      @Override
+      protected void bind(@NonNull final SupportSQLiteStatement statement, final Post_Item entity) {
+        statement.bindLong(1, entity.getId());
+        if (entity.get_id() == null) {
+          statement.bindNull(2);
+        } else {
+          statement.bindString(2, entity.get_id());
+        }
+        if (entity.getText() == null) {
+          statement.bindNull(3);
+        } else {
+          statement.bindString(3, entity.getText());
+        }
+        if (entity.getPicture() == null) {
+          statement.bindNull(4);
+        } else {
+          statement.bindString(4, entity.getPicture());
+        }
+        if (entity.getCreatedBy() == null) {
+          statement.bindNull(5);
+        } else {
+          statement.bindString(5, entity.getCreatedBy());
+        }
+        final Long _tmp = DateConverter.toTimestamp(entity.getCreatedAt());
+        if (_tmp == null) {
+          statement.bindNull(6);
+        } else {
+          statement.bindLong(6, _tmp);
+        }
+        final int _tmp_1 = entity.isLiked() ? 1 : 0;
+        statement.bindLong(7, _tmp_1);
+      }
+    };
+    this.__insertionAdapterOfPost_Item_1 = new EntityInsertionAdapter<Post_Item>(__db) {
+      @Override
+      @NonNull
+      protected String createQuery() {
+        return "INSERT OR REPLACE INTO `Post_Item` (`id`,`_id`,`text`,`picture`,`createdBy`,`createdAt`,`liked`) VALUES (nullif(?, 0),?,?,?,?,?,?)";
       }
 
       @Override
@@ -163,6 +207,14 @@ public final class PostDao_Impl implements PostDao {
         return _query;
       }
     };
+    this.__preparedStmtOfClear = new SharedSQLiteStatement(__db) {
+      @Override
+      @NonNull
+      public String createQuery() {
+        final String _query = "DELETE FROM Post_Item";
+        return _query;
+      }
+    };
   }
 
   @Override
@@ -171,6 +223,30 @@ public final class PostDao_Impl implements PostDao {
     __db.beginTransaction();
     try {
       __insertionAdapterOfPost_Item.insert(post);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void insertList(final List<Post_Item> postItems) {
+    __db.assertNotSuspendingTransaction();
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfPost_Item_1.insert(postItems);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void insert(final Post_Item postItem) {
+    __db.assertNotSuspendingTransaction();
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfPost_Item_1.insert(postItem);
       __db.setTransactionSuccessful();
     } finally {
       __db.endTransaction();
@@ -303,6 +379,23 @@ public final class PostDao_Impl implements PostDao {
       }
     } finally {
       __preparedStmtOfDeletePostByUser.release(_stmt);
+    }
+  }
+
+  @Override
+  public void clear() {
+    __db.assertNotSuspendingTransaction();
+    final SupportSQLiteStatement _stmt = __preparedStmtOfClear.acquire();
+    try {
+      __db.beginTransaction();
+      try {
+        _stmt.executeUpdateDelete();
+        __db.setTransactionSuccessful();
+      } finally {
+        __db.endTransaction();
+      }
+    } finally {
+      __preparedStmtOfClear.release(_stmt);
     }
   }
 

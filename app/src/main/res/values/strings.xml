@@ -21,4 +21,6 @@
     <string name="delete_profile">Delete Profile</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="see_friend_requests">See Friend Requests</string>
+    <string name="profile">Profile</string>
+    <string name="base_url">http://192.168.1.29:12345/api/</string>
 </resources>
