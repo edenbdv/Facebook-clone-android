@@ -641,6 +641,7 @@ attr imageButtonStyle
 attr imagePanX
 attr imagePanY
 attr imageRotate
+attr imageUrl
 attr imageZoom
 attr indeterminateAnimationType
 attr indeterminateProgressStyle
@@ -3110,6 +3111,7 @@ id SYM
 id TOP_END
 id TOP_START
 id accelerate
+id accept_button
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
 id accessibility_custom_action_1
@@ -3246,11 +3248,13 @@ id currentState
 id custom
 id customPanel
 id cut
+id dataBinding
 id date_picker_actions
 id decelerate
 id decelerateAndComplete
 id decor_content_parent
 id default_activity_button
+id delete_profile_button
 id deltaRelative
 id dependency_ordering
 id design_bottom_sheet
@@ -3290,6 +3294,7 @@ id editTextPasswordV
 id editTextText
 id editTextTextPassword
 id editTextUsername
+id edit_profile_button
 id edit_query
 id elastic
 id embed
@@ -3316,6 +3321,7 @@ id floating
 id forever
 id formContainer
 id fragment_container_view_tag
+id friend_requests_list
 id frost
 id fullscreen_header
 id ghost_view
@@ -3399,7 +3405,6 @@ id material_timepicker_ok_button
 id material_timepicker_view
 id material_value_index
 id matrix
-id menuButton
 id menu_layout
 id message
 id middle
@@ -3456,6 +3461,8 @@ id notification_main_column
 id notification_main_column_container
 id off
 id on
+id onAttachStateChangeListener
+id onDateChanged
 id onInterceptTouchReturnSwipe
 id open_search_bar_text_view
 id open_search_view_background
@@ -3491,11 +3498,14 @@ id position
 id postEditText
 id postLayout
 id postPic
+id post_list
 id post_text
 id post_time
 id pressed
 id proPic
+id profileButton
 id profilePic
+id profile_picture
 id progress_circular
 id progress_horizontal
 id radio
@@ -3533,6 +3543,7 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
+id see_friend_requests_button
 id select_dialog_listview
 id selected
 id selection_type
@@ -3597,6 +3608,7 @@ id textSpacerNoTitle
 id textStart
 id textTop
 id textViewComment
+id textWatcher
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3631,8 +3643,11 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id user_name
 id usernameTextView
+id username_text_view
 id vertical_only
+id view_friends_button
 id view_offset_helper
 id view_transition
 id view_tree_lifecycle_owner
@@ -3766,6 +3781,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_feed_try
 layout activity_main
+layout activity_profile
 layout activity_sign_up
 layout add_post_popup
 layout comment_item
@@ -3786,7 +3802,9 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout dialog_friends_request
 layout feed_activity
+layout friend_request_item
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
@@ -3888,6 +3906,7 @@ string abc_toolbar_collapse_description
 string androidx_startup
 string app_name
 string appbar_scrolling_view_behavior
+string base_url
 string bottom_sheet_behavior
 string bottomsheet_action_collapse
 string bottomsheet_action_expand
@@ -3900,7 +3919,9 @@ string character_counter_pattern
 string clear_text_end_icon_content_description
 string comment
 string delete
+string delete_profile
 string edit
+string edit_profile
 string error_a11y_label
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
@@ -4021,15 +4042,18 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string profile
 string search_menu_title
 string searchbar_scrolling_view_behavior
 string searchview_clear_text_content_description
 string searchview_navigation_content_description
+string see_friend_requests
 string share
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
 string signup_btn_submit
 string status_bar_notification_info_overflow
+string view_friends
 string what_s_on_your_mind
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
@@ -5200,6 +5224,7 @@ styleable ConstraintSet android_orientation android_id android_visibility androi
 styleable CoordinatorLayout keylines statusBarBackground
 styleable CoordinatorLayout_Layout android_layout_gravity layout_anchor layout_anchorGravity layout_behavior layout_dodgeInsetEdges layout_insetEdge layout_keyline
 styleable CustomAttribute attributeName customBoolean customColorDrawableValue customColorValue customDimension customFloatValue customIntegerValue customPixelDimension customReference customStringValue methodName
+styleable CustomImageView imageUrl
 styleable DrawerArrowToggle arrowHeadLength arrowShaftLength barLength color drawableSize gapBetweenBars spinBars thickness
 styleable DrawerLayout elevation
 styleable ExtendedFloatingActionButton collapsedSize elevation extendMotionSpec extendStrategy hideMotionSpec showMotionSpec shrinkMotionSpec

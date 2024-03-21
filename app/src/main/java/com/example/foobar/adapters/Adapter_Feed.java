@@ -1,190 +1,89 @@
 package com.example.foobar.adapters;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.PictureDrawable;
-import android.net.Uri;
+
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
+import com.example.foobar.CommentActivity;
+import com.example.foobar.FeedActivity;
+import com.example.foobar.ImageLoader;
+import com.example.foobar.PostViewHolder;
+import com.example.foobar.ProfileActivity;
+import com.example.foobar.R;
+import com.example.foobar.entities.Post_Item;
+
+
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.foobar.CommentActivity;
-import com.example.foobar.R;
-import com.example.foobar.entities.Post_Item;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import com.bumptech.glide.Glide;
-import com.caverock.androidsvg.SVG;
-import com.caverock.androidsvg.SVGParseException;
+import java.util.List;
 
+public class Adapter_Feed extends RecyclerView.Adapter<PostViewHolder> {
 
-public class Adapter_Feed extends RecyclerView.Adapter<Adapter_Feed.MyViewHolder> {
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    private static final String SHARED_PREF_NAME = "user_prefs";
 
-        TextView tv_name, tv_time, tv_status;
-        ImageView imgView_proPic, imgView_postPic;
-        ImageButton btnLike;
-        LinearLayout likeContainer;
-        LinearLayout commentContainer;
-        TextView tvLike;
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-
-            imgView_proPic = itemView.findViewById(R.id.proPic);
-            imgView_postPic = itemView.findViewById(R.id.postPic);
-
-            tv_name = itemView.findViewById(R.id.name);
-            tv_time = itemView.findViewById(R.id.post_time);
-            tv_status = itemView.findViewById(R.id.post_text);
-
-            btnLike = itemView.findViewById(R.id.btnLike);
-            likeContainer = itemView.findViewById(R.id.likeContainer);
-            tvLike= itemView.findViewById(R.id.tvLike);
-
-            commentContainer = itemView.findViewById(R.id.commentContainer);
-        }
-    }
-
-    private final LayoutInflater mInflater;
-    private final Context context; // Store the context
-    ArrayList<Post_Item> PostList = new ArrayList<>();
+    private final Context context;
+    private List<Post_Item> posts;
 
     public Adapter_Feed(Context context) {
         this.context = context;
-        this.mInflater = LayoutInflater.from(context);
-        this.PostList = new ArrayList<>();
+        this.posts = new ArrayList<>();
+    }
+
+    @NonNull
+    @Override
+    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item, parent, false);
+        return new PostViewHolder(view, context, this, (FeedActivity) context); // Pass the profile picture loaded listener
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View view = mInflater.inflate(R.layout.post_item, parent, false);
-        return new MyViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        if (PostList != null) {
-            final Post_Item current = PostList.get(position);
-
-            holder.tv_name.setText(current.getName());
-            holder.tv_time.setText(current.getTime());
-            holder.tv_status.setText(current.getText());
-            //Glide.with(context).load(current.getPostpic()).into(holder.imgView_postPic);
-            //holder.imgView_postPic.setImageResource(current.getPostpic());
+    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
+        Post_Item post = posts.get(position);
+        //String username = post.getCreatedBy();
+        holder.bind(post, posts);
 
 
-            // Check if the post ID is between 1 and 10
-            int postId = current.getId();
-            if (postId >= 1 && postId <= 10) {
-                // Convert profile picture path to Uri and load into ImageView from assets
-                try {
-                    InputStream profilePicInputStream = context.getAssets().open(current.getPropic().substring(1));
-                    SVG profilePicSvg = SVG.getFromInputStream(profilePicInputStream);
-                    holder.imgView_proPic.setImageDrawable(new PictureDrawable(profilePicSvg.renderToPicture()));
-                } catch (IOException | SVGParseException e) {
-                    e.printStackTrace();
-                }
+        // Retrieve current username from SharedPreferences
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String currentUsername = sharedPreferences.getString("username", "");
 
-                // Convert post picture path to Uri and load into ImageView from assets
-                try {
-                    InputStream postPicInputStream = context.getAssets().open(current.getPostpic().substring(1));
-                    SVG postPicSvg = SVG.getFromInputStream(postPicInputStream);
-                    holder.imgView_postPic.setImageDrawable(new PictureDrawable(postPicSvg.renderToPicture()));
-                } catch (IOException | SVGParseException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                // Load profile picture from Uri for other post IDs
-//                Uri profilePictureUri = Uri.parse(current.getPropic());
-//                holder.imgView_proPic.setImageURI(profilePictureUri);
-
-                // Inside onBindViewHolder method of Adapter_Feed class
-                String profilePictureUri = current.getPropic();
-                if (profilePictureUri != null) {
-                    Uri uri = Uri.parse(profilePictureUri);
-                    holder.imgView_proPic.setImageURI(uri);
-                    holder.imgView_proPic.setVisibility(View.VISIBLE); // Make ImageView visible
-                } else {
-                    // Hide the ImageView if profilePictureUri is null
-                    holder.imgView_proPic.setVisibility(View.GONE);
-                }
-
-
-
-                // Load post picture from Uri for other post IDs
-                Uri postPictureUri = Uri.parse(current.getPostpic());
-                holder.imgView_postPic.setImageURI(postPictureUri);
-            }
-
-
-            // Set initial like button color based on post's liked status
-            int likeButtonColor = current.isLiked() ? R.color.colorPrimary : R.color.grey;
-            holder.btnLike.setColorFilter(ContextCompat.getColor(context, likeButtonColor));
-            holder.tvLike.setTextColor(ContextCompat.getColor(context, likeButtonColor)); // Update text color
-
-            // Handle like button click
-            holder.likeContainer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Toggle like status and update UI accordingly
-                    boolean isLiked = !current.isLiked();
-                    current.setLiked(isLiked);
-                    // Update like button color
-                    int colorResId = isLiked ? R.color.colorPrimary : R.color.grey;
-                    holder.btnLike.setColorFilter(ContextCompat.getColor(context, colorResId));
-                    holder.tvLike.setTextColor(ContextCompat.getColor(context, colorResId)); // Update text color
-                }
-            });
-
-
-            // Set click listener for comment container
-            holder.commentContainer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Start CommentActivity
-                    Intent intent = new Intent(context, CommentActivity.class);
-                    context.startActivity(intent);
-                }
-            });
-
+        // Check if the post was created by the current user
+        if (post.getCreatedBy().equals(currentUsername)) {
+            // Show the icon indicating ownership
+            holder.showOwnershipIcon();
+        } else {
+            // Hide the icon
+            holder.hideOwnershipIcon();
         }
     }
 
-
-    public void SetPosts(ArrayList<Post_Item> l) {
-        this.PostList = l;
+    public void SetPosts(List<Post_Item> l) {
+        this.posts = l;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        if (PostList != null) {
-            return PostList.size();
+        if (posts != null) {
+            return posts.size();
         } else return 0;
     }
 
-    public ArrayList<Post_Item> getPosts() {
-        return PostList;
+    // Method to get the list of posts
+    public List<Post_Item> getPosts() {
+        return posts;
     }
 
+
+
 }
-
-
