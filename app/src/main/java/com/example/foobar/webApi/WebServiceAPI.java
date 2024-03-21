@@ -37,7 +37,6 @@ public interface WebServiceAPI {
             @Header("Authorization") String authToken );
 
 
-    //that's a problem to update in this wayyyy!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     @PATCH("users/{id}")
     @FormUrlEncoded
     Call<User_Item> updateUser(

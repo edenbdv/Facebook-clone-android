@@ -35,7 +35,7 @@ public class UserAPI {
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://172.20.10.3:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://192.168.1.29:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -155,55 +155,6 @@ public class UserAPI {
             }
         });
     }
-
-
-
-//
-//    public void updatePost(String username, String postId, String fieldName, String fieldValue, String authToken) {
-//        Call<Post_Item> call = webServiceAPI.updatePost(username, postId, fieldName, fieldValue, authToken);
-//        call.enqueue(new Callback<Post_Item>() {
-//            @Override
-//            public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
-//
-//
-//                if (response.isSuccessful()) {
-//                    Post_Item updatedPost = response.body();
-//                    if (updatedPost != null) {
-//                        Log.d("PostAPI", "Post updated successfully: " + updatedPost.toString());
-//
-//                        new Thread(() -> {
-//                            // Insert the newly updated post into the local database
-//                            Post_Item postItem = response.body();
-//                            postDao.updatePost(postItem);
-//
-//                            List<Post_Item> updatedPosts =  new ArrayList<>(postListData.getValue());
-//                            updatedPosts.add(postItem);
-//
-//                            // Update the LiveData with the updated list of posts
-//                            postListData.postValue(updatedPosts);
-//                        }).start();
-//
-//
-//
-//                    } else {
-//                        Log.e("PostAPI", "Received null response body");
-//                    }
-//                } else {
-//                    try {
-//                        String errorMessage = response.errorBody().string();
-//                        Log.d("PostAPI", "Failed to update post. Response code: " + response.code() + ", Error message: " + errorMessage);
-//                    } catch (IOException e) {
-//                        Log.e("PostAPI", "Error reading error message: " + e.getMessage());
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Post_Item> call, Throwable t) {
-//                Log.e("PostAPI", "Failed to update post: " + t.getMessage());
-//            }
-//        });
-//    }
 
 
     public void deleteUser(String username, String authToken) {

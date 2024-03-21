@@ -2,6 +2,7 @@ package com.example.foobar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -12,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.entities.Post_Item;
@@ -26,7 +28,13 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
     private DrawerLayout drawerLayout;
     private ImageButton menuButton;
     private Button addPost;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+
     private int nextPostId = 11; // Starting ID for posts
+
+    private ImageLoader imageLoader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +48,14 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         feedViewModel = new ViewModelProvider(this).get(FeedViewModel.class);
         feedViewModel.initRepo(this);
 
+        imageLoader = new ImageLoader();
+        swipeRefreshLayout = findViewById(R.id.refreshLayout);
+
+
+
+        // Call loadProfilePicture function
+        imageLoader.loadProfilePicture("createdByValue");
+
 
 
         // Observe changes to the list of posts
@@ -49,6 +65,19 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
                 adapterFeed.SetPosts(postItems); // Update RecyclerView with new data
             }
         });
+
+        // Set up SwipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Fetch the latest posts from the ViewModel
+                feedViewModel.reload();
+                // Stop the refreshing animation after the data is fetched
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+
     }
 
     private void initializeViews() {
@@ -101,7 +130,6 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 
-    
 
 
     @Override

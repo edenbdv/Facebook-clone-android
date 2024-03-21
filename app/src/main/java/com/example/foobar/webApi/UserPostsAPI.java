@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.foobar.Post_IDGenerator;
 import com.example.foobar.daos.FeedDao;
 import com.example.foobar.daos.PostDao;
 import com.example.foobar.entities.Post_Item;
@@ -38,7 +39,7 @@ public class UserPostsAPI {
 
         retrofit = new Retrofit.Builder()
                 //.baseUrl(MyApplication.context.getString(R.string.BaseUrl))  //we need to change it later to be save in R string
-                .baseUrl("http://172.20.10.3:12345/api/")  //we need to change it later to be save in R string
+                .baseUrl("http://192.168.1.29:12345/api/")  //we need to change it later to be save in R string
 
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -56,31 +57,22 @@ public class UserPostsAPI {
             public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
 
                 new Thread(() -> {
-                    // Insert the newly created post into the local database
+                    // Generate a numerical ID for the newly created post
+                    int postId = Post_IDGenerator.getNextId();
 
+                    // Insert the newly created post with the generated numerical ID into the local database
                     Post_Item postItem = response.body();
+                    Post_Item localPost = new Post_Item(text,picture,username,false);
                     Log.d("PostAPI", " local id:"+ postItem.getId());
 
-
-                    String text =  postItem.getText();
-                    String picture = postItem.getPicture();
-                    String username = postItem.getCreatedBy();
-
-                    Post_Item localPost = new Post_Item(text,picture,username,false);
-                    Log.d("PostAPI", "  fixed local id:"+ localPost.getId());
-
-
-                    // Manually assign an ID using the counter
-//                    postItem.setId(postIdCounter++);
-//                    Log.d("PostAPI", " fixed id:"+ postItem.getId());
-
+                    localPost.setId(postId);
                     postDao.createPost(postItem);
-                    List<Post_Item> updatedPosts =  new ArrayList<>(postListData.getValue());
-                    updatedPosts.add(postItem);
 
                     // Update the LiveData with the updated list of posts
-
+                    List<Post_Item> updatedPosts =  new ArrayList<>(postListData.getValue());
+                    updatedPosts.add(postItem);
                     postListData.postValue(updatedPosts);
+
                 }).start();
 
             }
@@ -107,6 +99,9 @@ public class UserPostsAPI {
                             Log.d("PostAPI", "_id: " + post.get_id());
                             Log.d("PostAPI", "Text: " + post.getText());
                             Log.d("PostAPI", "Picture: " + post.getPicture());
+
+                            // change the id !
+                            post.setId(Post_IDGenerator.getNextId());
                         }
                     } else {
                         try {
@@ -138,8 +133,6 @@ public class UserPostsAPI {
                              //Delete the post from local database
 
                             postDao.deletePost(localId);
-//                            String idMongo = deletedPost.get_id();
-//                            postDao.deletePost2(idMongo);
 
                             // Update LiveData with updated list of posts
                             List<Post_Item> updatedPosts = new ArrayList<>(postListData.getValue());

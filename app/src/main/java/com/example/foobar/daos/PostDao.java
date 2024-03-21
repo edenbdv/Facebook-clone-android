@@ -44,10 +44,6 @@ public interface PostDao {
     @Query("DELETE FROM Post_Item WHERE id = :id")
     void deletePost(int id);
 
-//
-//    @Query("DELETE FROM Post_Item WHERE _id = :_id ")
-//    void deletePost2(String _id);
-
 
     // use in case the user was deleted from the system
     @Query("DELETE FROM Post_Item WHERE createdBy = :userName")

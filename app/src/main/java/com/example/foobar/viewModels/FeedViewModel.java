@@ -62,7 +62,8 @@ public class FeedViewModel extends ViewModel {
     }
 
 
-
-
+    public void reload() {
+         feedRepository.reload();
+    }
 
 }

@@ -52,27 +52,27 @@ public class UsersRepository {
     }
 
     public void getUser(String username) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NjIxNjEsImV4cCI6MTcxMTA0ODU2MX0.Sjok6qVTsOZFDzfEonvfWwfjDB9jfLxwdNpPEsJ-RSE";
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTY2ODcsImV4cCI6MTcxMTEwMzA4N30.UzWtDcftRb9H9F3cfa0hZcDQa_KRQNDfFwBsSHQpUSw";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userAPI.getUser(username,authToken);
     }
 
 
     public void deleteUser(String username) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NjIxNjEsImV4cCI6MTcxMTA0ODU2MX0.Sjok6qVTsOZFDzfEonvfWwfjDB9jfLxwdNpPEsJ-RSE";
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTY2ODcsImV4cCI6MTcxMTEwMzA4N30.UzWtDcftRb9H9F3cfa0hZcDQa_KRQNDfFwBsSHQpUSw";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userAPI.deleteUser(username,authToken);
     }
 
 
     public void  updateUser(String username, String fieldName, String fieldValue) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NjIxNjEsImV4cCI6MTcxMTA0ODU2MX0.Sjok6qVTsOZFDzfEonvfWwfjDB9jfLxwdNpPEsJ-RSE";
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTY2ODcsImV4cCI6MTcxMTEwMzA4N30.UzWtDcftRb9H9F3cfa0hZcDQa_KRQNDfFwBsSHQpUSw";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userAPI.updateUser(username,fieldName,fieldValue, authToken);
     }
 
     public void  getUserFriends(String username) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NjIxNjEsImV4cCI6MTcxMTA0ODU2MX0.Sjok6qVTsOZFDzfEonvfWwfjDB9jfLxwdNpPEsJ-RSE";
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTY2ODcsImV4cCI6MTcxMTEwMzA4N30.UzWtDcftRb9H9F3cfa0hZcDQa_KRQNDfFwBsSHQpUSw";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userFriendsAPI.getUserFriends(username, authToken);
     }

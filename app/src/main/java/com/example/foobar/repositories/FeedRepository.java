@@ -47,23 +47,31 @@ public class FeedRepository {
     // Call createPost method in FeedViewModel to handle creating the post
 
     public void  createPost(String username,String text,String picture) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NjIxNjEsImV4cCI6MTcxMTA0ODU2MX0.Sjok6qVTsOZFDzfEonvfWwfjDB9jfLxwdNpPEsJ-RSE";
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTc0MTIsImV4cCI6MTcxMTEwMzgxMn0.6gS4QVaveXhk7hbPq5Nkg9ty5r8sBRGID_FwJAtejvk";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userPostsAPI.createPost(username,text,picture,authToken);
     }
 
 
     public void  deletePost(int localId,String username, String postId) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NjIxNjEsImV4cCI6MTcxMTA0ODU2MX0.Sjok6qVTsOZFDzfEonvfWwfjDB9jfLxwdNpPEsJ-RSE";
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTc0MTIsImV4cCI6MTcxMTEwMzgxMn0.6gS4QVaveXhk7hbPq5Nkg9ty5r8sBRGID_FwJAtejvk";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userPostsAPI.deletePost(localId, username, postId, authToken);
     }
 
 
     public void  updatePost(String username, String postId, String fieldName, String fieldValue) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NjIxNjEsImV4cCI6MTcxMTA0ODU2MX0.Sjok6qVTsOZFDzfEonvfWwfjDB9jfLxwdNpPEsJ-RSE";
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTc0MTIsImV4cCI6MTcxMTEwMzgxMn0.6gS4QVaveXhk7hbPq5Nkg9ty5r8sBRGID_FwJAtejvk";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         userPostsAPI.updatePost(username, postId, fieldName,fieldValue,authToken);
+    }
+
+    public void reload() {
+        // Call the appropriate method to fetch the latest posts from your data source
+        // For example, if you're fetching posts from an API:
+        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTc0MTIsImV4cCI6MTcxMTEwMzgxMn0.6gS4QVaveXhk7hbPq5Nkg9ty5r8sBRGID_FwJAtejvk";
+        String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
+        postsAPI.getPosts(authToken);
     }
 
 
@@ -82,14 +90,14 @@ public class FeedRepository {
             super.onActive();
             new Thread(()->{
 
-                //after api updated room , extract the data from the local db and update live data
-                //postListData.postValue(feedDao.getPostsFromFriends("Eden"));
-                //postListData.postValue(feedDao.getPostsFromNonFriends("Eden"));
             }).start();
 
-            String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA5NjIxNjEsImV4cCI6MTcxMTA0ODU2MX0.Sjok6qVTsOZFDzfEonvfWwfjDB9jfLxwdNpPEsJ-RSE";
+            String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTc0MTIsImV4cCI6MTcxMTEwMzgxMn0.6gS4QVaveXhk7hbPq5Nkg9ty5r8sBRGID_FwJAtejvk";
             postsAPI.getPosts( "Bearer "+ jwtTokenRoey); //for example if roey is logged in
         }
+
+
+
 
 
         public LiveData<List<Post_Item>> getAll() {

@@ -23,23 +23,35 @@ import java.io.InputStream;
 
 public class ImageLoader {
 
-//    private UserViewModel userViewModel;
-//    private FeedActivity feedActivity;
 
     public ImageLoader() {
-//        this.feedActivity = activity;
-//        this.userViewModel = new ViewModelProvider(activity).get(UserViewModel.class);
+
     }
+
+//    public void loadImageFromAssets(Context context, String path, ImageView imageView) {
+//        try {
+//            InputStream inputStream = context.getAssets().open(path.substring(1));
+//            SVG svg = SVG.getFromInputStream(inputStream);
+//            imageView.setImageDrawable(new PictureDrawable(svg.renderToPicture()));
+//        } catch (IOException | SVGParseException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void loadImageFromAssets(Context context, String path, ImageView imageView) {
         try {
-            InputStream inputStream = context.getAssets().open(path.substring(1));
-            SVG svg = SVG.getFromInputStream(inputStream);
-            imageView.setImageDrawable(new PictureDrawable(svg.renderToPicture()));
+            if (path != null && path.length() > 1) { // Check if path is not null and has length greater than 1
+                InputStream inputStream = context.getAssets().open(path.substring(1));
+                SVG svg = SVG.getFromInputStream(inputStream);
+                imageView.setImageDrawable(new PictureDrawable(svg.renderToPicture()));
+            } else {
+                Log.e("ImageLoader", "Invalid asset path: " + path);
+            }
         } catch (IOException | SVGParseException e) {
             e.printStackTrace();
         }
     }
+
 
     public void loadImageFromUri(String uriString, ImageView imageView) {
         if (uriString != null) {
@@ -64,11 +76,14 @@ public class ImageLoader {
         }
     }
 
-    private void loadProfilePicture(String createdBy) {
+    public static  void loadProfilePicture(String createdBy) {
         String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
         String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
 
-        //userViewModel.getUser(createdBy);
+        Log.d("ImageLoader", "Loading profile picture for user: " + createdBy);
+
     }
+
+
 
 }

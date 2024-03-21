@@ -89,7 +89,7 @@ public class Post_Item {
     public String toString() {
         return "Post_Item{" +
                 "id=" + id + '\'' +
-                ", _id" + _id + '\'' +
+                ", _id=" + _id + '\'' +
                 ", text='" + text + '\'' +
                 ", picture='" + picture + '\'' +
                 ", createdBy='" + createdBy + '\'' +

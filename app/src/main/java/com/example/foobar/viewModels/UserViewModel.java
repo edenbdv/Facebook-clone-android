@@ -20,9 +20,6 @@ public class UserViewModel extends AndroidViewModel {
     private MutableLiveData<User_Item> user ;
 
     private MutableLiveData<User_Item> userItemLiveData = new MutableLiveData<>();
-   // private MutableLiveData<List<Post_Item>> postsLiveData = new MutableLiveData<>();
-
-  //  private LiveData<Post_Item> post;
     private UsersRepository userRepository;
 
 
@@ -33,12 +30,6 @@ public class UserViewModel extends AndroidViewModel {
 
         user = new MutableLiveData<User_Item>();
     }
-
-//
-    // Method to create a new user
-//    public void createUser(User_Item user) {
-//        userRepository.createUser(user);
-//    }
 
 
 
@@ -56,27 +47,6 @@ public class UserViewModel extends AndroidViewModel {
         userRepository.getUser(username);
     }
 
-    //Method to get the current user data
-//    public LiveData<User_Item> getCurrentUser(String username) {
-//        return user;
-//    }
-
-     //Method to get all posts of the current user
-//    public LiveData<List<Post_Item>> getUserPosts(String username) {
-//        return userRepository.getUserPosts(username);
-//    }
-
-
-
-    // Method to set user data
-//    public void setUserItem(User_Item userItem) {
-//        userItemLiveData.setValue(userItem);
-//    }
-//
-//    // Method to set post data
-//    public void setPosts(List<Post_Item> posts) {
-//        postsLiveData.setValue(posts);
-//    }
 
 
 }

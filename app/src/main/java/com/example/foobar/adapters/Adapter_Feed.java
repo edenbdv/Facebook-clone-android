@@ -5,6 +5,8 @@ import android.content.Context;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import com.example.foobar.CommentActivity;
+import com.example.foobar.FeedActivity;
+import com.example.foobar.ImageLoader;
 import com.example.foobar.PostViewHolder;
 import com.example.foobar.ProfileActivity;
 import com.example.foobar.R;
@@ -38,7 +40,7 @@ public class Adapter_Feed extends RecyclerView.Adapter<PostViewHolder> {
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item, parent, false);
-        return new PostViewHolder(view, context, this);
+        return new PostViewHolder(view, context, this, (FeedActivity) context); // Pass the profile picture loaded listener
     }
 
     @Override

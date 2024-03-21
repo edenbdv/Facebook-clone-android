@@ -1,6 +1,7 @@
 package com.example.foobar;
 
 import static android.app.PendingIntent.getActivity;
+import com.example.foobar.ImageLoader;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -59,10 +60,12 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     private Adapter_Feed adapter;
 
 
-    public PostViewHolder(@NonNull View itemView, Context context, Adapter_Feed adapter) {
+    public PostViewHolder(@NonNull View itemView, Context context, Adapter_Feed adapter,OnPostActionListener listener) {
         super(itemView);
         this.context = context;
         this.adapter=adapter;
+        this.onPostActionListener = listener;
+
 
 
         // Initialize other views
@@ -111,11 +114,15 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         tv_time.setText(formattedDate); // Set the formatted date string to the TextView
         tv_status.setText(post.getText());
 
+        ImageLoader imageLoader = new ImageLoader();
+        imageLoader.loadProfilePicture(post.getCreatedBy());
 
-        ImageLoader ImageHandler = new ImageLoader();
+
+        // Create an instance of ImageLoader
+        //ImageLoader imageLoader = new ImageLoader(profilePictureLoadedListener);
 
         // Load images based on post ID range
-        ImageHandler.loadImagesBasedOnPostId(context, post, imgView_proPic, imgView_postPic);
+        imageLoader.loadImagesBasedOnPostId(context, post, imgView_proPic, imgView_postPic);
 
 
         // Decode base64 string to Bitmap and set it to ImageView
