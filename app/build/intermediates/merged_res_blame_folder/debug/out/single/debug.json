@@ -4,12 +4,12 @@
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable\\logo2.png"
     },
     {
-        "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\drawable-hdpi_ic_night.png.flat",
-        "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable-hdpi\\ic_night.png"
-    },
-    {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\layout_friend_request_item.xml.flat",
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\layout\\friend_request_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\drawable-hdpi_ic_night.png.flat",
+        "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable-hdpi\\ic_night.png"
     },
     {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
@@ -100,6 +100,10 @@
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable-xxhdpi\\ic_night.png"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_baseline_add_24.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/baseline_add_24.xml"
+    },
+    {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\drawable-anydpi_ic_attach_picture.xml.flat",
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable-anydpi\\ic_attach_picture.xml"
     },
@@ -120,8 +124,16 @@
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable-xhdpi\\ic_attach_picture.png"
     },
     {
+        "merged": "com.example.foobar.app-merged_res-4:/layout_activity_profile.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/activity_profile.xml"
+    },
+    {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\layout_post_item.xml.flat",
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\layout\\post_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\drawable_ic_add_friend.xml.flat",
+        "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable\\ic_add_friend.xml"
     },
     {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
@@ -218,10 +230,6 @@
     {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\drawable-mdpi_ic_night.png.flat",
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable-mdpi\\ic_night.png"
-    },
-    {
-        "merged": "com.example.foobar.app-merged_res-4:/layout_post_item.xml.flat",
-        "source": "com.example.foobar.app-main-6:/layout/post_item.xml"
     },
     {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\drawable-xhdpi_ic_pencil.png.flat",
@@ -328,12 +336,12 @@
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable-xxhdpi\\ic_trash.png"
     },
     {
-        "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\layout_feed_activity.xml.flat",
-        "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\layout\\feed_activity.xml"
-    },
-    {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\drawable-xxhdpi_ic_like_btn.png.flat",
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable-xxhdpi\\ic_like_btn.png"
+    },
+    {
+        "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\layout_feed_activity.xml.flat",
+        "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\layout\\feed_activity.xml"
     },
     {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\drawable-xhdpi_ic_comment_btn.png.flat",

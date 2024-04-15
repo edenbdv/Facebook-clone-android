@@ -35,7 +35,9 @@ public class CommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.comment_popup);
 
-        postId = getIntent().getStringExtra("postId");
+        postId = getIntent().getStringExtra("postId"); //id from mongo
+        Log.d("comment",  "post ID: " + postId);
+
 
         recyclerViewComments = findViewById(R.id.recyclerViewComments);
 

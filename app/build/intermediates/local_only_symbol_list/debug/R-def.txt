@@ -9,6 +9,7 @@ color dark_grey
 color grey
 color light_grey
 color white
+drawable baseline_add_24
 drawable edit_text_background
 drawable ic_attach_picture
 drawable ic_close

@@ -52,6 +52,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+
+
         // Retrieve the username from intent extras
         if (getIntent().hasExtra("username")) {
             profile_username = getIntent().getStringExtra("username");
@@ -174,21 +176,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        // Add an observer to the friend requests LiveData
-//        friendsViewModel.getFriendRequests().observe(this, new Observer<List<String>>() {
-//            @Override
-//            public void onChanged(List<String> friendRequests) {
-//                // Update the UI based on changes in the friend requests list
-//                if (friendRequests != null && !friendRequests.isEmpty()) {
-//                    // If friend requests list is not empty, show the dialog
-//                    showFriendRequestsDialog(friendRequests);
-//                } else {
-//                    // If friend requests list is empty, display a message or handle it as needed
-//                    // For example, show a toast message
-//                    Toast.makeText(ProfileActivity.this, "No friend requests found.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+
         TextView usernameTextView = findViewById(R.id.user_name);
         usernameTextView.setText(profile_username);
     }

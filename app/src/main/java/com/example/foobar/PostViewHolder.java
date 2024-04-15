@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -191,6 +192,14 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 // Start CommentActivity
                 Intent intent = new Intent(context, CommentActivity.class);
+                intent.putExtra("postId", post.get_id());
+                Log.d("comment",  "passing post ID: " + post.get_id());
+
+
+//                intent.putExtra("postId", post.getId());
+//                Log.d("comment",  "passing post ID: " + post.getId());
+
+
                 context.startActivity(intent);
             }
         });
