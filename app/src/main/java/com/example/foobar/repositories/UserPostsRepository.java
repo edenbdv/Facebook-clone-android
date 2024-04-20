@@ -22,9 +22,13 @@ public class UserPostsRepository {
     private UserPostsAPI userPostsAPI;
     private LiveUserPosts userPostsLive;
     private String token;
-    //private String username;
+
+    private SharedPreferences sharedPreferences;
+
 
     public UserPostsRepository(Context context, String username) {
+        this.sharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
         AppDB db = AppDB.getInstance(context);
         postDao = db.postDao();
         userPostsLive = new LiveUserPosts(username);
@@ -41,6 +45,19 @@ public class UserPostsRepository {
         Log.d("Repo", "Got user posts");
         return userPostsLive;
 
+    }
+
+    public void  deletePost(int localId,String username, String postId) {
+        String token = sharedPreferences.getString("token", "");
+        String authToken = "Bearer "+ token;
+        userPostsAPI.deletePost(localId, username, postId, authToken);
+    }
+
+
+    public void  updatePost(String username, String postId, String fieldName, String fieldValue) {
+        String token = sharedPreferences.getString("token", "");
+        String authToken = "Bearer "+ token;
+        userPostsAPI.updatePost(username, postId, fieldName,fieldValue,authToken);
     }
 
     class LiveUserPosts extends MutableLiveData<List<Post_Item>> {

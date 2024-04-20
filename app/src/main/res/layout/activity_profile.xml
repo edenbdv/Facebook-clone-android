@@ -5,24 +5,36 @@
     android:orientation="vertical">
 
     <!-- Profile Picture -->
+
+    <!-- User's Name -->
     <ImageView
         android:id="@+id/profile_picture"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
-    <!-- User's Name -->
+
+    <!-- Buttons -->
     <TextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:textSize="18sp"
-        android:text="profile_username_placeholder"/>
+        android:text="profile_username_placeholder"
+        android:textSize="18sp" />
 
-    <!-- Buttons -->
+    <!-- Add Friend / Friends Button -->
+    <Button
+        android:id="@+id/add_friend_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="18sp"
+        android:text="add friend"
+        android:layout_marginTop="8dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +47,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/view_friends"/>
+            android:text="@string/view_friends"
+            android:textSize="12sp"/>
 
         <Button
             android:id="@+id/delete_profile_button"
@@ -43,7 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/delete_profile"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp"
+            android:textSize="12sp"/>
 
         <Button
             android:id="@+id/edit_profile_button"
@@ -51,7 +65,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/edit_profile"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp"
+            android:textSize="12sp"/>
 
         <Button
             android:id="@+id/see_friend_requests_button"
@@ -59,7 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/see_friend_requests"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp"
+            android:textSize="11sp"/>
     </LinearLayout>
 
     <!-- List of Posts -->

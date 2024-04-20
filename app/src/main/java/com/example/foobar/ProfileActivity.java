@@ -21,7 +21,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.adapters.Adapter_FriendRequest;
+import com.example.foobar.viewModels.FeedViewModel;
 import com.example.foobar.viewModels.FriendsViewModel;
 import com.example.foobar.viewModels.UserPostsViewModel;
 import com.example.foobar.viewModels.UserViewModel;
@@ -32,17 +34,20 @@ import com.example.foobar.webApi.UserFriendsAPI;
 
 import java.util.List;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements PostViewHolder.OnPostActionListener, AddFriendRequestListener  {
 
     private Adapter_FriendRequest friendRequestAdapter; // Declare FriendRequestAdapter
     private UserPostsViewModel userPostsViewModel;
     private UserViewModel userViewModel;
-    private Adapter_Profile profileAdapter;
+    //private Adapter_Profile profileAdapter;
+    private Adapter_Feed profileAdapter;
+
     private FriendsViewModel friendsViewModel;
 
     private String profile_username;
 
     private String current_username;
+
     private String authToken;
 
     private static final String SHARED_PREF_NAME = "user_prefs";
@@ -51,7 +56,6 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
 
 
         // Retrieve the username from intent extras
@@ -70,6 +74,8 @@ public class ProfileActivity extends AppCompatActivity {
         // Retrieve the username and token from SharedPreferences
         retrieveUserInfo();
 
+
+
         // Initialize ViewModel
         userPostsViewModel = new ViewModelProvider(this).get(UserPostsViewModel.class);
         userPostsViewModel.initRepo(this, profile_username);
@@ -78,16 +84,57 @@ public class ProfileActivity extends AppCompatActivity {
         friendsViewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
         friendsViewModel.initRepo(this, profile_username); // Initialize FriendsViewModel
 
+        // Set the listener
+        friendsViewModel.setListener(this);
+
+
+        // Fetch friend list data from FriendsViewModel
+        friendsViewModel.getFriendList().observe(ProfileActivity.this, new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> friendList) {
+                // Determine if the current user is a friend of the profile user
+                boolean isFriend = friendList != null && friendList.contains(current_username);
+                Log.d("profile", "isFriend ? " + isFriend);
+
+                // Determine if the current user is viewing their own profile
+                boolean isCurrentUser = current_username.equals(profile_username);
+                Log.d("profile", "is current user ? " + isCurrentUser);
+
+
+                // Update UI based on user relationships
+                handleUIBasedOnRelationship(isFriend, isCurrentUser);
+            }
+        });
+
         // Initialize adapter
-        profileAdapter = new Adapter_Profile();
+        //profileAdapter = new Adapter_Profile();
+        profileAdapter = new Adapter_Feed(this, this);
+
+
+        RecyclerView postList = findViewById(R.id.post_list);
+        postList.setAdapter(profileAdapter);
+        postList.setLayoutManager(new LinearLayoutManager(this));
+
 
         // Observe changes to user posts data
         userPostsViewModel.getUserPosts(profile_username).observe(this, new Observer<List<Post_Item>>() {
             @Override
             public void onChanged(List<Post_Item> posts) {
-                profileAdapter.setPosts(posts);
+                profileAdapter.SetPosts(posts);
             }
         });
+
+
+        // Add Friend button click listener
+        Button addFriendButton = findViewById(R.id.add_friend_button);
+        addFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the method to handle adding a friend
+                onAddFriendClick(profile_username);
+            }
+        });
+
 
         // Find the delete profile button
         Button deleteProfileButton = findViewById(R.id.delete_profile_button);
@@ -101,27 +148,17 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-///////////////////////////////////////////////////////////////////////////
+
+
         Button editProfileButton = findViewById(R.id.edit_profile_button);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Call the deleteUser method of the UserViewModel
-                userViewModel.updateUser(profile_username, "username", "pipi");
+                userViewModel.updateUser(profile_username, "username", "default");
             }
         });
-//////////////////////////////////////////////////////////////////////////
-        // Fetch user profile data
-//        userViewModel.getUser(username).observe(this, new Observer<User_Item>() {
-//            @Override
-//            public void onChanged(User_Item user) {
-//                updateUI(user);
-//            }
-//        });
 
-        RecyclerView postList = findViewById(R.id.post_list);
-        postList.setAdapter(profileAdapter);
-        postList.setLayoutManager(new LinearLayoutManager(this));
 
 // Add click listener to the "View Friends" button
         Button viewFriendsButton = findViewById(R.id.view_friends_button);
@@ -139,21 +176,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        // Add click listener to the "View Friend Requests" button
-//        Button viewFriendRequestsButton = findViewById(R.id.see_friend_requests_button);
-//        viewFriendRequestsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                friendsViewModel.getFriendRequests().observe(ProfileActivity.this, new Observer<List<String>>() {
-//                    @Override
-//                    public void onChanged(List<String> friendRequests) {
-//                        if (friendRequests != null && !friendRequests.isEmpty()) {
-//                            showFriendRequestsDialog(friendRequests);
-//                        }
-//                    }
-//                });
-//            }
-//        });
 
         // Add click listener to the "View Friend Requests" button
         Button viewFriendRequestsButton = findViewById(R.id.see_friend_requests_button);
@@ -176,7 +198,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
+        // Set the profile username
         TextView usernameTextView = findViewById(R.id.user_name);
         usernameTextView.setText(profile_username);
     }
@@ -209,6 +231,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
+    // Method to display friend requests in a dialog
     private void showFriendRequestsDialog(List<String> friendRequests) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -274,11 +297,111 @@ public class ProfileActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void updateUI(User_Item user) {
-        // Update TextViews with user data
-        TextView usernameTextView = findViewById(R.id.user_name);
-        ImageView profilePicImageView = findViewById(R.id.profile_picture);
 
-        usernameTextView.setText(profile_username);
+    // Method to handle UI based on user relationships
+    private void handleUIBasedOnRelationship(boolean isFriend, boolean isCurrentUser) {
+        Button addFriendButton = findViewById(R.id.add_friend_button);
+
+        if (isCurrentUser) {
+            // only the user itself should see edit/delete profile, the friendReq list and his posts.
+            findViewById(R.id.edit_profile_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.delete_profile_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.see_friend_requests_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.add_friend_button).setVisibility(View.GONE);
+
+            loadPosts();
+
+        } else {
+
+            findViewById(R.id.delete_profile_button).setVisibility(View.GONE);
+            findViewById(R.id.edit_profile_button).setVisibility(View.GONE);
+            findViewById(R.id.see_friend_requests_button).setVisibility(View.GONE);
+
+            if (isFriend) {
+                // friends should be able to see friend's list and his posts
+                findViewById(R.id.view_friends_button).setVisibility(View.VISIBLE);
+                findViewById(R.id.add_friend_button).setVisibility(View.GONE);
+
+                loadPosts();
+
+            } else {
+                // strangers should be able to see add friend button
+                findViewById(R.id.add_friend_button).setVisibility(View.VISIBLE);
+                findViewById(R.id.view_friends_button).setVisibility(View.GONE);
+
+                // Hide post list for strangers
+                RecyclerView postList = findViewById(R.id.post_list);
+                if (postList != null) {
+                    postList.setVisibility(View.GONE);
+                }
+
+            }
+        }
+
+
     }
+
+    // Method to load posts
+    private void loadPosts() {
+        // Observe changes to user posts data
+
+        userPostsViewModel.getUserPosts(profile_username).observe(ProfileActivity.this, new Observer<List<Post_Item>>() {
+            @Override
+            public void onChanged(List<Post_Item> posts) {
+                // Update the RecyclerView with the posts
+                RecyclerView postList = findViewById(R.id.post_list);
+                if (postList != null) {
+                    postList.setVisibility(View.VISIBLE);
+                    profileAdapter.SetPosts(posts);
+                }
+            }
+        });
+    }
+
+    // Implement methods from OnPostActionListener interface as needed
+    @Override
+    public void onPostDeleted(Post_Item delPost) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        delPost.setCreatedBy(username);
+        userPostsViewModel.deletePost(delPost);
+        profileAdapter.notifyDataSetChanged(); // Notify the adapter that the data set has changed
+    }
+
+    @Override
+    public void onPostUpdatedText(Post_Item updatedPost) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        updatedPost.setCreatedBy(username);
+        String fieldVal = updatedPost.getText();
+
+        // Handle post text update
+        userPostsViewModel.updatePost(updatedPost,"text",fieldVal);
+        profileAdapter.notifyDataSetChanged();
+
+    }
+
+    private void onAddFriendClick(String profileUsername) {
+        // Call the ViewModel method to handle sending a friend request
+        friendsViewModel.addFriendRequest(profileUsername);
+    }
+
+
+
+    @Override
+    public void onFriendRequestSent() {
+        // Handle success, for example, show a toast
+        Toast.makeText(this, "Friend request sent successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFriendRequestFailed(String errorMessage) {
+        // Handle failure, for example, show an error message
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
+
+
 }

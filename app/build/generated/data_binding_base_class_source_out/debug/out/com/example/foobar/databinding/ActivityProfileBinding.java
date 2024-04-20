@@ -23,6 +23,9 @@ public final class ActivityProfileBinding implements ViewBinding {
   private final LinearLayout rootView;
 
   @NonNull
+  public final Button addFriendButton;
+
+  @NonNull
   public final Button deleteProfileButton;
 
   @NonNull
@@ -43,12 +46,13 @@ public final class ActivityProfileBinding implements ViewBinding {
   @NonNull
   public final Button viewFriendsButton;
 
-  private ActivityProfileBinding(@NonNull LinearLayout rootView,
+  private ActivityProfileBinding(@NonNull LinearLayout rootView, @NonNull Button addFriendButton,
       @NonNull Button deleteProfileButton, @NonNull Button editProfileButton,
       @NonNull RecyclerView postList, @NonNull ImageView profilePicture,
       @NonNull Button seeFriendRequestsButton, @NonNull TextView userName,
       @NonNull Button viewFriendsButton) {
     this.rootView = rootView;
+    this.addFriendButton = addFriendButton;
     this.deleteProfileButton = deleteProfileButton;
     this.editProfileButton = editProfileButton;
     this.postList = postList;
@@ -85,6 +89,12 @@ public final class ActivityProfileBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.add_friend_button;
+      Button addFriendButton = ViewBindings.findChildViewById(rootView, id);
+      if (addFriendButton == null) {
+        break missingId;
+      }
+
       id = R.id.delete_profile_button;
       Button deleteProfileButton = ViewBindings.findChildViewById(rootView, id);
       if (deleteProfileButton == null) {
@@ -127,9 +137,9 @@ public final class ActivityProfileBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityProfileBinding((LinearLayout) rootView, deleteProfileButton,
-          editProfileButton, postList, profilePicture, seeFriendRequestsButton, userName,
-          viewFriendsButton);
+      return new ActivityProfileBinding((LinearLayout) rootView, addFriendButton,
+          deleteProfileButton, editProfileButton, postList, profilePicture, seeFriendRequestsButton,
+          userName, viewFriendsButton);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

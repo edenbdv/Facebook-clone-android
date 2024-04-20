@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.foobar.MyApplication;
+import com.example.foobar.AddFriendRequestListener ;
 import com.example.foobar.R;
 import com.example.foobar.daos.FriendRequestDao;
 import com.example.foobar.daos.FriendshipDao;
@@ -156,19 +157,19 @@ public class UserFriendsAPI {
     }
 
 
-    public void addFriendRequest(String receiverUsername, String authToken) {
+    public void addFriendRequest(String receiverUsername, String authToken,final AddFriendRequestListener  listener) {
         Call<Void> call = webServiceAPI.addFriendReq(receiverUsername, authToken);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Log.d("UserAPI", "Friend request sent successfully");
-                    // Handle success if needed
+                    listener.onFriendRequestSent();
                 } else {
                     try {
                         String errorMessage = response.errorBody().string();
                         Log.d("UserAPI", "Failed to send friend request. Response code: " + response.code() + ", Error message: " + errorMessage);
-                        // Handle failure if needed
+                        listener.onFriendRequestFailed(errorMessage);
                     } catch (IOException e) {
                         Log.e("UserAPI", "Error reading error message: " + e.getMessage());
                     }
@@ -178,6 +179,8 @@ public class UserFriendsAPI {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.e("UserAPI", "Connection to server failed with error: " + t.getMessage());
+                listener.onFriendRequestFailed(t.getMessage());
+
             }
         });
     }

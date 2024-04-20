@@ -13,7 +13,7 @@
     <string name="Signup_upload_photo">Upload photo</string>
     <string name="_11_hrs">11 hrs</string>
     <string name="app_name">Foo Bar</string>
-    <string name="base_url">http://192.168.1.2:12345/api/</string>
+    <string name="base_url">http://172.20.10.3:12345/api/</string>
     <string name="comment">Comment</string>
     <string name="delete">Delete</string>
     <string name="delete_profile">Delete Profile</string>

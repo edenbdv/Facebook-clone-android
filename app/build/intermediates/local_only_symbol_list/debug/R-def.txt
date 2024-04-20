@@ -32,6 +32,7 @@ drawable post1
 drawable profile_pic
 drawable rounded_corner_background
 id accept_button
+id add_friend_button
 id attachedImageView
 id btnAddComment
 id btnComment

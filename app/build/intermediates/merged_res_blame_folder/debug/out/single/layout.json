@@ -4,12 +4,12 @@
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\layout\\feed_activity.xml"
     },
     {
-        "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-mergeDebugResources-3:\\layout\\post_item.xml",
-        "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\layout\\post_item.xml"
-    },
-    {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-mergeDebugResources-3:\\layout\\activity_sign_up.xml",
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\layout\\activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-mergeDebugResources-3:\\layout\\post_item.xml",
+        "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\layout\\post_item.xml"
     },
     {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-mergeDebugResources-3:\\layout\\activity_main.xml",

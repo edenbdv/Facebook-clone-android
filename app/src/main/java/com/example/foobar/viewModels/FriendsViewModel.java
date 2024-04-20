@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.foobar.AddFriendRequestListener;
 import com.example.foobar.entities.Post_Item;
 import com.example.foobar.entities.User_Item;
 import com.example.foobar.repositories.FeedRepository;
@@ -18,6 +19,8 @@ public class FriendsViewModel extends ViewModel {
     private LiveData<List<String>> friendRequests; // LiveData for friend requests
     private String username;
     private FriendsRepository friendsRepository;
+
+    AddFriendRequestListener listener;
 
     public FriendsViewModel() {
     }
@@ -37,6 +40,15 @@ public class FriendsViewModel extends ViewModel {
     // LiveData to observe friend requests data changes
     public LiveData<List<String>> getFriendRequests() {
         return friendRequests;
+    }
+
+    // Method to set the listener
+    public void setListener(AddFriendRequestListener listener) {
+        this.listener = listener;
+    }
+
+    public void addFriendRequest(String receiverUsername) {
+        friendsRepository.addFriendRequest(receiverUsername, listener);
     }
 
     public void acceptFriendRequest(String senderUsername) {
