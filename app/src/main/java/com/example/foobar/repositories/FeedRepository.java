@@ -53,8 +53,6 @@ public class FeedRepository {
     // Call createPost method in FeedViewModel to handle creating the post
 
     public void  createPost(String username,String text,String picture) {
-        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTY2ODcsImV4cCI6MTcxMTEwMzA4N30.UzWtDcftRb9H9F3cfa0hZcDQa_KRQNDfFwBsSHQpUSw";
-        //String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         String token = sharedPreferences.getString("token", "");
         String authToken = "Bearer "+ token;
         userPostsAPI.createPost(username,text,picture,authToken);
@@ -62,8 +60,6 @@ public class FeedRepository {
 
 
     public void  deletePost(int localId,String username, String postId) {
-        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTY2ODcsImV4cCI6MTcxMTEwMzA4N30.UzWtDcftRb9H9F3cfa0hZcDQa_KRQNDfFwBsSHQpUSw";
-        //String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         String token = sharedPreferences.getString("token", "");
         String authToken = "Bearer "+ token;
         userPostsAPI.deletePost(localId, username, postId, authToken);
@@ -71,8 +67,6 @@ public class FeedRepository {
 
 
     public void  updatePost(String username, String postId, String fieldName, String fieldValue) {
-        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTY2ODcsImV4cCI6MTcxMTEwMzA4N30.UzWtDcftRb9H9F3cfa0hZcDQa_KRQNDfFwBsSHQpUSw";
-        //String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         String token = sharedPreferences.getString("token", "");
         String authToken = "Bearer "+ token;
         userPostsAPI.updatePost(username, postId, fieldName,fieldValue,authToken);
@@ -80,9 +74,6 @@ public class FeedRepository {
 
     public void reload() {
         // Call the appropriate method to fetch the latest posts from your data source
-        // For example, if you're fetching posts from an API:
-        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTY2ODcsImV4cCI6MTcxMTEwMzA4N30.UzWtDcftRb9H9F3cfa0hZcDQa_KRQNDfFwBsSHQpUSw";
-        //String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
         String token = sharedPreferences.getString("token", "");
         String authToken = "Bearer "+ token;
         postsAPI.getPosts(authToken);
@@ -107,7 +98,6 @@ public class FeedRepository {
             }).start();
 
             String token = sharedPreferences.getString("token", "");
-            //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTc0MTIsImV4cCI6MTcxMTEwMzgxMn0.6gS4QVaveXhk7hbPq5Nkg9ty5r8sBRGID_FwJAtejvk";
             postsAPI.getPosts( "Bearer "+ token); //for example if roey is logged in
         }
 

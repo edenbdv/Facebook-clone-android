@@ -34,16 +34,23 @@ public class Adapter_Feed extends RecyclerView.Adapter<PostViewHolder> {
     private final Context context;
     private List<Post_Item> posts;
 
-    public Adapter_Feed(Context context) {
+    private final PostViewHolder.OnPostActionListener listener; // Declare listener variable
+
+
+    public Adapter_Feed(Context context, PostViewHolder.OnPostActionListener listener) {
         this.context = context;
         this.posts = new ArrayList<>();
+        this.listener = listener; // Initialize listener
+
     }
 
     @NonNull
     @Override
-    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType ) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item, parent, false);
-        return new PostViewHolder(view, context, this, (FeedActivity) context); // Pass the profile picture loaded listener
+        //return new PostViewHolder(view, context, this, (FeedActivity) context); // Pass the profile picture loaded listener
+        return new PostViewHolder(view, context, this, listener); // Pass the profile picture loaded listener
+
     }
 
     @Override

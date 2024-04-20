@@ -3,6 +3,7 @@ package com.example.foobar.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,14 +42,19 @@ public class Adapter_Profile extends RecyclerView.Adapter<Adapter_Profile.PostVi
     static class PostViewHolder extends RecyclerView.ViewHolder {
 
         private TextView postText;
+        private ImageView postPic;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
             postText = itemView.findViewById(R.id.post_text);
+            postPic = itemView.findViewById(R.id.postPic);
         }
 
         public void bind(Post_Item post) {
             postText.setText(post.getText());
+           //String imageString = post.getPicture();
+
+            //postPic.setImageURI(post.getPicture());
         }
     }
 }

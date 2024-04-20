@@ -29,4 +29,21 @@ public class UserPostsViewModel extends ViewModel {
         Log.d("VM", "Got user posts");
         return userPostsLive;
     }
+
+    public  void  deletePost(Post_Item postItem)  {
+        String username = postItem.getCreatedBy();
+        String postId = postItem.get_id();
+        int localId = postItem.getId();
+
+        userPostsRepository.deletePost(localId, username, postId);
+    }
+
+
+    public  void  updatePost(Post_Item postItem, String fieldName, String fieldValue)  {
+        String username = postItem.getCreatedBy();
+        String postId = postItem.get_id();
+
+        userPostsRepository.updatePost(username,postId,fieldName,fieldValue);
+    }
+
 }

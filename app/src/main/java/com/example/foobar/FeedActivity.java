@@ -107,7 +107,7 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
     private void initializeViews() {
         // Initialize RecyclerView
         RecyclerView lstPosts = findViewById(R.id.lstPosts);
-        adapterFeed = new Adapter_Feed(this);
+        adapterFeed = new Adapter_Feed(this,this);
         lstPosts.setAdapter(adapterFeed);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
 
@@ -145,20 +145,18 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
 
     @Override
     public void onPostDeleted(Post_Item delPost) {
-        //delPost.setCreatedBy("Roey");   // need to change according to the logged in username
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "");
-        delPost.setCreatedBy(username);   // need to change according to the logged in username
+        delPost.setCreatedBy(username);
         feedViewModel.deletePost(delPost);
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 
     @Override
     public void onPostUpdatedText(Post_Item updatedPost) {
-        //updatedPost.setCreatedBy("Roey");   // need to change according to the logged in username
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "");
-        updatedPost.setCreatedBy(username);   // need to change according to the logged in username
+        updatedPost.setCreatedBy(username);
         String fieldVal = updatedPost.getText();
         feedViewModel.updatePost(updatedPost,"text",fieldVal);
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
