@@ -100,10 +100,6 @@
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable-xxhdpi\\ic_night.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-4:/drawable_baseline_add_24.xml.flat",
-        "source": "com.example.foobar.app-main-6:/drawable/baseline_add_24.xml"
-    },
-    {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\drawable-anydpi_ic_attach_picture.xml.flat",
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable-anydpi\\ic_attach_picture.xml"
     },
@@ -142,6 +138,10 @@
     {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\drawable-xxhdpi_ic_menu.png.flat",
         "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable-xxhdpi\\ic_menu.png"
+    },
+    {
+        "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\drawable_baseline_add_24.xml.flat",
+        "source": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-main-6:\\drawable\\baseline_add_24.xml"
     },
     {
         "merged": "C:\\Users\\עדן\\.gradle\\daemon\\8.2\\com.example.foobar.app-merged_res-4:\\drawable-mdpi_ic_close.png.flat",

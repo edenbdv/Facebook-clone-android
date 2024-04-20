@@ -34,7 +34,7 @@ import com.example.foobar.webApi.UserFriendsAPI;
 
 import java.util.List;
 
-public class ProfileActivity extends AppCompatActivity implements PostViewHolder.OnPostActionListener {
+public class ProfileActivity extends AppCompatActivity implements PostViewHolder.OnPostActionListener, AddFriendRequestListener  {
 
     private Adapter_FriendRequest friendRequestAdapter; // Declare FriendRequestAdapter
     private UserPostsViewModel userPostsViewModel;
@@ -56,8 +56,6 @@ public class ProfileActivity extends AppCompatActivity implements PostViewHolder
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-
 
 
         // Retrieve the username from intent extras
@@ -86,6 +84,9 @@ public class ProfileActivity extends AppCompatActivity implements PostViewHolder
         friendsViewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
         friendsViewModel.initRepo(this, profile_username); // Initialize FriendsViewModel
 
+        // Set the listener
+        friendsViewModel.setListener(this);
+
 
         // Fetch friend list data from FriendsViewModel
         friendsViewModel.getFriendList().observe(ProfileActivity.this, new Observer<List<String>>() {
@@ -110,8 +111,6 @@ public class ProfileActivity extends AppCompatActivity implements PostViewHolder
         profileAdapter = new Adapter_Feed(this, this);
 
 
-
-
         RecyclerView postList = findViewById(R.id.post_list);
         postList.setAdapter(profileAdapter);
         postList.setLayoutManager(new LinearLayoutManager(this));
@@ -122,6 +121,17 @@ public class ProfileActivity extends AppCompatActivity implements PostViewHolder
             @Override
             public void onChanged(List<Post_Item> posts) {
                 profileAdapter.SetPosts(posts);
+            }
+        });
+
+
+        // Add Friend button click listener
+        Button addFriendButton = findViewById(R.id.add_friend_button);
+        addFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the method to handle adding a friend
+                onAddFriendClick(profile_username);
             }
         });
 
@@ -165,24 +175,6 @@ public class ProfileActivity extends AppCompatActivity implements PostViewHolder
                 });
             }
         });
-
-        // Add click listener to the "View Friend Requests" button
-//        Button viewFriendRequestsButton = findViewById(R.id.see_friend_requests_button);
-//        viewFriendRequestsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                friendsViewModel.getFriendRequests().observe(ProfileActivity.this, new Observer<List<String>>() {
-//                    @Override
-//                    public void onChanged(List<String> friendRequests) {
-//                        if (friendRequests != null && !friendRequests.isEmpty()) {
-//                            showFriendRequestsDialog(friendRequests);
-//                        }
-//                    }
-//                });
-//            }
-//        });
-
-        // Add click listener to the "View Friend Requests" button
 
 
         // Add click listener to the "View Friend Requests" button
@@ -389,6 +381,25 @@ public class ProfileActivity extends AppCompatActivity implements PostViewHolder
         userPostsViewModel.updatePost(updatedPost,"text",fieldVal);
         profileAdapter.notifyDataSetChanged();
 
+    }
+
+    private void onAddFriendClick(String profileUsername) {
+        // Call the ViewModel method to handle sending a friend request
+        friendsViewModel.addFriendRequest(profileUsername);
+    }
+
+
+
+    @Override
+    public void onFriendRequestSent() {
+        // Handle success, for example, show a toast
+        Toast.makeText(this, "Friend request sent successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFriendRequestFailed(String errorMessage) {
+        // Handle failure, for example, show an error message
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
     }
 
 

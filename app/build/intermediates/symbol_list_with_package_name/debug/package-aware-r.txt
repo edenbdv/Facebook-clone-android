@@ -3169,6 +3169,7 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
+id add_friend_button
 id alertTitle
 id aligned
 id all

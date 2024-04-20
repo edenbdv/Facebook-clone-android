@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.foobar.AddFriendRequestListener;
 import com.example.foobar.AppDB;
 import com.example.foobar.daos.FeedDao;
 import com.example.foobar.daos.FriendRequestDao;
@@ -52,6 +53,10 @@ public class FriendsRepository {
         return friendsRequestData;
     }
 
+    public void addFriendRequest(String receiverUsername, AddFriendRequestListener listener) {
+        friendsAPI.addFriendRequest(receiverUsername,"Bearer " + token, listener);
+
+    }
 
     public void acceptFriendRequest(String senderUsername) {
         friendsAPI.acceptReq(senderUsername, username, "Bearer " + token);
