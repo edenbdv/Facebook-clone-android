@@ -1,0 +1,145 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_margin="10dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/textViewUserDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:text="Your Details:"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:background="#8F673AB7"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Edit icon -->
+        <ImageView
+            android:id="@+id/imgEditDisplay"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/edit"
+            android:src="@drawable/ic_edit_foreground" />
+
+        <!-- Edit display name -->
+        <TextView
+            android:id="@+id/textViewEditDisplayName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="@string/edit_display_name"
+            android:textSize="16sp"
+            android:textStyle="bold"
+
+            android:textColor="@android:color/black" />
+
+        <!-- Current display name -->
+        <TextView
+            android:id="@+id/textViewCurrentDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="your display name"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Edit icon -->
+        <ImageView
+            android:id="@+id/imgEditPassword"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/edit"
+            android:src="@drawable/ic_edit_foreground" />
+
+        <!-- Password label -->
+        <TextView
+            android:id="@+id/textViewPasswordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:text="@string/edit_password" />
+
+        <!-- Current password -->
+        <TextView
+            android:id="@+id/textViewCurrentPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="your password"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <LinearLayout
+        android:id="@+id/profilePicLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+
+        <ImageView
+            android:id="@+id/currentProfilePic"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/imgEditProfilePic"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_alignTop="@id/currentProfilePic"
+            android:layout_alignEnd="@id/currentProfilePic"
+            android:contentDescription="@string/edit"
+            android:src="@drawable/ic_edit_foreground" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
