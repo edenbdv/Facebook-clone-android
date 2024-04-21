@@ -17,9 +17,8 @@ import java.util.List;
 
 public class UserViewModel extends AndroidViewModel {
 
-    private MutableLiveData<User_Item> user ;
+    private LiveData<User_Item> userLiveData ;
 
-    private MutableLiveData<User_Item> userItemLiveData = new MutableLiveData<>();
     private LiveData<String> tokenLiveData;
     private UsersRepository userRepository;
 
@@ -27,21 +26,28 @@ public class UserViewModel extends AndroidViewModel {
 
     public UserViewModel(@NonNull Application application) {
         super(application);
-        //serRepository = new UsersRepository(application);
-
-        user = new MutableLiveData<User_Item>();
     }
 
-    public void initRepo(Context context, String username, String password) {
-        userRepository = new UsersRepository(context, username, password);
-        // Initialize LiveData from repository
+
+    public void initRepo(Context context,String profile_username, String username, String password) {
+        userRepository = new UsersRepository(context, profile_username,username, password);
+
         tokenLiveData = userRepository.getToken();
+
+        userLiveData = userRepository.getUserLiveData();
 
     }
 
     // Method to retrieve token LiveData
     public LiveData<String> getTokenLiveData() {
         return tokenLiveData;
+    }
+
+
+    // Expose LiveData to observe user
+
+    public LiveData<User_Item> getUserLiveData() {
+        return userLiveData;
     }
 
     public void createUser(User_Item user) {
@@ -63,11 +69,6 @@ public class UserViewModel extends AndroidViewModel {
     public  void  updateUser(String username, String fieldName, String fieldValue)  {
         userRepository.updateUser(username,fieldName,fieldValue);
     }
-
-    private  void  getUser(String username) {
-        userRepository.getUser(username);
-    }
-
 
 
 }

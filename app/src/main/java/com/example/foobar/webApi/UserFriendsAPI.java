@@ -17,6 +17,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -169,9 +172,14 @@ public class UserFriendsAPI {
                     try {
                         String errorMessage = response.errorBody().string();
                         Log.d("UserAPI", "Failed to send friend request. Response code: " + response.code() + ", Error message: " + errorMessage);
-                        listener.onFriendRequestFailed(errorMessage);
-                    } catch (IOException e) {
+                        // Extract error message from the response body and pass it to the listener
+                        JSONObject errorObject = new JSONObject(errorMessage);
+                        String error = errorObject.getString("message");
+                        listener.onFriendRequestFailed(error);
+                    } catch (IOException | JSONException e) {
                         Log.e("UserAPI", "Error reading error message: " + e.getMessage());
+                        // Pass a generic error message to the listener
+                        listener.onFriendRequestFailed("Failed to send friend request. Please try again.");
                     }
                 }
             }

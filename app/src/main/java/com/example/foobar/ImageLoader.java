@@ -2,8 +2,11 @@ package com.example.foobar;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -76,14 +79,14 @@ public class ImageLoader {
         }
     }
 
-    public static  void loadProfilePicture(String createdBy) {
-        String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTA3MDcwNjIsImV4cCI6MTcxMDc5MzQ2Mn0.TtcFArEMg70hESXCCBVc2-XFuF-jASrrqc-ZNWvkr3o";
-        String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
 
-        Log.d("ImageLoader", "Loading profile picture for user: " + createdBy);
-
+    public Bitmap decodeBase64ToBitmap(String base64String) {
+        if (base64String == null) {
+            return null;
+        }
+        byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
-
 
 
 }

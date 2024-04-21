@@ -1,16 +1,13 @@
 package com.example.foobar;
 
 import static android.app.PendingIntent.getActivity;
-import com.example.foobar.ImageLoader;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.preference.PreferenceManager;
 import android.util.Base64;
 
 import android.util.Log;
@@ -23,18 +20,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 
-import com.example.foobar.ImageLoader;
+import com.example.foobar.activities.ProfileActivity;
 import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.entities.Post_Item;
-import com.example.foobar.viewModels.FeedViewModel;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -124,7 +118,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         tv_status.setText(post.getText());
 
         ImageLoader imageLoader = new ImageLoader();
-        imageLoader.loadProfilePicture(post.getCreatedBy());
+        //imageLoader.loadProfilePicture(post.getCreatedBy());
 
 
         // Create an instance of ImageLoader

@@ -31,16 +31,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FooBar" >
         <activity
-            android:name="com.example.foobar.FeedActivityTry"
+            android:name="com.example.foobar.activities.FeedActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.foobar.FeedActivity"
+            android:name="com.example.foobar.activities.SignUp"
             android:exported="false" />
         <activity
-            android:name="com.example.foobar.SignUp"
-            android:exported="false" />
-        <activity
-            android:name="com.example.foobar.MainActivity"
+            android:name="com.example.foobar.activities.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,8 +47,12 @@
         </activity>
         <!-- Add CommentActivity declaration -->
         <activity android:name="com.example.foobar.CommentActivity" />
-        <activity android:name="com.example.foobar.AddPostWindow" />
-        <activity android:name="com.example.foobar.ProfileActivity" />
+        <activity android:name="com.example.foobar.activities.AddPostWindow" />
+        <activity android:name="com.example.foobar.activities.ProfileActivity" />
+        <activity
+            android:name="com.example.foobar.activities.EditProfileActivity"
+            android:label="Edit Profile" >
+        </activity>
 
         <provider
             android:name="androidx.startup.InitializationProvider"

@@ -29,24 +29,17 @@ public class UserAPI {
     private Retrofit retrofit;
     private WebServiceAPI webServiceAPI;
 
+    private MutableLiveData<User_Item> userLiveData ;
 
-   // private MutableLiveData<User_Item> userData;
 
 
-    public UserAPI(MutableLiveData<String> tokenLiveData, UserDao userDao) {
+    public UserAPI(MutableLiveData<String> tokenLiveData, UserDao userDao, MutableLiveData<User_Item> userLiveData) {
 
         this.tokenLiveData = tokenLiveData;
         this.userDao = userDao;
-       // this.userData =userData;
+        this.userLiveData = userLiveData;
 
 
-
-//        retrofit = new Retrofit.Builder()
-//
-//                //.baseUrl("http://192.168.1.29:12345/api/")  //we need to change it later to be save in R string
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        webServiceAPI = retrofit.create(WebServiceAPI.class);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(MyApplication.context.getString(R.string.base_url))
@@ -100,6 +93,9 @@ public class UserAPI {
 
 
     public void getUser(String username, String authToken) {
+
+        Log.d("UserAPI", "sending username:  " + username);
+
         Call<User_Item> call = webServiceAPI.getUser(username, authToken);
         call.enqueue(new Callback<User_Item>() {
             @Override
@@ -109,10 +105,16 @@ public class UserAPI {
 
                     if (userItem != null) {
                         Log.d("UserAPI", "Got user successfully: " + userItem);
-                        new Thread(() -> {
-                            userDao.createUser(userItem);
-                        }).start();
-                        //AuserData.setValue(userItem);
+                        Log.d("UserAPI", "profile name " + userItem.getUsername());
+
+                        Log.d("UserAPI", "profile pic " + userItem.getProfilePic());
+
+
+
+
+                        userLiveData.postValue(userItem);
+
+
                     } else {
                         try {
                             String errorMessage = response.errorBody().string();

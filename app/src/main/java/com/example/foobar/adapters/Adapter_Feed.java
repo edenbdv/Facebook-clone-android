@@ -2,13 +2,7 @@ package com.example.foobar.adapters;
 
 import android.content.Context;
 
-import com.caverock.androidsvg.SVG;
-import com.caverock.androidsvg.SVGParseException;
-import com.example.foobar.CommentActivity;
-import com.example.foobar.FeedActivity;
-import com.example.foobar.ImageLoader;
 import com.example.foobar.PostViewHolder;
-import com.example.foobar.ProfileActivity;
 import com.example.foobar.R;
 import com.example.foobar.entities.Post_Item;
 
@@ -19,11 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 

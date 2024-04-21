@@ -29,40 +29,46 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UsersRepository {
+
+    private String token;
+
     private UserDao userDao;
-
-    private FriendshipDao friendshipDao;
-
-    private FriendRequestDao friendRequestDao;
 
     private TokenLiveData tokenLive;
 
     private UserAPI userAPI;
 
-    private UserFriendsAPI userFriendsAPI;
-
-    private  UserPostsAPI userPostsAPI;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    private MutableLiveData<User_Item> userLiveData = new MutableLiveData<>();
+    //private MutableLiveData<User_Item> userLiveData;
+
+    private MutableLiveData<User_Item> userLiveData;
 
     private SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "user_prefs";
 
 
-    //private PostListData userPosts;
+    public UsersRepository(Context context,String profile_username,String username, String password) {
 
-    public UsersRepository(Context context, String username, String password) {
+        this.sharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
         userDao = AppDB.getInstance(context).userDao();
         tokenLive = new TokenLiveData(username, password);
-        userAPI = new UserAPI(tokenLive, userDao);
+
+        userLiveData = new UserLiveData(profile_username);
+
+        userAPI = new UserAPI(tokenLive, userDao,userLiveData);
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-        //userFriendsAPI = new UserFriendsAPI(friendshipDao,friendRequestDao); //maybe need to add live data here??
     }
 
     public LiveData<String> getToken() {
         return tokenLive;
+    }
+
+
+    public LiveData<User_Item> getUserLiveData() {
+        return userLiveData;
     }
 
     // Method to validate user credentials
@@ -72,21 +78,17 @@ public class UsersRepository {
 
 
 
-    public void getUser(String username) {
-        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTY2ODcsImV4cCI6MTcxMTEwMzA4N30.UzWtDcftRb9H9F3cfa0hZcDQa_KRQNDfFwBsSHQpUSw";
-        //String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
-        String token = sharedPreferences.getString("token", "");
-        String authToken =  "Bearer "+ token;
-        userAPI.getUser(username,authToken);
-    }
+//    public void getUser(String username) {
+//        String token = sharedPreferences.getString("token", "");
+//        String authToken =  "Bearer "+ token;
+//        userAPI.getUser(username,authToken);
+//    }
 
 
-    public void deleteUser(String username) {
-        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTY2ODcsImV4cCI6MTcxMTEwMzA4N30.UzWtDcftRb9H9F3cfa0hZcDQa_KRQNDfFwBsSHQpUSw";
-        //String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
+    public void deleteUser(String profile_username) {
         String token = sharedPreferences.getString("token", "");
         String authToken = "Bearer "+ token;
-        userAPI.deleteUser(username,authToken);
+        userAPI.deleteUser(profile_username,authToken);
     }
 
     public void createUser(User_Item user) {
@@ -96,22 +98,13 @@ public class UsersRepository {
     }
 
 
-
-    public void  updateUser(String username, String fieldName, String fieldValue) {
-        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTY2ODcsImV4cCI6MTcxMTEwMzA4N30.UzWtDcftRb9H9F3cfa0hZcDQa_KRQNDfFwBsSHQpUSw";
-        //String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
+    public void  updateUser(String profile_username, String fieldName, String fieldValue) {
         String token = sharedPreferences.getString("token", "");
         String authToken = "Bearer "+ token;
-        userAPI.updateUser(username,fieldName,fieldValue, authToken);
+        userAPI.updateUser(profile_username,fieldName,fieldValue, authToken);
     }
 
-    public void  getUserFriends(String username) {
-        //String jwtTokenRoey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvZXkiLCJpYXQiOjE3MTEwMTY2ODcsImV4cCI6MTcxMTEwMzA4N30.UzWtDcftRb9H9F3cfa0hZcDQa_KRQNDfFwBsSHQpUSw";
-        //String authToken =  "Bearer "+ jwtTokenRoey; //for example if roey is logged in
-        String token = sharedPreferences.getString("token", "");
-        String authToken = "Bearer "+ token;
-        userFriendsAPI.getUserFriends(username, authToken);
-    }
+
 
     class TokenLiveData extends MutableLiveData<String> {
         private final String username;
@@ -135,6 +128,30 @@ public class UsersRepository {
 
     }
 
+
+    class UserLiveData extends  MutableLiveData<User_Item> {
+
+        private  String profile_username;
+
+        public UserLiveData(String profile_username) {
+            super();
+            this.profile_username = profile_username;
+        }
+
+        @Override
+        protected  void  onActive() {
+            super.onActive();
+            new Thread(()->{
+
+            }).start();
+
+            String token = sharedPreferences.getString("token", "");
+            userAPI.getUser(profile_username, "Bearer "+ token);
+        }
+
+
+
+    }
 
 
     }
