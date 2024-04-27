@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -23,6 +24,9 @@ import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.entities.Post_Item;
 import com.example.foobar.viewModels.FeedViewModel;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity implements AddPostWindow.PostIdUpdater, AddPostWindow.OnPostAddedListener, PostViewHolder.OnPostActionListener {
@@ -97,10 +101,6 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
 
     }
 
-
-
-
-
     private void initializeViews() {
         // Initialize RecyclerView
         RecyclerView lstPosts = findViewById(R.id.lstPosts);
@@ -173,4 +173,69 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
     public Adapter_Feed getAdapter() {
         return adapterFeed;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Check the logcat messages
+        checkLogcatForErrorMessage();
+    }
+
+    private void checkLogcatForErrorMessage() {
+        // Start a thread to read logcat messages
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+//                    Process process = Runtime.getRuntime().exec("logcat -d");
+//                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//                    String line;
+//                    while ((line = bufferedReader.readLine()) != null) {
+//                        // Check if the logcat message contains the error message
+//                        if (line.contains("You do not have permission to perform this action")) {
+//                            // Raise a toast
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    Toast.makeText(FeedActivity.this, "You do not have permission to perform this action", Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+//                        }
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+
+                    // Get current time
+                    long currentTime = System.currentTimeMillis();
+
+                    // Calculate time for the last 10 seconds (adjust as needed)
+                    long threeSecondsAgo = currentTime - (3 * 1000);
+
+                    // Run logcat command to get only the logs within the last 3 seconds
+                    Process process = Runtime.getRuntime().exec("logcat -v time -t " + threeSecondsAgo);
+
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        // Check if the logcat message contains the error message
+                        if (line.contains("You do not have permission to perform this action")) {
+                            // Raise a toast
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(FeedActivity.this, "You do not have permission to perform this action", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
 }

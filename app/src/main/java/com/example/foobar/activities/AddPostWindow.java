@@ -15,15 +15,20 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 //import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.R;
 import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.entities.Post_Item;
+import com.example.foobar.webApi.UserPostsAPI;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -109,9 +114,6 @@ public class AddPostWindow extends AppCompatActivity  {
                     }
                 }
 
-
-
-
                 // Create a new Post_Item object with the post content and base64-encoded image
                 Post_Item newPost = new Post_Item(postContent, imageBase64, username, false);
 
@@ -139,6 +141,7 @@ public class AddPostWindow extends AppCompatActivity  {
                 finish();
             }
         });
+
     }
 
     // Default constructor
@@ -183,6 +186,7 @@ public class AddPostWindow extends AppCompatActivity  {
 
 
 
+
     // Convert URI to Bitmap
     private Bitmap getBitmapFromUri(Uri uri) throws IOException {
         InputStream input = getContentResolver().openInputStream(uri);
@@ -196,4 +200,5 @@ public class AddPostWindow extends AppCompatActivity  {
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
+
 }

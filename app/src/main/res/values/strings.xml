@@ -22,7 +22,7 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="see_friend_requests">See Friend Requests</string>
     <string name="profile">Profile</string>
-    <string name="base_url">http://192.168.1.250:12345/api/</string>
+    <string name="base_url">http://192.168.0.104:12345/api/</string>
     <string name="edit_display_name">display name: </string>
     <string name="edit_password">password: </string>
 </resources>

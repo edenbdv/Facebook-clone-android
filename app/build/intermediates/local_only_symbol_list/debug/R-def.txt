@@ -48,6 +48,7 @@ id buttonClose
 id buttonPost
 id cancel_button
 id commentContainer
+id currentProfilePic
 id delete_profile_button
 id displayNameTextView
 id drawer_layout
@@ -67,6 +68,9 @@ id imageView
 id imageViewAttach
 id imgDelete
 id imgEdit
+id imgEditDisplay
+id imgEditPassword
+id imgEditProfilePic
 id imgView_line
 id likeContainer
 id linearLayout
@@ -85,6 +89,7 @@ id post_time
 id proPic
 id profileButton
 id profilePic
+id profilePicLayout
 id profile_picture
 id recyclerViewComments
 id refreshLayout
@@ -93,6 +98,11 @@ id rellay2
 id see_friend_requests_button
 id shareContainer
 id textViewComment
+id textViewCurrentDisplay
+id textViewCurrentPassword
+id textViewEditDisplayName
+id textViewPasswordLabel
+id textViewUserDetails
 id titleTextView
 id tvComment
 id tvLike
@@ -109,6 +119,7 @@ layout add_post_popup
 layout comment_item
 layout comment_popup
 layout dialog_friends_request
+layout edit_profile
 layout feed_activity
 layout friend_request_item
 layout menu
@@ -126,6 +137,8 @@ string comment
 string delete
 string delete_profile
 string edit
+string edit_display_name
+string edit_password
 string edit_profile
 string foobar
 string like

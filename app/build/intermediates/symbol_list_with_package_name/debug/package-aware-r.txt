@@ -3246,6 +3246,7 @@ id coordinator
 id cos
 id counterclockwise
 id cradle
+id currentProfilePic
 id currentState
 id custom
 id customPanel
@@ -3352,6 +3353,9 @@ id imageView
 id imageViewAttach
 id imgDelete
 id imgEdit
+id imgEditDisplay
+id imgEditPassword
+id imgEditProfilePic
 id imgView_line
 id immediateStop
 id included
@@ -3507,6 +3511,7 @@ id pressed
 id proPic
 id profileButton
 id profilePic
+id profilePicLayout
 id profile_picture
 id progress_circular
 id progress_horizontal
@@ -3610,6 +3615,11 @@ id textSpacerNoTitle
 id textStart
 id textTop
 id textViewComment
+id textViewCurrentDisplay
+id textViewCurrentPassword
+id textViewEditDisplayName
+id textViewPasswordLabel
+id textViewUserDetails
 id textWatcher
 id text_input_end_icon
 id text_input_error_icon
@@ -3805,6 +3815,7 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout dialog_friends_request
+layout edit_profile
 layout feed_activity
 layout friend_request_item
 layout m3_alert_dialog
@@ -3923,6 +3934,8 @@ string comment
 string delete
 string delete_profile
 string edit
+string edit_display_name
+string edit_password
 string edit_profile
 string error_a11y_label
 string error_icon_content_description

@@ -1,12 +1,15 @@
 package com.example.foobar.webApi;
 
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.foobar.MyApplication;
 import com.example.foobar.Post_IDGenerator;
 import com.example.foobar.R;
+import com.example.foobar.activities.AddPostWindow;
 import com.example.foobar.daos.FeedDao;
 import com.example.foobar.daos.PostDao;
 import com.example.foobar.entities.Post_Item;
@@ -14,6 +17,7 @@ import com.example.foobar.entities.Post_Item;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +29,7 @@ public class UserPostsAPI {
 
     private MutableLiveData<List<Post_Item>> postListData;
 
+
     private Retrofit retrofit;
     private WebServiceAPI webServiceAPI;
 
@@ -33,8 +38,7 @@ public class UserPostsAPI {
     private PostDao postDao;
 
 
-
-    public UserPostsAPI(MutableLiveData<List<Post_Item>> postListData,PostDao postDao) {
+    public UserPostsAPI(MutableLiveData<List<Post_Item>> postListData, PostDao postDao) {
 
         this.postListData = postListData;
         this.postDao = postDao;
@@ -48,8 +52,6 @@ public class UserPostsAPI {
     }
 
 
-
-
     public void createPost(String username, String text, String picture, String authToken) {
 
         Call<Post_Item> call = webServiceAPI.createPost(username, text, picture, authToken);
@@ -57,24 +59,32 @@ public class UserPostsAPI {
             @Override
             public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
 
-                new Thread(() -> {
-                    // Generate a numerical ID for the newly created post
-                    int postId = Post_IDGenerator.getNextId();
+                if (response.isSuccessful()) {
+                    new Thread(() -> {
+                        // Generate a numerical ID for the newly created post
+                        int postId = Post_IDGenerator.getNextId();
 
-                    // Insert the newly created post with the generated numerical ID into the local database
-                    Post_Item postItem = response.body();
-                    Post_Item localPost = new Post_Item(text,picture,username,false);
-                    Log.d("PostAPI", " local id:"+ postItem.getId());
+                        // Insert the newly created post with the generated numerical ID into the local database
+                        Post_Item postItem = response.body();
+                        Post_Item localPost = new Post_Item(text, picture, username, false);
+                        Log.d("PostAPI", " local id:" + postItem.getId());
 
-                    localPost.setId(postId);
-                    postDao.createPost(postItem);
+                        localPost.setId(postId);
+                        postDao.createPost(postItem);
 
-                    // Update the LiveData with the updated list of posts
-                    List<Post_Item> updatedPosts =  new ArrayList<>(postListData.getValue());
-                    updatedPosts.add(postItem);
-                    postListData.postValue(updatedPosts);
-
-                }).start();
+                        // Update the LiveData with the updated list of posts
+                        List<Post_Item> updatedPosts = new ArrayList<>(postListData.getValue());
+                        updatedPosts.add(postItem);
+                        postListData.postValue(updatedPosts);
+                    }).start();
+                } else {
+                    if (response.code() == 403) {
+                        //Log.e("UserPostsAPI", "You do not have permission to perform this action");
+                        Log.e("UserPostsAPI","You do not have permission to perform this action");
+                    } else {
+                        Log.e("UserPostsAPI", "Failed to create post: " + response.message());
+                    }
+                }
 
             }
 
@@ -84,8 +94,6 @@ public class UserPostsAPI {
             }
         });
     }
-
-
 
     public void getUserPosts(String username, String authToken) {
         //return webServiceAPI.getUserPosts(username, authToken);
@@ -163,8 +171,6 @@ public class UserPostsAPI {
         call.enqueue(new Callback<Post_Item>() {
             @Override
             public void onResponse(Call<Post_Item> call, Response<Post_Item> response) {
-
-
                 if (response.isSuccessful()) {
                     Post_Item updatedPost = response.body();
                     if (updatedPost != null) {
@@ -181,19 +187,20 @@ public class UserPostsAPI {
                             // Update the LiveData with the updated list of posts
                             postListData.postValue(updatedPosts);
                         }).start();
-
-
-
                     } else {
                         Log.e("PostAPI", "Received null response body");
                     }
                 } else {
-                    try {
-                        String errorMessage = response.errorBody().string();
-                        Log.d("PostAPI", "Failed to update post. Response code: " + response.code() + ", Error message: " + errorMessage);
-                    } catch (IOException e) {
-                        Log.e("PostAPI", "Error reading error message: " + e.getMessage());
+                    if (response.code() == 403) {
+                        //Log.e("UserPostsAPI", "You do not have permission to perform this action");
+                        Log.e("UserPostsAPI", "You do not have permission to perform this action");
                     }
+//                    try {
+//                        String errorMessage = response.errorBody().string();
+//                        Log.d("PostAPI", "Failed to update post. Response code: " + response.code() + ", Error message: " + errorMessage);
+//                    } catch (IOException e) {
+//                        Log.e("PostAPI", "Error reading error message: " + e.getMessage());
+//                    }
                 }
             }
 
@@ -206,3 +213,4 @@ public class UserPostsAPI {
 
 
 }
+
