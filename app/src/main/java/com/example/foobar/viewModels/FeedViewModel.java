@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.foobar.CreatePostCallback;
 import com.example.foobar.entities.Post_Item;
 import com.example.foobar.entities.User_Item;
 import com.example.foobar.repositories.FeedRepository;
@@ -37,13 +38,13 @@ public class FeedViewModel extends ViewModel {
     }
 
 
-    public  void  createPost(Post_Item postItem)  {
+    public  void  createPost(Post_Item postItem, CreatePostCallback callback)  {
         String username = postItem.getCreatedBy();
         String text = postItem.getText();
         String picture = postItem.getPicture();
 
-        // String authToken =
-        feedRepository.createPost(username, text, picture);
+        feedRepository.createPost(username, text, picture, callback);
+
     }
 
     public  void  deletePost(Post_Item postItem)  {

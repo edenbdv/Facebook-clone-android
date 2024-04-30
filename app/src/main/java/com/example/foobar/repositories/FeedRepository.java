@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.foobar.AppDB;
+import com.example.foobar.CreatePostCallback;
 import com.example.foobar.daos.FeedDao;
 import com.example.foobar.daos.PostDao;
 import com.example.foobar.entities.Post_Item;
@@ -52,11 +53,12 @@ public class FeedRepository {
     }
     // Call createPost method in FeedViewModel to handle creating the post
 
-    public void  createPost(String username,String text,String picture) {
+    public void  createPost(String username,String text,String picture, CreatePostCallback callback) {
         String token = sharedPreferences.getString("token", "");
         String authToken = "Bearer "+ token;
-        userPostsAPI.createPost(username,text,picture,authToken);
+        userPostsAPI.createPost(username, text, picture, authToken, callback);
     }
+
 
 
     public void  deletePost(int localId,String username, String postId) {

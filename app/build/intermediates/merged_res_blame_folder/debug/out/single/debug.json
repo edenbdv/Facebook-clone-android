@@ -1,370 +1,370 @@
 [
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-anydpi_ic_trash.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-anydpi/ic_trash.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.foobar.app-main-6:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.foobar.app-main-41:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xxhdpi_ic_menu.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xxhdpi/ic_menu.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_menu_item.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/menu_item.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.example.foobar.app-pngs-0:/drawable-xxxhdpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_ic_close.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/ic_close.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xhdpi_ic_pencil.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xhdpi/ic_pencil.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.example.foobar.app-main-41:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-anydpi_ic_pencil.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-anydpi/ic_pencil.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_baseline_add_24.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/baseline_add_24.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xxhdpi_ic_pencil.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xxhdpi/ic_pencil.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_profile_pic.jpg.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/profile_pic.jpg"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_menu_item.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/menu_item.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.foobar.app-main-41:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_activity_main.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/activity_main.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_logo2.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/logo2.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-hdpi_ic_menu.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-hdpi/ic_menu.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_activity_main.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/activity_main.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xxhdpi_ic_comment_btn.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xxhdpi/ic_comment_btn.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.foobar.app-main-41:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "com.example.foobar.app-pngs-0:/drawable-anydpi-v24/ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_feed_activity.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/feed_activity.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-hdpi_ic_launcher_foreground.png.flat",
+        "source": "com.example.foobar.app-pngs-0:/drawable-hdpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_pencil.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_pencil.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-mdpi_ic_share_btn.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-mdpi/ic_share_btn.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_launcher_foreground.png.flat",
-        "source": "com.example.foobar.app-pngs-35:/drawable-mdpi/ic_launcher_foreground.png"
+        "merged": "com.example.foobar.app-merged_res-4:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.foobar.app-main-6:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_post1.jpeg.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/post1.jpeg"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-anydpi_ic_night.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-anydpi/ic_night.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_ic_edit_background.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/ic_edit_background.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-anydpi_ic_comment_btn.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-anydpi/ic_comment_btn.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-hdpi_ic_close.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-hdpi/ic_close.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-hdpi_ic_trash.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-hdpi/ic_trash.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_attach_picture.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_attach_picture.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-hdpi_ic_pencil.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-hdpi/ic_pencil.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_edit_profile.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/edit_profile.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.foobar.app-main-6:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_rounded_corner_background.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/rounded_corner_background.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-mdpi_ic_comment_btn.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-mdpi/ic_comment_btn.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.foobar.app-main-41:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-mdpi_ic_menu.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-mdpi/ic_menu.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_add_post_popup.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/add_post_popup.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-hdpi_ic_close.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-hdpi/ic_close.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_activity_sign_up.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/activity_sign_up.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_baseline_add_24.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/baseline_add_24.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-hdpi_ic_trash.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-hdpi/ic_trash.png"
+        "merged": "com.example.foobar.app-merged_res-4:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.foobar.app-main-6:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-hdpi_ic_share_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-hdpi/ic_share_btn.png"
+        "merged": "com.example.foobar.app-merged_res-4:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.foobar.app-main-6:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-anydpi_ic_share_btn.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-anydpi/ic_share_btn.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_dialog_friends_request.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/dialog_friends_request.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xhdpi_ic_night.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xhdpi/ic_night.png"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_activity_profile.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/activity_profile.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.foobar.app-main-41:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-anydpi_ic_menu.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-anydpi/ic_menu.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xhdpi_ic_attach_picture.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xhdpi/ic_attach_picture.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-ldpi_ic_launcher_foreground.png.flat",
+        "source": "com.example.foobar.app-pngs-0:/drawable-ldpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.example.foobar.app-main-41:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xhdpi_ic_share_btn.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xhdpi/ic_share_btn.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xxhdpi_ic_share_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xxhdpi/ic_share_btn.png"
+        "merged": "com.example.foobar.app-merged_res-4:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.foobar.app-main-6:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/ic_launcher_background.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xhdpi_ic_close.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xhdpi/ic_close.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_ic_edit_foreground.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/ic_edit_foreground.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.example.foobar.app-pngs-0:/drawable-xhdpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_menu.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/menu.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.foobar.app-main-6:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xhdpi_ic_pencil.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xhdpi/ic_pencil.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_profile_pic.jpg.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/profile_pic.jpg"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xxhdpi_ic_comment_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xxhdpi/ic_comment_btn.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xxhdpi_ic_like_btn.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xxhdpi/ic_like_btn.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_logo.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/logo.png"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_add_post_popup.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/add_post_popup.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_dialog_friends_request.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/dialog_friends_request.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xhdpi_ic_trash.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xhdpi/ic_trash.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_post_item.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/post_item.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_ic_edit_background.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/ic_edit_background.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xhdpi_ic_launcher_foreground.png.flat",
-        "source": "com.example.foobar.app-pngs-35:/drawable-xhdpi/ic_launcher_foreground.png"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_friend_request_item.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/friend_request_item.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-anydpi_ic_pencil.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-anydpi/ic_pencil.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-hdpi_ic_attach_picture.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-hdpi/ic_attach_picture.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-hdpi_ic_night.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-hdpi/ic_night.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xxhdpi_ic_share_btn.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xxhdpi/ic_share_btn.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xxhdpi_ic_launcher_foreground.png.flat",
-        "source": "com.example.foobar.app-pngs-35:/drawable-xxhdpi/ic_launcher_foreground.png"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_edit_profile.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/edit_profile.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xhdpi_ic_like_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xhdpi/ic_like_btn.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-hdpi_ic_night.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-hdpi/ic_night.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.foobar.app-main-41:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_ic_close.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/ic_close.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.example.foobar.app-main-41:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-anydpi_ic_attach_picture.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-anydpi/ic_attach_picture.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-anydpi_ic_like_btn.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-anydpi/ic_like_btn.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-anydpi_ic_like_btn.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-anydpi/ic_like_btn.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_comment_item.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/comment_item.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.foobar.app-main-6:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_ic_delete_background.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/ic_delete_background.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-mdpi_ic_close.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-mdpi/ic_close.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_like_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_like_btn.png"
+        "merged": "com.example.foobar.app-merged_res-4:/xml_backup_rules.xml.flat",
+        "source": "com.example.foobar.app-main-6:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-hdpi_ic_menu.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-hdpi/ic_menu.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-hdpi_ic_share_btn.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-hdpi/ic_share_btn.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xhdpi_ic_comment_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xhdpi/ic_comment_btn.png"
+        "merged": "com.example.foobar.app-merged_res-4:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.foobar.app-main-6:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xxhdpi_ic_close.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xxhdpi/ic_close.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xxhdpi_ic_night.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xxhdpi/ic_night.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_comment_popup.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/comment_popup.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_activity_feed_try.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/activity_feed_try.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.foobar.app-main-41:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_ic_delete_foreground.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/ic_delete_foreground.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.foobar.app-main-41:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xhdpi_ic_night.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xhdpi/ic_night.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xxhdpi_ic_trash.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xxhdpi/ic_trash.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_ic_delete_background.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/ic_delete_background.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_menu.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_menu.png"
+        "merged": "com.example.foobar.app-merged_res-4:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.foobar.app-main-6:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_close.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_close.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-hdpi_ic_like_btn.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-hdpi/ic_like_btn.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_friend_request_item.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/friend_request_item.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_comment_popup.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/comment_popup.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xxhdpi_ic_like_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xxhdpi/ic_like_btn.png"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_activity_sign_up.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/activity_sign_up.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-hdpi_ic_pencil.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-hdpi/ic_pencil.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xxhdpi_ic_attach_picture.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xxhdpi/ic_attach_picture.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_edit_text_background.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/edit_text_background.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_post_item.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/post_item.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/xml_backup_rules.xml.flat",
-        "source": "com.example.foobar.app-main-41:/xml/backup_rules.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_rounded_corner_background.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/rounded_corner_background.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-hdpi_ic_launcher_foreground.png.flat",
-        "source": "com.example.foobar.app-pngs-35:/drawable-hdpi/ic_launcher_foreground.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_logo.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/logo.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_trash.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_trash.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-mdpi_ic_trash.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-mdpi/ic_trash.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xxhdpi_ic_pencil.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xxhdpi/ic_pencil.png"
+        "merged": "com.example.foobar.app-merged_res-4:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.foobar.app-main-6:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-hdpi_ic_comment_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-hdpi/ic_comment_btn.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.foobar.app-main-41:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xhdpi_ic_menu.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xhdpi/ic_menu.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-hdpi_ic_attach_picture.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-hdpi/ic_attach_picture.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xhdpi_ic_attach_picture.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xhdpi/ic_attach_picture.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
-        "source": "com.example.foobar.app-pngs-35:/drawable-anydpi-v24/ic_launcher_foreground.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-mdpi_ic_night.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-mdpi/ic_night.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xxhdpi_ic_attach_picture.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xxhdpi/ic_attach_picture.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-mdpi_ic_attach_picture.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-mdpi/ic_attach_picture.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-hdpi_ic_like_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-hdpi/ic_like_btn.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xxhdpi_ic_trash.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xxhdpi/ic_trash.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-ldpi_ic_launcher_foreground.png.flat",
-        "source": "com.example.foobar.app-pngs-35:/drawable-ldpi/ic_launcher_foreground.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_ic_edit_foreground.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/ic_edit_foreground.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xxhdpi_ic_night.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xxhdpi/ic_night.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_logo2.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/logo2.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xxxhdpi_ic_launcher_foreground.png.flat",
-        "source": "com.example.foobar.app-pngs-35:/drawable-xxxhdpi/ic_launcher_foreground.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xxhdpi_ic_close.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xxhdpi/ic_close.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xhdpi_ic_share_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xhdpi/ic_share_btn.png"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_comment_item.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/comment_item.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xhdpi_ic_menu.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xhdpi/ic_menu.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-anydpi_ic_trash.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-anydpi/ic_trash.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_activity_profile.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/activity_profile.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_menu.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/menu.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-anydpi_ic_comment_btn.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-anydpi/ic_comment_btn.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/layout_feed_activity.xml.flat",
+        "source": "com.example.foobar.app-main-6:/layout/feed_activity.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_comment_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_comment_btn.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-mdpi_ic_launcher_foreground.png.flat",
+        "source": "com.example.foobar.app-pngs-0:/drawable-mdpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/layout_activity_feed_try.xml.flat",
-        "source": "com.example.foobar.app-main-41:/layout/activity_feed_try.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.foobar.app-main-6:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_night.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_night.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-mdpi_ic_like_btn.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-mdpi/ic_like_btn.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xhdpi_ic_trash.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xhdpi/ic_trash.png"
+        "merged": "com.example.foobar.app-merged_res-4:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.foobar.app-main-6:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-anydpi_ic_night.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-anydpi/ic_night.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xhdpi_ic_comment_btn.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xhdpi/ic_comment_btn.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-mdpi_ic_share_btn.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-mdpi/ic_share_btn.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xhdpi_ic_like_btn.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-xhdpi/ic_like_btn.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-anydpi_ic_menu.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-anydpi/ic_menu.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.example.foobar.app-pngs-0:/drawable-xxhdpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable_ic_delete_foreground.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable/ic_delete_foreground.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_edit_text_background.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/edit_text_background.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-anydpi_ic_attach_picture.xml.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-anydpi/ic_attach_picture.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-hdpi_ic_comment_btn.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-hdpi/ic_comment_btn.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xxhdpi_ic_menu.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xxhdpi/ic_menu.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-mdpi_ic_pencil.png.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-mdpi/ic_pencil.png"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.foobar.app-main-41:/xml/data_extraction_rules.xml"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable-anydpi_ic_share_btn.xml.flat",
+        "source": "com.example.foobar.app-main-6:/drawable-anydpi/ic_share_btn.xml"
     },
     {
-        "merged": "com.example.foobar.app-merged_res-39:/drawable-xhdpi_ic_close.png.flat",
-        "source": "com.example.foobar.app-main-41:/drawable-xhdpi/ic_close.png"
+        "merged": "com.example.foobar.app-merged_res-4:/drawable_post1.jpeg.flat",
+        "source": "com.example.foobar.app-main-6:/drawable/post1.jpeg"
     }
 ]

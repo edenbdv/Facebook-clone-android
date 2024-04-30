@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.foobar.CreatePostCallback;
 import com.example.foobar.ImageLoader;
 import com.example.foobar.PostViewHolder;
 import com.example.foobar.R;
@@ -130,12 +132,28 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
 
     @Override
     public void onPostAdded(Post_Item newPost) {
-        //newPost.setCreatedBy("Roey");   // need to change according to the logged in username
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "");
         newPost.setCreatedBy(username);
 
-        feedViewModel.createPost(newPost);
+        feedViewModel.createPost(newPost, new CreatePostCallback() {
+            @Override
+            public void onSuccess(Post_Item postItem) {
+                Log.d("FeedActivity", "Post creation successful");
+            }
+
+            @Override
+            public void onPermissionDenied() {
+                Toast.makeText(FeedActivity.this, "You do not have permission to perform this action", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                // Show a Toast message with the error message
+                Log.e("FeedActivity", "Post creation failed: " + errorMessage);
+            }
+        });
+
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 
@@ -174,13 +192,13 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         return adapterFeed;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Check the logcat messages
-        checkLogcatForErrorMessage();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        // Check the logcat messages
+//        checkLogcatForErrorMessage();
+//    }
 
     private void checkLogcatForErrorMessage() {
         // Start a thread to read logcat messages
