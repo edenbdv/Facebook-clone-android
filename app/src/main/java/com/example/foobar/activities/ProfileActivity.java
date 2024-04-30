@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foobar.AddFriendRequestListener;
 import com.example.foobar.ImageLoader;
+import com.example.foobar.PermissionDeniedCallback;
 import com.example.foobar.PostViewHolder;
 import com.example.foobar.R;
 import com.example.foobar.adapters.Adapter_Feed;
@@ -391,7 +392,14 @@ public class ProfileActivity extends AppCompatActivity implements PostViewHolder
         String fieldVal = updatedPost.getText();
 
         // Handle post text update
-        userPostsViewModel.updatePost(updatedPost,"text",fieldVal);
+        userPostsViewModel.updatePost(updatedPost, "text", fieldVal, new PermissionDeniedCallback() {
+            @Override
+            public void onPermissionDenied() {
+                Toast.makeText(ProfileActivity.this, "You do not have permission to update this post", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         profileAdapter.notifyDataSetChanged();
 
     }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,17 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.foobar.CreatePostCallback;
 import com.example.foobar.ImageLoader;
+import com.example.foobar.PermissionDeniedCallback;
 import com.example.foobar.PostViewHolder;
 import com.example.foobar.R;
 import com.example.foobar.adapters.Adapter_Feed;
 import com.example.foobar.entities.Post_Item;
 import com.example.foobar.viewModels.FeedViewModel;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity implements AddPostWindow.PostIdUpdater, AddPostWindow.OnPostAddedListener, PostViewHolder.OnPostActionListener {
@@ -136,22 +131,14 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         String username = sharedPreferences.getString("username", "");
         newPost.setCreatedBy(username);
 
-        feedViewModel.createPost(newPost, new CreatePostCallback() {
-            @Override
-            public void onSuccess(Post_Item postItem) {
-                Log.d("FeedActivity", "Post creation successful");
-            }
+        feedViewModel.createPost(newPost, new PermissionDeniedCallback() {
 
             @Override
             public void onPermissionDenied() {
                 Toast.makeText(FeedActivity.this, "You do not have permission to perform this action", Toast.LENGTH_SHORT).show();
             }
 
-            @Override
-            public void onFailure(String errorMessage) {
-                // Show a Toast message with the error message
-                Log.e("FeedActivity", "Post creation failed: " + errorMessage);
-            }
+
         });
 
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
@@ -173,7 +160,14 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         String username = sharedPreferences.getString("username", "");
         updatedPost.setCreatedBy(username);
         String fieldVal = updatedPost.getText();
-        feedViewModel.updatePost(updatedPost,"text",fieldVal);
+        feedViewModel.updatePost(updatedPost, "text", fieldVal, new PermissionDeniedCallback() {
+            @Override
+            public void onPermissionDenied() {
+                Toast.makeText(FeedActivity.this, "You do not have permission to update this post", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 
@@ -192,6 +186,8 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         return adapterFeed;
     }
 
+
+
 //    @Override
 //    protected void onResume() {
 //        super.onResume();
@@ -200,60 +196,5 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
 //        checkLogcatForErrorMessage();
 //    }
 
-    private void checkLogcatForErrorMessage() {
-        // Start a thread to read logcat messages
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-//                    Process process = Runtime.getRuntime().exec("logcat -d");
-//                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-//                    String line;
-//                    while ((line = bufferedReader.readLine()) != null) {
-//                        // Check if the logcat message contains the error message
-//                        if (line.contains("You do not have permission to perform this action")) {
-//                            // Raise a toast
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    Toast.makeText(FeedActivity.this, "You do not have permission to perform this action", Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
-//                        }
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-
-                    // Get current time
-                    long currentTime = System.currentTimeMillis();
-
-                    // Calculate time for the last 10 seconds (adjust as needed)
-                    long threeSecondsAgo = currentTime - (3 * 1000);
-
-                    // Run logcat command to get only the logs within the last 3 seconds
-                    Process process = Runtime.getRuntime().exec("logcat -v time -t " + threeSecondsAgo);
-
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        // Check if the logcat message contains the error message
-                        if (line.contains("You do not have permission to perform this action")) {
-                            // Raise a toast
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(FeedActivity.this, "You do not have permission to perform this action", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
 
 }

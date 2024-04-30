@@ -39,7 +39,6 @@ public class Adapter_Feed extends RecyclerView.Adapter<PostViewHolder> {
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType ) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item, parent, false);
-        //return new PostViewHolder(view, context, this, (FeedActivity) context); // Pass the profile picture loaded listener
         return new PostViewHolder(view, context, this, listener); // Pass the profile picture loaded listener
 
     }
@@ -47,9 +46,7 @@ public class Adapter_Feed extends RecyclerView.Adapter<PostViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post_Item post = posts.get(position);
-        //String username = post.getCreatedBy();
         holder.bind(post, posts);
-
 
         // Retrieve current username from SharedPreferences
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -57,10 +54,8 @@ public class Adapter_Feed extends RecyclerView.Adapter<PostViewHolder> {
 
         // Check if the post was created by the current user
         if (post.getCreatedBy().equals(currentUsername)) {
-            // Show the icon indicating ownership
             holder.showOwnershipIcon();
         } else {
-            // Hide the icon
             holder.hideOwnershipIcon();
         }
     }

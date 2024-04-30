@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.foobar.PermissionDeniedCallback;
 import com.example.foobar.entities.Post_Item;
 import com.example.foobar.repositories.UserPostsRepository;
 
@@ -39,11 +40,11 @@ public class UserPostsViewModel extends ViewModel {
     }
 
 
-    public  void  updatePost(Post_Item postItem, String fieldName, String fieldValue)  {
+    public  void  updatePost(Post_Item postItem, String fieldName, String fieldValue, PermissionDeniedCallback callback)  {
         String username = postItem.getCreatedBy();
         String postId = postItem.get_id();
 
-        userPostsRepository.updatePost(username,postId,fieldName,fieldValue);
+        userPostsRepository.updatePost(username,postId,fieldName,fieldValue, callback);
     }
 
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.foobar.AppDB;
+import com.example.foobar.PermissionDeniedCallback;
 import com.example.foobar.daos.PostDao;
 import com.example.foobar.entities.Post_Item;
 import com.example.foobar.webApi.PostsAPI;
@@ -34,7 +35,6 @@ public class UserPostsRepository {
         userPostsLive = new LiveUserPosts(username);
         userPostsAPI = new UserPostsAPI(userPostsLive, postDao);
 
-        //this.username = username;
 
         // Extract token from SharedPreferences
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
@@ -54,10 +54,10 @@ public class UserPostsRepository {
     }
 
 
-    public void  updatePost(String username, String postId, String fieldName, String fieldValue) {
+    public void  updatePost(String username, String postId, String fieldName, String fieldValue, PermissionDeniedCallback callback) {
         String token = sharedPreferences.getString("token", "");
         String authToken = "Bearer "+ token;
-        userPostsAPI.updatePost(username, postId, fieldName,fieldValue,authToken);
+        userPostsAPI.updatePost(username, postId, fieldName,fieldValue,authToken, callback);
     }
 
     class LiveUserPosts extends MutableLiveData<List<Post_Item>> {

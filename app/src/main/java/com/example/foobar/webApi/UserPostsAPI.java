@@ -6,8 +6,8 @@ import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.foobar.CreatePostCallback;
 import com.example.foobar.MyApplication;
+import com.example.foobar.PermissionDeniedCallback;
 import com.example.foobar.Post_IDGenerator;
 import com.example.foobar.R;
 import com.example.foobar.activities.AddPostWindow;
@@ -53,7 +53,7 @@ public class UserPostsAPI {
     }
 
 
-    public void createPost(String username, String text, String picture, String authToken, CreatePostCallback callback) {
+    public void createPost(String username, String text, String picture, String authToken, PermissionDeniedCallback callback) {
 
         Call<Post_Item> call = webServiceAPI.createPost(username, text, picture, authToken);
         call.enqueue(new Callback<Post_Item>() {
@@ -78,20 +78,15 @@ public class UserPostsAPI {
                         updatedPosts.add(postItem);
                         postListData.postValue(updatedPosts);
 
-                        // Invoke onSuccess method of the callback
-                        callback.onSuccess(postItem);
                     }).start();
                 } else {
                     if (response.code() == 403) {
-                       // Log.e("UserPostsAPI","You do not have permission to perform this action");
 
                         // Invoke onPermissionDenied method of the callback
                         callback.onPermissionDenied();
                     } else {
-                        //Log.e("UserPostsAPI", "Failed to create post: " + response.message());
+                        Log.e("UserPostsAPI", "Failed to create post: " + response.message());
 
-                        // Invoke onFailure method of the callback with error message
-                        callback.onFailure("Failed to create post: " + response.message());
                     }
                 }
 
@@ -99,17 +94,12 @@ public class UserPostsAPI {
 
             @Override
             public void onFailure(Call<Post_Item> call, Throwable t) {
-                //Log.e("PostAPI", "Failed to create post. Error: " + t.getMessage());
-
-                // Invoke onFailure method of the callback with error message
-                callback.onFailure("Failed to create post. Error: " + t.getMessage());
-
+                Log.e("PostAPI", "Failed to create post. Error: " + t.getMessage());
             }
         });
     }
 
     public void getUserPosts(String username, String authToken) {
-        //return webServiceAPI.getUserPosts(username, authToken);
         Call<List<Post_Item>> call = webServiceAPI.getUserPosts(username, authToken);
         call.enqueue(new Callback <List<Post_Item>>() {
             @Override
@@ -179,7 +169,9 @@ public class UserPostsAPI {
 
 
 
-    public void updatePost(String username, String postId, String fieldName, String fieldValue, String authToken) {
+
+
+    public void updatePost(String username, String postId, String fieldName, String fieldValue, String authToken, PermissionDeniedCallback callback) {
         Call<Post_Item> call = webServiceAPI.updatePost(username, postId, fieldName, fieldValue, authToken);
         call.enqueue(new Callback<Post_Item>() {
             @Override
@@ -205,15 +197,9 @@ public class UserPostsAPI {
                     }
                 } else {
                     if (response.code() == 403) {
-                        //Log.e("UserPostsAPI", "You do not have permission to perform this action");
-                        Log.e("UserPostsAPI", "You do not have permission to perform this action");
+                        callback.onPermissionDenied();
+
                     }
-//                    try {
-//                        String errorMessage = response.errorBody().string();
-//                        Log.d("PostAPI", "Failed to update post. Response code: " + response.code() + ", Error message: " + errorMessage);
-//                    } catch (IOException e) {
-//                        Log.e("PostAPI", "Error reading error message: " + e.getMessage());
-//                    }
                 }
             }
 

@@ -3,12 +3,10 @@ package com.example.foobar.viewModels;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.foobar.CreatePostCallback;
+import com.example.foobar.PermissionDeniedCallback;
 import com.example.foobar.entities.Post_Item;
-import com.example.foobar.entities.User_Item;
 import com.example.foobar.repositories.FeedRepository;
 
 import java.util.List;
@@ -38,7 +36,7 @@ public class FeedViewModel extends ViewModel {
     }
 
 
-    public  void  createPost(Post_Item postItem, CreatePostCallback callback)  {
+    public  void  createPost(Post_Item postItem, PermissionDeniedCallback callback)  {
         String username = postItem.getCreatedBy();
         String text = postItem.getText();
         String picture = postItem.getPicture();
@@ -56,11 +54,11 @@ public class FeedViewModel extends ViewModel {
     }
 
 
-    public  void  updatePost(Post_Item postItem, String fieldName, String fieldValue)  {
+    public  void  updatePost(Post_Item postItem, String fieldName, String fieldValue, PermissionDeniedCallback callback)  {
         String username = postItem.getCreatedBy();
         String postId = postItem.get_id();
 
-        feedRepository.updatePost(username,postId,fieldName,fieldValue);
+        feedRepository.updatePost(username,postId,fieldName,fieldValue, callback);
     }
 
 

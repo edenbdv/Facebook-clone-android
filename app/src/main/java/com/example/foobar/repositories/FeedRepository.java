@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.foobar.AppDB;
-import com.example.foobar.CreatePostCallback;
+import com.example.foobar.PermissionDeniedCallback;
 import com.example.foobar.daos.FeedDao;
 import com.example.foobar.daos.PostDao;
 import com.example.foobar.entities.Post_Item;
@@ -53,7 +53,7 @@ public class FeedRepository {
     }
     // Call createPost method in FeedViewModel to handle creating the post
 
-    public void  createPost(String username,String text,String picture, CreatePostCallback callback) {
+    public void  createPost(String username,String text,String picture, PermissionDeniedCallback callback) {
         String token = sharedPreferences.getString("token", "");
         String authToken = "Bearer "+ token;
         userPostsAPI.createPost(username, text, picture, authToken, callback);
@@ -68,10 +68,10 @@ public class FeedRepository {
     }
 
 
-    public void  updatePost(String username, String postId, String fieldName, String fieldValue) {
+    public void  updatePost(String username, String postId, String fieldName, String fieldValue , PermissionDeniedCallback callback) {
         String token = sharedPreferences.getString("token", "");
         String authToken = "Bearer "+ token;
-        userPostsAPI.updatePost(username, postId, fieldName,fieldValue,authToken);
+        userPostsAPI.updatePost(username, postId, fieldName,fieldValue,authToken, callback);
     }
 
     public void reload() {
