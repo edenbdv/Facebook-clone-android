@@ -138,10 +138,14 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
                 Toast.makeText(FeedActivity.this, "You do not have permission to perform this action", Toast.LENGTH_SHORT).show();
             }
 
+            @Override
+            public void onSuccess() {
+                adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
+            }
+
 
         });
 
-        adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 
 
@@ -163,12 +167,21 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         feedViewModel.updatePost(updatedPost, "text", fieldVal, new PermissionDeniedCallback() {
             @Override
             public void onPermissionDenied() {
-                Toast.makeText(FeedActivity.this, "You do not have permission to update this post", Toast.LENGTH_SHORT).show();
+                FeedActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(FeedActivity.this, "You do not have permission to perform this action", Toast.LENGTH_SHORT).show();
+                    }
+                });            }
+
+            @Override
+            public void onSuccess() {
+                adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
             }
+
         });
 
 
-        adapterFeed.notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 
 
@@ -186,15 +199,6 @@ public class FeedActivity extends AppCompatActivity implements AddPostWindow.Pos
         return adapterFeed;
     }
 
-
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
-//        // Check the logcat messages
-//        checkLogcatForErrorMessage();
-//    }
 
 
 }

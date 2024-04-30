@@ -4,4 +4,6 @@ public interface PermissionDeniedCallback {
 
     void onPermissionDenied();
 
+    void onSuccess();
+
 }

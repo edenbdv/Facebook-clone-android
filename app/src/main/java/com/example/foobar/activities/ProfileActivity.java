@@ -397,10 +397,14 @@ public class ProfileActivity extends AppCompatActivity implements PostViewHolder
             public void onPermissionDenied() {
                 Toast.makeText(ProfileActivity.this, "You do not have permission to update this post", Toast.LENGTH_SHORT).show();
             }
+
+            @Override
+            public void onSuccess() {
+                profileAdapter.notifyDataSetChanged();
+            }
+
         });
 
-
-        profileAdapter.notifyDataSetChanged();
 
     }
 

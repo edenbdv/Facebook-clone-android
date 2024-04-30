@@ -69,8 +69,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
 
 
 
-
-
         // Initialize other views
         btnEdit = itemView.findViewById(R.id.btnEdit);
         btnTrash = itemView.findViewById(R.id.btnTrash);
@@ -110,7 +108,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         this.posts = posts;
         // Load text data
         tv_name.setText(post.getCreatedBy());
-        //tv_time.setText((CharSequence) post.getCreatedAt());
         Date createdAt = post.getCreatedAt();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Customize the format as needed
         String formattedDate = sdf.format(createdAt);
@@ -118,11 +115,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         tv_status.setText(post.getText());
 
         ImageLoader imageLoader = new ImageLoader();
-        //imageLoader.loadProfilePicture(post.getCreatedBy());
 
-
-        // Create an instance of ImageLoader
-        //ImageLoader imageLoader = new ImageLoader(profilePictureLoadedListener);
 
         // Load images based on post ID range
         imageLoader.loadImagesBasedOnPostId(context, post, imgView_proPic, imgView_postPic);
@@ -133,8 +126,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         imgView_postPic.setImageBitmap(bitmap);
 
         // Load profile picture
-       // ImageHandler.loadProfilePicture(post.getCreatedBy());
-
 
         // Update like button state
         updateLikeButtonState(post);
@@ -234,20 +225,21 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                 builder.setTitle("Edit Post");
                 builder.setView(input);
 
+
                 // Set up the buttons for positive (Save) and negative (Cancel) actions
                 builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String editedPostText = input.getText().toString();
-                        // Update the post text (need to add update to photo also!!!!!!!!!!!)
                         Post_Item post = posts.get(position);
                         post.setText(editedPostText);
                         if (onPostActionListener != null) {
                             onPostActionListener.onPostUpdatedText(post);
                         }
 
+
                         // Notify adapter that the item has changed at the specified position
-                        adapter.notifyItemChanged(getAdapterPosition());
+                        //adapter.notifyItemChanged(getAdapterPosition());
 
                         // Handle picture editing
 

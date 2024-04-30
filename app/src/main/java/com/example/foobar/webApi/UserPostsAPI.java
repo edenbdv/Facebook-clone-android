@@ -170,7 +170,6 @@ public class UserPostsAPI {
 
 
 
-
     public void updatePost(String username, String postId, String fieldName, String fieldValue, String authToken, PermissionDeniedCallback callback) {
         Call<Post_Item> call = webServiceAPI.updatePost(username, postId, fieldName, fieldValue, authToken);
         call.enqueue(new Callback<Post_Item>() {
@@ -210,6 +209,6 @@ public class UserPostsAPI {
         });
     }
 
+    }
 
-}
 

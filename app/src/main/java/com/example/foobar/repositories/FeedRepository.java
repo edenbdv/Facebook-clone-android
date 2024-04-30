@@ -75,7 +75,6 @@ public class FeedRepository {
     }
 
     public void reload() {
-        // Call the appropriate method to fetch the latest posts from your data source
         String token = sharedPreferences.getString("token", "");
         String authToken = "Bearer "+ token;
         postsAPI.getPosts(authToken);
