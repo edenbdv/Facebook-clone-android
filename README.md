@@ -1,7 +1,5 @@
 # FooBar-Android
 
-![image](https://github.com/user-attachments/assets/2dfbedac-83ca-4909-96cc-95cca6e0c6f8)
-
 ## Description
 Foobar is an Android application aimed at providing a social networking platform similar to Facebook. Users can share updates and photos.
 
@@ -11,6 +9,8 @@ wiki: https://github.com/edenbdv/Facebook_clone-Server.git
 1. **User Authentication:** Foobar allows users to create accounts securely and log in using password.
 2. **Feed:** Users can view a a feed consisiting of 10 default posts and posts they add.
 3. **Post Creation:** Users can create text or photo posts.
+
+![image](https://github.com/user-attachments/assets/2dfbedac-83ca-4909-96cc-95cca6e0c6f8)
 
 ## Work Process
 
